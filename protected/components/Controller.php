@@ -39,7 +39,7 @@ class Controller extends CController
 			Yii::app()->theme='wap';
 
 		//menu
-		$id = (int)$_GET['id'];
+		$id = isset($_GET['id']) ? $_GET['id'] : 0;
 		$rootId = ($id>0) ? Catalog::getRootCatalogId($id, Catalog::model()->findAll()) : 0;
 		$allCatalog = Catalog::model()->findAll(array('condition'=>"parent_id=0",'order'=>'sort_order asc'));
 		foreach($allCatalog as $catalog)
