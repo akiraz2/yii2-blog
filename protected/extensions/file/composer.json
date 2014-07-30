@@ -1,0 +1,32 @@
+{
+    "name": "idlesign/ist-yii-cfile",
+    "description": "CFile provides means to manipulate filesystem objects both from Yii and standalone",
+    "homepage": "https://github.com/idlesign/ist-yii-cfile",
+    "type": "library",
+    "keywords": ["files","filesystem", "yii"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Igor 'idle sign' Starikov",
+            "email": "idlesign@yandex.ru",
+            "homepage": "http://idlesign.ya.ru",
+            "role": "Maintainer"
+        }
+    ],
+    "require": {
+        "php": ">=5.1.0"
+    },
+    "suggest": {
+        "yiisoft/yii": "CFile can function as Yii extension"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/idlesign/ist-yii-cfile"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/idlesign/ist-yii-cfile/issues",
+        "source": "https://github.com/idlesign/ist-yii-cfile"
+    }
+}

@@ -1,0 +1,142 @@
+##Overview
+
+[KindEditor](http://www.kindsoft.net/) is an open-source HTML editor, developers can replace the traditional multi-line text input box (textarea) with the visualization of richtext entry box through KindEditor.
+
+##Requirements
+
+Yii 1.1 or above
+
+This extension have to be installed into:
+~~~
+WebRoot/WebApp/proected/extensions/kindeditor
+~~~
+
+Make a directory named **attached** to put your upload files:
+~~~
+WebRoot/WebApp/attached
+~~~
+
+##Current Version
+v0.0.4
+
+##What's included?
+~~~
+kindeditor/
+   KindEditorWidget.php
+   assets/
+      kindeditor.js
+      kindeditor-min.js
+      lang/
+         en.js
+         zh_CN.js
+      php/
+         file_manager_json.php
+         JSON.php
+         upload_json.php
+      plugins/
+         ...
+         anchor/
+         filemanager/
+         ...
+      themes/
+         common/
+         default/
+         simple/
+~~~
+
+##Changes
+
+**Sep 10, 2012**
+
+* Release 0.0.4
+   * Fixed Language issue, [details](http://www.yiiframework.com/extension/yii-kindeditor/#c9776 "Re:Language issue").
+   * Added *ar.js*, *zh_TW.js*.
+
+**Aug 10, 2012**
+
+* Release 0.0.3
+   * Repaired the compressed files, upload a new zip file.
+
+**Aug 8, 2012**
+
+* Release 0.0.3
+   * Added *en.js*, supported English Language.
+
+**Aug 8, 2012**
+
+* Release 0.0.2
+   * Added *file_manager_json.php*, *JSON.php*, *upload_json.php*, supported upload single or multiple image(jpg, png) and compressed file(zip, rar).
+
+##Usage
+
+###How to use
+Before code
+~~~
+[php]
+<div class="form">
+<?php $form=$this->beginWidget('CActiveForm', array(
+	'id'=>'post-form',
+)); ?>
+	...
+	<div class="row">
+		<?php echo $form->labelEx($model,'content'); ?>
+		<?php echo $form->textArea($model,'content',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->error($model,'content'); ?>
+	</div>
+	...
+	<div class="row buttons">
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	</div>
+<?php $this->endWidget(); ?>
+</div><!-- form -->
+~~~
+
+After code
+~~~
+[php]
+// Add anywhere in this page(Example:<Yii-Application>/proected/views/post/_form.php)
+<?php $this->widget('ext.kindeditor.KindEditorWidget',array(
+	'id'=>'Post_content',	//Textarea id
+	// Additional Parameters (Check http://www.kindsoft.net/docs/option.html)
+	'items' => array(
+		'width'=>'700px',
+		'height'=>'300px',
+		'themeType'=>'simple',
+		'allowImageUpload'=>true,
+		'allowFileManager'=>true,
+		'items'=>array(
+			'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic',
+			'underline', 'removeformat', '|', 'justifyleft', 'justifycenter',
+			'justifyright', 'insertorderedlist','insertunorderedlist', '|',
+			'emoticons', 'image', 'link',),
+	),
+)); ?>
+
+<div class="form">
+<?php $form=$this->beginWidget('CActiveForm', array(
+	'id'=>'post-form',
+)); ?>
+	...
+	<div class="row">
+		<?php echo $form->labelEx($model,'content'); ?>
+		<?php echo $form->textArea($model,'content',array('visibility'=>'hidden')); ?>
+		<?php echo $form->error($model,'content'); ?>
+	</div>
+	...
+	<div class="row buttons">
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	</div>
+<?php $this->endWidget(); ?>
+</div><!-- form -->
+~~~
+
+##Resources
+
+Created By <jinmmd@gmail.com> Based on Joe Chu's [KindEditor](http://www.yiiframework.com/extension/kindeditor)
+
+ * [KindEditor Documentation](http://www.kindsoft.net/doc.php)
+ * [KindEditor Demo](http://www.kindsoft.net/demo.php)
+
+**Todos:**  
+
+ * Support for KindEditor's API

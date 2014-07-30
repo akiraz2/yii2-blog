@@ -1,0 +1,91 @@
+.content_group{ padding:15px 0px;}
+.date{ display:block; display:-webkit-box;display:-moz-box;text-align:center; height:2.4em; line-height:2.4em; font-size:1.17em;  padding-bottom:10px;}
+.date a{ display:block; width:2.2em; height:2.4em; line-height:2.4em;}
+.date div{box-flex:1;-webkit-box-flex:1;-moz-box-flex:1; text-align:center;}
+
+.date a.sub{ background:url(../images/sub.png) no-repeat center center; background-size:0.8em auto;}
+.date a.add{ background:url(../images/plus.png) no-repeat center center; background-size:0.8em auto;}
+.date a.plus_disabled{ background:url(../images/plus_disabled.png) no-repeat center center; background-size:0.8em auto;}
+
+
+.group_top{display:block; display:-webkit-box;display:-moz-box; border-bottom:1px dashed #ddd;}
+.group_top div{box-flex:1;-webkit-box-flex:1;-moz-box-flex:1;}
+.address{ width:8em;height:2.84em;line-height:2.84em;}
+.address select{ padding:5px;background:transparent; border:none; height:2.84em; -webkit-appearance: none;outline:none;height:2.84em; overflow:hidden; background-color:#fff; background-image:url(../images/arrow.png); background-repeat:no-repeat; background-position:93% center; border:1px solid #ddd;-moz-border-radius:6px; -webkit-border-radius: 6px;border-radius:6px; width:7em;}
+.address span{ float:left; margin-left:10px;}
+
+
+
+.msg_count{ height:3.1em; padding-top:0.4em;  text-align:center;border-bottom:1px  solid #ddd;}
+.msg_count span{ color:#FC0; font-weight:bold;}
+.msg_count p{ background:rgba(0,0,0,0.6); width:12em; margin:0 auto; height:2.7em; line-height:2.7em; text-align:center; color:#fff; border-radius:6px;}
+.msg_count p a{ color:#fff; display:block;}
+.group_list{display:block; display:-webkit-box;display:-moz-box;border-bottom:1px solid #dedede; padding:10px 0px;-webkit-tap-highlight-color:rgba(0,0,0,0)}
+
+.group_content{box-flex:1;-webkit-box-flex:1;-moz-box-flex:1; padding-right:10px;}
+.sale_name{ width:4em; text-align:right; text-overflow:ellipsis; white-space:nowrap;overflow:hidden;margin-right:5px; font-size:1em; font-weight:bold;}
+.group_list a{ color:#576b95;-webkit-tap-highlight-color:rgba(0,0,0,0.15)}
+
+.color99{ color:#999;}
+.mycustom_info span{ margin-right:7px;}
+.group_txt{ margin-top:10px; line-height:22px;}
+.group_oper{ color:#7385a8;  margin-top:10px; overflow:hidden;}
+.group_oper span{ }
+.group_oper span.time{  color:#999; float:left;}
+.group_oper .editor{ margin-left:0;float:left;  width:4em; text-align:center;display:block; }
+
+
+.group_list .right{ float:right; width:10em;}
+.group_oper .love{ background:url(../images/love.png) no-repeat left center; background-size:auto 1em; padding-left:1.5em; float:left;}
+.group_oper a{color:#7385a8; width:2.5em; display:block; margin-left:1em;}
+.group .review{ background:url(../images/review.png) no-repeat left center; background-size:auto 1em; padding-left:1.5em;float:left;}
+
+.arrow-up{width:0; height:0; border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:10px solid #edeeee; margin-left:1em;}
+.review_box{ background:#edeeee; padding:10px; border-bottom:1px solid #e2e3e3;}
+.love_content{background:url(../images/love.png) no-repeat left 0.2em; background-size:auto 1em; padding-left:1.7em;color:#7385a8;border-bottom:1px solid #e2e3e3; padding-bottom:5px;}
+.review_list{ line-height:22px; margin-top:10px;}
+
+.review_form{ margin-top:10px;display:block; display:-webkit-box;display:-moz-box; height:2.5em; line-height:2.5em;}
+.review_form .review_btn{ width:4em; height:2.5em; }
+.review_form .review_input{ box-flex:1;-webkit-box-flex:1; -moz-box-flex:1;-o-box-flex:1;-ms-box-flex:1; margin-right:15px;}
+.review_form .review_input input{-webkit-appearance:none; width:100%; height:2.5em;border-radius:6px; border:1px solid #ddd; padding-left:5px;}
+.review_form .review_btn input{-webkit-appearance:none; background:#5caae6; border:1px solid #4798d6; border-radius:4px;display:block;width:4em; height:2.5em; cursor:pointer;color:#fff;}
+.reply{ margin-bottom:10px; margin-top:5px;}
+.hide{ display:none;}
+#hide{display:none;}
+
+.message_list{display:block; display:-webkit-box;display:-moz-box; border-bottom:1px solid #e2e3e3; padding:10px 0px; position:relative;}
+.message_list .message_txt{ width:10em; padding:5px; max-height:6em;  text-overflow:ellipsis;  overflow:hidden; line-height:1.6em; background:#efefef; margin-right:5px;}
+.message_list .message_info{box-flex:1;-webkit-box-flex:1;-moz-box-flex:1; padding-left:10px; padding-right:25px;}
+.message_list a{ display:block; position:absolute; left:0; top:0; width:100%; height:100%;}
+
+.message_info .person{font-size:1em; font-weight:bold;color:#576b95;}
+.message_reply{ margin:5px 0px;  line-height:20px;}
+.message_info .reply_time{ color:#999;}
+.message_reply .like{background:url(../images/love.png) no-repeat left center; background-size:auto 1em; padding-left:1.5em;}
+.leader{ background:url(../images/v.png) no-repeat left center; background-size:14px auto; padding-left:17px;}
+.time{color:#999;}
+.fl{ float:right;}
+
+.my_group{ border:none;}
+.my_group .review_list ul li{border-bottom:1px solid #e2e3e3; padding:5px 0px;}
+.my_group .review_list ul li:last-child{ border:none;}
+.review_list ul li .list_title{ position:relative;}
+.my_group .review_list ul li .to_object{ position:absolute;left:0; top:0; z-index:11;}
+.review_list ul li a.click_bg{ position:absolute; left:0; top:0; width:100%; height:100%; z-index:10; display:block;z-index:12;}
+.group_index .review_list ul li .to_object{ position:relative;left:0; top:0; z-index:11;}
+
+.group{-webkit-tap-highlight-color:rgba(0,0,0,0);}
+.message_link{ position:absolute; right:0; top:0; background:url(../images/message_list.png) no-repeat center center; background-size:27px auto; width:45px; height:47px;  cursor:pointer;}
+.message_link a{ display:block;width:45px; height:47px;}
+
+/*6.25*/
+.write_ss{background:url(../images/editores.png) no-repeat left center; background-size:20px auto; padding-left:27px; line-height:30px; height:30px; display:block; font-size:14px; margin-right:10px; color:#576b95; font-weight:bold;}
+
+
+.ss_textarea{ border:1px solid #ddd;  border-radius:6px;-webkit-border-radius:6px; resize:none; min-height:75px;  overflow:hidden; padding:0px 5px;}
+.ss_textarea textarea{ width:100%;min-height:75px;line-height:25px; border:none;-webkit-appearance:none;resize:none; outline:none;}
+.ss_info{ margin-top:5px; color:#777;}
+.ss_tip{ color:red; text-align:center; margin-bottom:5px;}
+
+/*6.25*/
