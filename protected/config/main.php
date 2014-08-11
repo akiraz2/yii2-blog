@@ -5,11 +5,8 @@
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
-return array(
+return CMap::mergeArray(array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Hikecms',
-	'language' => 'zh_cn',
-	'timeZone'=>'Asia/Chongqing',
 	'theme' => 'default',
 
 	// preloading 'log' component
@@ -52,20 +49,6 @@ return array(
 			),
 		),
 
-		/*
-		'db'=>array(
-			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-		),
-		*/
-		// uncomment the following to use a MySQL database
-		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=hikecms',
-			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => 'root',
-			'charset' => 'utf8',
-			'tablePrefix' => 'hike_',
-		),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
@@ -106,4 +89,6 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
 	),
+),
+require dirname(__FILE__).DIRECTORY_SEPARATOR.'common.php'
 );
