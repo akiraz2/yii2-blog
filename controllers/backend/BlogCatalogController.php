@@ -3,8 +3,8 @@
 namespace funson86\blog\controllers\backend;
 
 use Yii;
-use backend\modules\blog\models\BlogCatalog;
-use backend\modules\blog\models\BlogCatalogSearch;
+use funson86\blog\models\BlogCatalog;
+use funson86\blog\models\BlogCatalogSearch;
 use yii\helpers\FileHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
