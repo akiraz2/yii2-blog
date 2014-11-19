@@ -1,0 +1,21 @@
+{
+    "name": "funson86/yii2-blog",
+    "description": "Yii2 Blog for other application",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension"],
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Funson Lee",
+            "email": "funson86@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "funson86\\blog\\": ""
+        }
+    }
+}
