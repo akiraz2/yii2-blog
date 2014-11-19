@@ -3,10 +3,11 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
-use \backend\modules\blog\models\BlogCatalog;
+use \funson86\blog\models\BlogCatalog;
+use funson86\blog\Module;
 
 /* @var $this yii\web\View */
-/* @var $model backend\modules\blog\models\BlogCatalog */
+/* @var $model funson86\blog\models\BlogCatalog */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -20,7 +21,7 @@ use \backend\modules\blog\models\BlogCatalog;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'parent_id')->dropDownList(ArrayHelper::merge([0 => Yii::t('app', 'Root Catalog')], ArrayHelper::map(BlogCatalog::get(0, BlogCatalog::find()->all()), 'id', 'str_label'))) ?>
+    <?= $form->field($model, 'parent_id')->dropDownList(ArrayHelper::merge([0 => Module::t('app', 'Root Catalog')], ArrayHelper::map(BlogCatalog::get(0, BlogCatalog::find()->all()), 'id', 'str_label'))) ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => 255]) ?>
 
@@ -42,7 +43,7 @@ use \backend\modules\blog\models\BlogCatalog;
 
     <div class="form-group">
         <label class="col-lg-2 control-label" for="">&nbsp;</label>
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('blog', 'Create') : Yii::t('blog', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Module::t('blog', 'Create') : Module::t('blog', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

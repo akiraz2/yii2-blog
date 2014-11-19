@@ -17,5 +17,8 @@
         "psr-4": {
             "funson86\\blog\\": ""
         }
+    },
+    "extra": {
+        "bootstrap": "funson86\\blog\\Bootstrap"
     }
 }

@@ -3,13 +3,14 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
-use backend\modules\blog\models\BlogCatalog;
+use funson86\blog\models\BlogCatalog;
+use funson86\blog\Module;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\modules\blog\models\BlogCatalogSearch */
+/* @var $searchModel funson86\blog\models\BlogCatalogSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('blog', 'Blog Catalogs');
+$this->title = Module::t('blog', 'Blog Catalogs');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="blog-catalog-index">
@@ -17,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('blog', 'Create ') . Yii::t('blog', 'Blog Catalog'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Module::t('blog', 'Create ') . Module::t('blog', 'Blog Catalog'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <table class="table table-striped table-bordered">

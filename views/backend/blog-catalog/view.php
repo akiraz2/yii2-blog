@@ -2,22 +2,23 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use funson86\blog\Module;
 
 /* @var $this yii\web\View */
-/* @var $model backend\modules\blog\models\BlogCatalog */
+/* @var $model funson86\blog\models\BlogCatalog */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('blog', 'Blog Catalogs'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Module::t('blog', 'Blog Catalogs'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="blog-catalog-view">
 
     <p>
-        <?= Html::a(Yii::t('blog', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('blog', 'Delete'), ['delete', 'id' => $model->id], [
+        <?= Html::a(Module::t('blog', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Module::t('blog', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => Yii::t('blog', 'Are you sure you want to delete this item?'),
+                'confirm' => Module::t('blog', 'Are you sure you want to delete this item?'),
                 'method' => 'post',
             ],
         ]) ?>
