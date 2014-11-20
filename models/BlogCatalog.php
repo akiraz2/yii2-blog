@@ -35,6 +35,7 @@ class BlogCatalog extends \yii\db\ActiveRecord
     const IS_NAV_NO = 0;
     const PAGE_TYPE_LIST = 'list';
     const PAGE_TYPE_PAGE = 'page';
+    private $_isNavLabel;
     private $_statusLabel;
 
     /**
@@ -111,6 +112,14 @@ class BlogCatalog extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getParent()
+    {
+        return $this->hasOne(BlogCatalog::className(), ['id' => 'parent_id']);
+    }
+
+    /**
      * Before save.
      * create_time update_time
      */
@@ -150,7 +159,7 @@ class BlogCatalog extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public static function getStatusLabel($status = null)
+    public static function getOneStatusLabel($status)
     {
         if($status)
         {
@@ -159,6 +168,16 @@ class BlogCatalog extends \yii\db\ActiveRecord
         }
         else
             return;
+    }
+
+    public function getStatusLabel()
+    {
+        if ($this->_statusLabel === null)
+        {
+            $statuses = self::getArrayStatus();
+            $this->_statusLabel = $statuses[$this->status];
+        }
+        return $this->_statusLabel;
     }
 
     /**
@@ -175,7 +194,7 @@ class BlogCatalog extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public static function getIsNavLabel($isNav = null)
+    public static function getOneIsNavLabel($isNav = null)
     {
         if($isNav)
         {
@@ -184,6 +203,16 @@ class BlogCatalog extends \yii\db\ActiveRecord
         }
         else
             return;
+    }
+
+    public function getIsNavLabel()
+    {
+        if ($this->_isNavLabel === null)
+        {
+            $arrayIsNav = self::getArrayIsNav();
+            $this->_isNavLabel = $arrayIsNav[$this->is_nav];
+        }
+        return $this->_isNavLabel;
     }
 
 

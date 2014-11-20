@@ -113,10 +113,10 @@ class BlogCatalogController extends Controller
     {
         //'visible' => Yii::$app->user->can('deleteYourAuth'),
 
-        //$this->findModel($id)->delete();
-        $model = $this->findModel($id);
-        $model->status = BlogCatalog::STATUS_DELETED;
-        $model->save();
+        $this->findModel($id)->delete();
+        //$model = $this->findModel($id);
+        //$model->status = BlogCatalog::STATUS_DELETED;
+        //$model->save();
 
         return $this->redirect(['index']);
     }

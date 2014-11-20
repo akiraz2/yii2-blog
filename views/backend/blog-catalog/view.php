@@ -28,16 +28,25 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'parent_id',
+            [
+                'attribute' => 'parent_id',
+                'value' => $model->parent_id ? $model->parent->title : Module::t('blog', 'Root Catalog'),
+            ],
             'title',
             'surname',
             'banner',
-            'is_nav',
+            [
+                'attribute' => 'is_nav',
+                'value' => $model->isNavLabel,
+            ],
             'sort_order',
             'page_size',
             'template',
             'redirect_url:url',
-            'status',
+            [
+                'attribute' => 'status',
+                'value' => $model->statusLabel,
+            ],
             'create_time',
             'update_time',
         ],

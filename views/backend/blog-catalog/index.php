@@ -40,8 +40,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <td><?php echo $item['str_label']; ?></td>
             <td><?php echo $item['sort_order']; ?></td>
             <td><?php echo $item['template']; ?></td>
-            <td><?php echo BlogCatalog::getIsNavLabel($item['is_nav']); ?></td>
-            <td><?php echo BlogCatalog::getStatusLabel($item['status']); ?></td>
+            <td><?php echo BlogCatalog::getOneIsNavLabel($item['is_nav']); ?></td>
+            <td><?php echo BlogCatalog::getOneStatusLabel($item['status']); ?></td>
             <td>
                 <a href="<?php echo \Yii::$app->getUrlManager()->createUrl(['blog/blog-catalog/create','parent_id'=>$item['id']]); ?>" title="增加子栏目" data-pjax="0"><span class="glyphicon glyphicon-plus-sign"></span></a>
                 <a href="<?php echo \Yii::$app->getUrlManager()->createUrl(['blog/blog-catalog/view','id'=>$item['id']]); ?>"" title="查看" data-pjax="0"><span class="glyphicon glyphicon-eye-open"></span></a>
