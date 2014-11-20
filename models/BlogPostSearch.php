@@ -43,7 +43,7 @@ class BlogPostSearch extends BlogPost
     {
         $query = BlogPost::find();
         
-        $query->orderBy(['sort_order' => SORT_ASC, 'create_time' => SORT_DESC]);
+        $query->orderBy(['create_time' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
