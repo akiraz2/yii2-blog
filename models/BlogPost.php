@@ -93,6 +93,7 @@ class BlogPost extends \yii\db\ActiveRecord
             'status' => Module::t('blog', 'Status'),
             'create_time' => Module::t('blog', 'Create Time'),
             'update_time' => Module::t('blog', 'Update Time'),
+            'commentsCount' => Module::t('blog', 'Comments Count'),
         ];
     }
 

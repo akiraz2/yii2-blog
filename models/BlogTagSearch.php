@@ -43,7 +43,7 @@ class BlogTagSearch extends BlogTag
     {
         $query = BlogTag::find();
         
-        $query->orderBy(['sort_order' => SORT_ASC, 'create_time' => SORT_DESC]);
+        $query->orderBy(['frequency' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
