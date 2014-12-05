@@ -174,7 +174,7 @@ class DefaultController extends Controller
             $comment->attributes = $_POST['Comment'];
             if($post->addComment($comment))
             {
-                if($comment->status==CONSTANT::STATUS_INACTIVE)
+                if($comment->status == BlogComment::STATUS_INACTIVE)
                     Yii::$app->session->setFlash('commentSubmitted', Yii::t('blog', 'Thanks for comment'));
                 $this->refresh();
             }

@@ -84,9 +84,13 @@ return [
     'Post ID' => '文章',
     'Author' => '作者',
     'Email' => '电子邮箱',
-    
+    'Url' => '网址',
+
     'Frequency' => '次数',
 
     'Directly Input Time' => '可直接输入日期，格式：2015-01-01',
+    'Unit comments' => '条评论',
+    'Leave a Comment' => '留下评论',
+    'Add Comment' => '发表评论',
 
 ];

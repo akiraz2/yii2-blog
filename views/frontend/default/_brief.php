@@ -1,7 +1,6 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
-use kartik\markdown\Markdown;
 ?>
 
 <div class="post">
