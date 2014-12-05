@@ -16,12 +16,12 @@ use yii\web\AssetBundle;
  */
 class AppAsset extends AssetBundle
 {
-    public $sourcePath = '@funson86/blog/assets';
+    public $sourcePath = '@funson86/blog/assets/default';
     public $baseUrl = '@web';
     public $css = [
-        'default/css/screen.css',
-        'default/css/print.css',
-        'default/css/style.css',
+        'css/screen.css',
+        'css/print.css',
+        'css/style.css',
     ];
     public $js = [
     ];
