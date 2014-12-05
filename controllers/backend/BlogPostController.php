@@ -72,6 +72,7 @@ class BlogPostController extends Controller
 
         $model = new BlogPost();
         $model->loadDefaultValues();
+        $model->user_id = Yii::$app->user->identity->id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

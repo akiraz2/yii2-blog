@@ -28,12 +28,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'post_id',
+            [
+                'attribute' => 'post_id',
+                'value' => $model->post->title,
+            ],
             'content:ntext',
             'author',
             'email:email',
             'url:url',
-            'status',
+            [
+                'attribute' => 'status',
+                'value' => $model->statusLabel,
+            ],
             'create_time',
             'update_time',
         ],

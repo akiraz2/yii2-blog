@@ -29,13 +29,23 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'catalog_id',
+            [
+                'attribute' => 'catalog_id',
+                'value' => $model->catalog->title,
+            ],
             'title',
             'content:ntext',
             'tags',
             'surname',
             'click',
-            'user_id',
-            'status',
+            [
+                'attribute' => 'user_id',
+                'value' => $model->user->username,
+            ],
+            [
+                'attribute' => 'status',
+                'value' => $model->statusLabel,
+            ],
             'create_time',
             'update_time',
         ],

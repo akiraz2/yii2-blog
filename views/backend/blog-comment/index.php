@@ -24,11 +24,26 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\CheckboxColumn'],
 
-            'id',
-            'post_id',
-            'content:ntext',
+            [
+                'attribute'=>'post_id',
+                'value'=>function ($model) {
+                    return mb_substr($model->post->title, 0, 15, 'utf-8') . '...';
+                },
+                /*'filter' => Html::activeDropDownList(
+                    $searchModel,
+                    'post_id',
+                    \funson86\blog\models\BlogPost::getArrayCatalog(),
+                    ['class' => 'form-control', 'prompt' => Module::t('blog', 'Please Filter')]
+                )*/
+            ],
+            [
+                'attribute'=>'content',
+                'value'=>function ($model) {
+                    return mb_substr(Yii::$app->formatter->asText($model->content), 0, 30, 'utf-8') . '...';
+                },
+            ],
             'author',
             'email:email',
             // 'url:url',

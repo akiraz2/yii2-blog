@@ -124,9 +124,9 @@ class BlogComment extends \yii\db\ActiveRecord
     public static function getArrayStatus()
     {
         return [
-            self::STATUS_INACTIVE => Module::t('app', 'STATUS_INACTIVE'),
-            self::STATUS_ACTIVE => Module::t('app', 'STATUS_ACTIVE'),
-            self::STATUS_DELETED => Module::t('app', 'STATUS_DELETED'),
+            self::STATUS_INACTIVE => Module::t('blog', 'STATUS_INACTIVE'),
+            self::STATUS_ACTIVE => Module::t('blog', 'STATUS_ACTIVE'),
+            self::STATUS_DELETED => Module::t('blog', 'STATUS_DELETED'),
         ];
     }
 

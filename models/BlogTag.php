@@ -33,7 +33,7 @@ class BlogTag extends \yii\db\ActiveRecord
      * create_time, update_time to now()
      * crate_user_id, update_user_id to current login user id
      */
-    public function behaviors()
+    /*public function behaviors()
     {
         return [
             [
@@ -43,7 +43,7 @@ class BlogTag extends \yii\db\ActiveRecord
                 'value' => new Expression('NOW()'),
             ],
         ];
-    }
+    }*/
 
     /**
      * @inheritdoc
@@ -120,4 +120,84 @@ class BlogTag extends \yii\db\ActiveRecord
     }
 
 
+    public static function string2array($tags)
+    {
+        return preg_split('/\s*,\s*/',trim($tags),-1,PREG_SPLIT_NO_EMPTY);
+    }
+
+    public static function array2string($tags)
+    {
+        return implode(',',$tags);
+    }
+
+    public static function updateFrequency($oldTags, $newTags)
+    {
+        $oldTags = self::string2array($oldTags);
+        $newTags = self::string2array($newTags);
+        self::addTags(array_values(array_diff($newTags, $oldTags)));
+        self::removeTags(array_values(array_diff($oldTags, $newTags)));
+    }
+
+    public static function updateFrequencyOnDelete($oldTags)
+    {
+        $oldTags = self::string2array($oldTags);
+        self::removeTags($oldTags);
+    }
+
+    public static function addTags($tags)
+    {
+        /*$res = Tag::findAll([
+            'name' => $tags,
+        ]);
+        foreach($res as $tag)
+        {
+            $tag->updateCounters(['frequency' => 1]);
+        }*/
+        BlogTag::updateAllCounters(['frequency' => 1], 'name in ("' . implode ( '"," ', $tags) . '")');
+
+        foreach($tags as $name)
+        {
+            if(!BlogTag::findOne(['name' => $name,]))
+            {
+                $tag = new BlogTag;
+                $tag->name = $name;
+                $tag->frequency = 1;
+                $tag->save();
+            }
+        }
+    }
+
+    public static function removeTags($tags)
+    {
+        if(empty($tags))
+            return;
+
+        /*$res = BlogTag::findAll([
+            'name' => $tags,
+        ]);
+        foreach($res as $tag)
+        {
+            $tag->updateCounters(['frequency' => -1]);
+        }*/
+        BlogTag::updateAllCounters(['frequency' => 1], 'name in ("' . implode ( '"," ', $tags) . '")');
+        BlogTag::deleteAll('frequency <= 0');
+    }
+
+    public static function findTagWeights($limit=20)
+    {
+        $models = BlogTag::find()->orderBy(['frequency' => SORT_DESC])->all();
+
+        $total = 0;
+        foreach($models as $model)
+            $total += $model->frequency;
+
+        $tags = [];
+        if($total>0)
+        {
+            foreach($models as $model)
+                $tags[$model->name] = 8 + (int)(16*$model->frequency/($total+10));
+            ksort($tags);
+        }
+        return $tags;
+    }
 }
