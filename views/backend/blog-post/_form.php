@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use funson86\blog\Module;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use funson86\blog\models\BlogCatalog;
@@ -30,7 +31,7 @@ use kartik\markdown\MarkdownEditor;
     <?= $form->field($model, 'status')->dropDownList($model->getArrayStatus()) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('blog', 'Create') : Yii::t('blog', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Module::t('blog', 'Create') : Module::t('blog', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

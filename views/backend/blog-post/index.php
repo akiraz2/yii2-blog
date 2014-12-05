@@ -9,7 +9,7 @@ use funson86\blog\Module;
 /* @var $searchModel backend\modules\blog\models\BlogPostSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('blog', 'Blog Posts');
+$this->title = Module::t('blog', 'Blog Posts');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="blog-post-index">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('blog', 'Create ') . Yii::t('blog', 'Blog Post'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Module::t('blog', 'Create ') . Module::t('blog', 'Blog Post'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $searchModel,
                         'catalog_id',
                         \funson86\blog\models\BlogPost::getArrayCatalog(),
-                        ['class' => 'form-control', 'prompt' => Module::t('blog', 'PROMPT_CATALOG')]
+                        ['class' => 'form-control', 'prompt' => Module::t('blog', 'Please Filter')]
                     )
             ],
             'title',

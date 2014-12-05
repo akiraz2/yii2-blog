@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use funson86\blog\Module;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -29,7 +30,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'update_time')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('blog', 'Create') : Yii::t('blog', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Module::t('blog', 'Create') : Module::t('blog', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

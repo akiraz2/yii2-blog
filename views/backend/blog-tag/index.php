@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use funson86\blog\Module;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 
@@ -8,7 +9,7 @@ use yii\helpers\ArrayHelper;
 /* @var $searchModel backend\modules\blog\models\BlogTagSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('blog', 'Blog Tags');
+$this->title = Module::t('blog', 'Blog Tags');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="blog-tag-index">
@@ -16,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('blog', 'Create ') . Yii::t('blog', 'Blog Tag'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Module::t('blog', 'Create ') . Module::t('blog', 'Blog Tag'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

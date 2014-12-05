@@ -38,6 +38,8 @@ return [
 
     'Blog Catalogs' => '博文分类',
     'Blog Catalog' => '博文分类',
+    'Blog Post' => '博文',
+    'Blog Posts' => '博文',
 
     'System' => '系统',
     'User' => '用户',
