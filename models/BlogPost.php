@@ -217,7 +217,7 @@ class BlogPost extends \yii\db\ActiveRecord
      */
     public function getUrl()
     {
-        return Yii::$app->getUrlManager()->createUrl(['blog/view', 'id' => $this->id, 'surname' => $this->surname]);
+        return Yii::$app->getUrlManager()->createUrl(['blog/default/view', 'id' => $this->id, 'surname' => $this->surname]);
     }
 
     /**
@@ -227,7 +227,7 @@ class BlogPost extends \yii\db\ActiveRecord
     {
         $links = [];
         foreach(BlogTag::string2array($this->tags) as $tag)
-            $links[] = Html::a($tag, Yii::$app->getUrlManager()->createUrl(['blog/index', 'tag'=>$tag]));
+            $links[] = Html::a($tag, Yii::$app->getUrlManager()->createUrl(['blog/default/index', 'tag'=>$tag]));
 
         return $links;
     }

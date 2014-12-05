@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use yii\widgets\ListView;
 
-$this->title = Yii::$app->params['title'] . ' - ' . Yii::$app->params['titleSeo'];
+$this->title = Yii::$app->params['blogTitle'] . ' - ' . Yii::$app->params['blogTitleSeo'];
 $this->params['breadcrumbs'][] = '文章';
 
 /*$this->breadcrumbs=[
@@ -32,7 +32,7 @@ echo $this->render('_view', [
 
     <div id='reply'>
         <h4><?php echo Yii::t('blog', 'Leave a Comment'); ?></h4>
-<?php echo 'hello'; $this->render('_form', [
+<?php $this->render('_form', [
     'model' => $comment,
 ]);?>
 <?php if(Yii::$app->session->hasFlash('commentSubmitted')): ?>

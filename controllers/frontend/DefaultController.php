@@ -25,10 +25,6 @@ class DefaultController extends Controller
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
         ];
     }
 
@@ -44,14 +40,14 @@ class DefaultController extends Controller
             ]);
             foreach($allCatalog as $catalog)
             {
-                $item=array();
+                $item = ['label'=>$catalog->title, 'active'=>($catalog->id == $rootId)];
                 if($catalog->redirect_url)
                 {// redirect to other site
-                    $item=array('label'=>$catalog->title, 'url'=>$catalog->redirect_url, 'active'=>($catalog->id==$rootId));
+                    $item['url'] = $catalog->redirect_url;
                 }
                 else
                 {
-                    $item=array('label'=>$catalog->title, 'url'=>array('/blog/catalog/','id'=>$catalog->id, 'surname'=>$catalog->surname), 'active'=>($catalog->id==$rootId));
+                    $item['url'] = Yii::$app->getUrlManager()->createUrl(['/blog/default/catalog/','id'=>$catalog->id, 'surname'=>$catalog->surname]);
                 }
 
                 if(!empty($item))
@@ -74,14 +70,13 @@ class DefaultController extends Controller
 
         if(Yii::$app->request->get('tag'))
             $query->andFilterWhere([
-                'tags' => Yii::$app->request->get('tag'),
+                'like', 'tags', Yii::$app->request->get('tag'),
             ]);
 
         if(Yii::$app->request->get('keyword'))
         {
             $keyword = strtr(Yii::$app->request->get('keyword'), array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\'));
             $keyword = Yii::$app->formatter->asText($keyword);
-            echo $keyword;
 
             $query->andFilterWhere([
                 'or', ['like', 'title', $keyword], ['like', 'content', $keyword]
@@ -89,7 +84,7 @@ class DefaultController extends Controller
         }
 
         $pagination = new Pagination([
-            'defaultPageSize' => Yii::$app->params['postPageCount'],
+            'defaultPageSize' => Yii::$app->params['blogPostPageCount'],
             'totalCount' => $query->count(),
         ]);
 
@@ -133,7 +128,7 @@ class DefaultController extends Controller
         }
 
         $pagination = new Pagination([
-            'defaultPageSize' => Yii::$app->params['postPageCount'],
+            'defaultPageSize' => Yii::$app->params['blogPostPageCount'],
             'totalCount' => $query->count(),
         ]);
 
@@ -157,7 +152,7 @@ class DefaultController extends Controller
             $comment = $this->newComment($post);
         }
         else
-            $this->redirect(['blog/index']);
+            $this->redirect(['blog']);
 
         //var_dump($post->comments);
         return $this->render('view', [

@@ -169,7 +169,7 @@ class BlogComment extends \yii\db\ActiveRecord
 
     public static  function findRecentComments($limit=10)
     {
-        return [];/*self::find()->joinWith('blog_post')->where([
+        return self::find()->joinWith('blogPost')->where([
             'blog_comment.status' => BlogComment::STATUS_ACTIVE,
             'blog_post.status' => BlogPost::STATUS_ACTIVE,
         ])->orderBy([

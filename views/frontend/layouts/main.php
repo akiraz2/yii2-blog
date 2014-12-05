@@ -40,7 +40,7 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 <div class="container" id="page">
     <div id="header">
-        <div id="logo"><?= Html::a(Yii::$app->params['title'], Yii::$app->homeUrl) ?></div>
+        <div id="logo"><?= Html::a(Yii::$app->params['blogTitle'], Yii::$app->homeUrl) ?></div>
         <div id='search'><?= Search::widget() ?></div>
         <div class="clear"></div>
     </div><!-- header -->
@@ -48,19 +48,7 @@ AppAsset::register($this);
     <div class="clear"></div>
 
     <div id="mainmenu">
-
-        <?php
-        //NavBar::begin([]);
-        $menuItems = [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-        ];
-        echo Nav::widget([
-            'items' => Yii::$app->params['mainMenu'],
-        ]);
-        //NavBar::end();
-        ?>
+        <?= Nav::widget(['items' => Yii::$app->params['mainMenu']]); ?>
     </div>
 
     <?= Breadcrumbs::widget([
@@ -92,7 +80,7 @@ AppAsset::register($this);
 
             <?= Links::widget([
                 'title' => '<i class="icon-st"></i>友情链接',
-                'links' => Yii::$app->params['links'],
+                'links' => Yii::$app->params['blogLinks'],
             ]) ?>
 
             <?= SiteStat::widget([
@@ -101,11 +89,10 @@ AppAsset::register($this);
         </div>
     </div>
 
-
 </div>
 
 <div id="footer">
-    Copyright &copy; <?php echo date('Y'); ?> by <?= Html::encode(Yii::$app->name); ?>. All Rights Reserved.
+    <?= Yii::$app->params['blogFooter'] ?>
 </div><!-- footer -->
 
 <?php $this->endBody() ?>

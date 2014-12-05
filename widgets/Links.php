@@ -23,7 +23,7 @@ class Links extends Widget
         $str = '';
         foreach($this->links as $title=>$url)
         {
-            $link = Html::a(Html::encode($title), $url);
+            $link = Html::a(Html::encode($title), $url, ['target' => '_blank']);
             $str .= Html::tag('div', $link, [
                     'class' => 'links',
                 ])."\n";

@@ -1,7 +1,6 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
-use kartik\markdown\Markdown;
 ?>
 
 
@@ -18,6 +17,9 @@ use kartik\markdown\Markdown;
         <i class="icon-views"></i><?php echo implode(' ', $data->tagLinks); ?>
     </div>
     <div class="content">
-        <?= Markdown::convert($data->content)  ?>
+        <?php
+        $parser = new \cebe\markdown\GithubMarkdown();
+        echo $parser->parse($data->content);
+        ?>
     </div>
 </div>

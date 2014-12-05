@@ -27,5 +27,28 @@ Usage
 
 Once the extension is installed, simply use it in your code by  :
 
+配置前台config.php文件
+
 ```php
-<?= \funson86\blog\AutoloadExample::widget(); ?>```
+   'defaultRoute' => 'blog', //如果要设置blog为网站默认的页面，否则注释掉
+    'modules' => [
+        'blog' => [
+            'class' => 'funson86\blog\Module',
+            'controllerNamespace' => 'funson86\blog\controllers\backend'
+        ],
+    ],
+    'components' => [
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                '<controller:\w+>/<id:\d+>' => '<controller>/view',
+                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+            ],
+        ],
+    ],
+```
+
+
+

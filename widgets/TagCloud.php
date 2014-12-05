@@ -1,6 +1,7 @@
 <?php
 namespace funson86\blog\widgets;
 
+use Yii;
 use funson86\blog\models\BlogTag;
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -25,7 +26,7 @@ class TagCloud extends Widget
         $str = '';
         foreach($tags as $tag=>$weight)
         {
-            $link = Html::a(Html::encode($tag), ['blog/index','tag'=>$tag]);
+            $link = Html::a(Html::encode($tag), Yii::$app->getUrlManager()->createUrl(['blog/default/index','tag'=>$tag]));
             $str .= Html::tag('span', $link, [
                     'class'=>'tag',
                     'style'=>"font-size:{$weight}pt",

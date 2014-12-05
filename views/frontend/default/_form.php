@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
     <div class="note"><?php echo Yii::t('common', 'Fields Required'); ?></div>
 
     <div class="row">
-        <?php echo $form->field($model,'author')->textInput()->label('Author'); ?>
+        <?php //echo $form->field($model,'author')->textInput()->label('Author'); ?>
     </div>
 
 
