@@ -6,6 +6,7 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 use funson86\blog\Module;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "blog_comment".
@@ -94,6 +95,14 @@ class BlogComment extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBlogPost()
+    {
+        return $this->hasOne(BlogPost::className(), ['id' => 'post_id']);
+    }
+
+    /**
      * Before save.
      * create_time update_time
      */
@@ -143,5 +152,33 @@ class BlogComment extends \yii\db\ActiveRecord
         return $this->_statusLabel;
     }
 
+    public function getAuthorLink()
+    {
+        if(!empty($this->url))
+            return Html::a(Html::encode($this->author), $this->url);
+        else
+            return Html::encode($this->author);
+    }
 
+    public function getUrl($post=null)
+    {
+        if($post === null)
+            $post = $this->post;
+        return $post->url . '#c' . $this->id;
+    }
+
+    public static  function findRecentComments($limit=10)
+    {
+        return [];/*self::find()->joinWith('blog_post')->where([
+            'blog_comment.status' => BlogComment::STATUS_ACTIVE,
+            'blog_post.status' => BlogPost::STATUS_ACTIVE,
+        ])->orderBy([
+            'create_time' => SORT_DESC
+        ])->limit($limit)->all();
+        /*return $this->with('post')->findAll(array(
+            'condition'=>'t.status='.CONSTANT::STATUS_ACTIVE .' AND post.status='.CONSTANT::STATUS_ACTIVE,
+            'order'=>'t.create_time DESC',
+            'limit'=>$limit,
+        ));*/
+    }
 }

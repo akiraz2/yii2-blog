@@ -17,6 +17,7 @@ class Module extends \yii\base\Module
             $this->setViewPath('@funson86/blog/views/backend');
         } else {
             $this->setViewPath('@funson86/blog/views/frontend');
+            $this->setLayoutPath('@funson86/blog/views/frontend/layouts');
         }
     }
 
