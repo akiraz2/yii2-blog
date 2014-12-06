@@ -9,16 +9,16 @@ a{text-decoration: none; color:#444}
 
 #page
 {
-	margin-top: 5px;
-	margin-bottom: 5px;
-	background: white;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background: white;
     padding: 0;
 }
 
 #header
 {
-	margin: 0 0 10px 0;
-	padding: 0;
+    margin: 0 0 10px 0;
+    padding: 0;
 }
 
 #banner
@@ -33,7 +33,7 @@ a{text-decoration: none; color:#444}
 
 #sidebar
 {
-	padding: 0px 0px 0px 0;
+    padding: 0px 0px 0px 0;
 }
 
 #footer
@@ -49,8 +49,8 @@ a{text-decoration: none; color:#444}
 
 #logo
 {
-	padding: 10px 20px;
-	font-size: 200%;
+    padding: 10px 20px;
+    font-size: 200%;
     float: left;
 }
 #search
@@ -79,7 +79,7 @@ a{text-decoration: none; color:#444}
 }
 #mainmenu
 {
-	background:none repeat scroll 0 0 #04a4cc;
+    background:none repeat scroll 0 0 #04a4cc;
     font-size: 14px;
     height: 40px;
     margin: 0 0 10px 0;
@@ -126,69 +126,69 @@ a{text-decoration: none; color:#444}
 
 div.flash-error, div.flash-notice, div.flash-success
 {
-	padding:.8em;
-	margin-bottom:1em;
-	border:2px solid #ddd;
+    padding:.8em;
+    margin-bottom:1em;
+    border:2px solid #ddd;
 }
 
 div.flash-error
 {
-	background:#FBE3E4;
-	color:#8a1f11;
-	border-color:#FBC2C4;
+    background:#FBE3E4;
+    color:#8a1f11;
+    border-color:#FBC2C4;
 }
 
 div.flash-notice
 {
-	background:#FFF6BF;
-	color:#514721;
-	border-color:#FFD324;
+    background:#FFF6BF;
+    color:#514721;
+    border-color:#FFD324;
 }
 
 div.flash-success
 {
-	background:#E6EFC2;
-	color:#264409;
-	border-color:#C6D880;
+    background:#E6EFC2;
+    color:#264409;
+    border-color:#C6D880;
 }
 
 div.flash-error a
 {
-	color:#8a1f11;
+    color:#8a1f11;
 }
 
 div.flash-notice a
 {
-	color:#514721;
+    color:#514721;
 }
 
 div.flash-success a
 {
-	color:#264409;
+    color:#264409;
 }
 
 div.form .rememberMe label
 {
-	display: inline;
+    display: inline;
 }
 
 div.view
 {
-	padding: 10px;
-	margin: 10px 0;
-	border: 1px solid #C9E0ED;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #C9E0ED;
 }
 
 div.breadcrumbs
 {
-	font-size: 0.9em;
-	padding: 0px 0px;
+    font-size: 0.9em;
+    padding: 0px 0px;
     margin:0px 0px 5px 5px;
 }
 
 div.breadcrumbs span
 {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 #content h4
@@ -298,10 +298,12 @@ div.portlet .portlet-content ul li
 #comments h3
 {
     background: none repeat scroll 0 0 #fff;
-    border: 1px solid #ccc;
+    border: 0px solid #ccc;
     border-radius: 3px;
     margin: 0 0 10px;
-    padding: 10px;
+    padding: 10px 0 0 0;
+    font-size: 14px;
+    font-weight: bold;
 }
 #comments .comment
 {
@@ -327,7 +329,7 @@ div.portlet .portlet-content ul li
 }
 #reply span.required
 {
-   color: #FF0000;
+    color: #FF0000;
 }
 #reply input
 {
@@ -337,6 +339,30 @@ div.portlet .portlet-content ul li
     margin: 10px 0px 5px 0;
     padding: 0 5px;
     width: 40%;
+    float: left;
+}
+#reply label
+{
+    margin: 10px 0px 5px 5px;
+    padding: 0px 5px;
+    float: left;
+    text-align: left;
+    height: 30px;
+    line-height: 30px;
+}
+#reply .help-block
+{
+    margin: 10px 0px 5px 5px;
+    padding: 0px 5px;
+    float: left;
+    text-align: left;
+    height: 30px;
+    line-height: 30px;
+    color:#F00;
+}
+#reply .form-group
+{
+    margin-bottom: 5px;
 }
 #reply textarea
 {
@@ -346,6 +372,7 @@ div.portlet .portlet-content ul li
     margin: 10px 0px 5px 0;
     padding: 0 5px;
     width: 80%;
+    float: left;
 }
 #reply .buttons input
 {
@@ -361,6 +388,11 @@ div.portlet .portlet-content ul li
 {
     color:red;
 }
+#reply .btn-success
+{
+    width: 300px;
+}
+
 
 @font-face {
     font-family: 'ality';

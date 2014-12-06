@@ -125,6 +125,12 @@ class BlogPost extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
+
+    public function getComments()
+    {
+        return $this->hasMany(BlogComment::className(), ['post_id' => 'id']);
+    }
+
     /**
      * Before save.
      * create_time update_time
@@ -238,7 +244,7 @@ class BlogPost extends \yii\db\ActiveRecord
     public function addComment($comment)
     {
         $comment->status = BlogComment::STATUS_INACTIVE;
-        $comment->post_id=$this->id;
+        $comment->post_id = $this->id;
         return $comment->save();
     }
 

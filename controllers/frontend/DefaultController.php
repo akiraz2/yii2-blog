@@ -149,6 +149,7 @@ class DefaultController extends Controller
         {
             $post = BlogPost::findOne(Yii::$app->request->get('id'));
             $post->updateCounters(['click' => 1]);
+            $comments = BlogComment::find()->where(['post_id' => $post->id, 'status' => BlogComment::STATUS_ACTIVE])->orderBy(['create_time' => SORT_ASC])->all();
             $comment = $this->newComment($post);
         }
         else
@@ -157,6 +158,7 @@ class DefaultController extends Controller
         //var_dump($post->comments);
         return $this->render('view', [
             'post' => $post,
+            'comments' => $comments,
             'comment' => $comment,
         ]);
     }
@@ -169,15 +171,20 @@ class DefaultController extends Controller
             echo ActiveForm::validate($comment);
             Yii::app()->end();
         }
-        if(isset($_POST['Comment']))
+
+        if(Yii::$app->request->post('BlogComment'))
         {
-            $comment->attributes = $_POST['Comment'];
+            $comment->load(Yii::$app->request->post());
             if($post->addComment($comment))
             {
                 if($comment->status == BlogComment::STATUS_INACTIVE)
-                    Yii::$app->session->setFlash('commentSubmitted', Yii::t('blog', 'Thanks for comment'));
-                $this->refresh();
+                    echo Yii::$app->formatter->asText('success');
             }
+            else
+            {
+                echo 'failed';
+            }
+            die();
         }
         return $comment;
     }

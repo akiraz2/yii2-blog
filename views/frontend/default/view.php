@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ListView;
+use funson86\blog\Module;
 
 $this->title = Yii::$app->params['blogTitle'] . ' - ' . Yii::$app->params['blogTitleSeo'];
 $this->params['breadcrumbs'][] = '文章';
@@ -21,29 +22,20 @@ echo $this->render('_view', [
 <div id="comments">
     <?php if($post->commentsCount >= 1): ?>
         <h3>
-            <?php echo $post->commentsCount . Yii::t('blog', 'Unit comments'); ?>
+            <?= $post->commentsCount . Module::t('blog', 'Unit comments'); ?>
         </h3>
 
-        <?php $this->render('_comments',array(
+        <?=$this->render('_comments',array(
             'post' => $post,
-            'comments' => $post->comments,
+            'comments' => $comments,
         )); ?>
     <?php endif; ?>
 
     <div id='reply'>
-        <h4><?php echo Yii::t('blog', 'Leave a Comment'); ?></h4>
-<?php $this->render('_form', [
-    'model' => $comment,
-]);?>
-<?php if(Yii::$app->session->hasFlash('commentSubmitted')): ?>
-            <div class="flash-success">
-                <?php echo Yii::$app->session->getFlash('commentSubmitted'); ?>
-            </div>
-        <?php else: ?>
-            <?php /*$this->render('_form', array(
-                'model' => $comments,
-            ));*/ ?>
-        <?php endif; ?>
+        <h3><?= Module::t('blog', 'Leave a Comment'); ?></h3>
+        <?= $this->render('_form', [
+            'model' => $comment,
+        ]);?>
     </div>
 
 </div><!-- comments -->
