@@ -88,7 +88,7 @@ class DefaultController extends Controller
             'totalCount' => $query->count(),
         ]);
 
-        $posts = $query->orderBy('create_time desc')
+        $posts = $query->orderBy('created_at desc')
             ->offset($pagination->offset)
             ->limit($pagination->limit)
             ->all();
@@ -132,7 +132,7 @@ class DefaultController extends Controller
             'totalCount' => $query->count(),
         ]);
 
-        $posts = $query->orderBy('create_time desc')
+        $posts = $query->orderBy('created_at desc')
             ->offset($pagination->offset)
             ->limit($pagination->limit)
             ->all();
@@ -149,7 +149,7 @@ class DefaultController extends Controller
         {
             $post = BlogPost::findOne(Yii::$app->request->get('id'));
             $post->updateCounters(['click' => 1]);
-            $comments = BlogComment::find()->where(['post_id' => $post->id, 'status' => BlogComment::STATUS_ACTIVE])->orderBy(['create_time' => SORT_ASC])->all();
+            $comments = BlogComment::find()->where(['post_id' => $post->id, 'status' => BlogComment::STATUS_ACTIVE])->orderBy(['created_at' => SORT_ASC])->all();
             $comment = $this->newComment($post);
         }
         else

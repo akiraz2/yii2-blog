@@ -13,11 +13,11 @@ $this->params['breadcrumbs'][] = '文章';
 
 ?>
 <?php if(!empty($_GET['tag'])): ?>
-    <h4>标签[<i><?php echo Html::encode($_GET['tag']); ?></i>]相关文章</h4>
+    <h4>标签[<i><?= Html::encode($_GET['tag']); ?></i>]相关文章</h4>
 <?php endif; ?>
 
 <?php if(!empty($_GET['keyword'])): ?>
-    <h4>搜索[<i><?php echo Html::encode($_GET['keyword']); ?></i>]相关文章</h4>
+    <h4>搜索[<i><?= Html::encode($_GET['keyword']); ?></i>]相关文章</h4>
 <?php endif; ?>
 
 <?php

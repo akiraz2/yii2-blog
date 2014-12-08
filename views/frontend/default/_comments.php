@@ -5,18 +5,18 @@ use kartik\markdown\Markdown;
 ?>
 
 <?php foreach($comments as $comment){ ?>
-    <div class="comment" id="c<?php echo $comment->id; ?>">
+    <div class="comment" id="c<?= $comment->id; ?>">
 
         <div class="author">
-            <?php echo Html::a("#{$comment->id}", $comment->getUrl($post), array(
+            <?= Html::a("#{$comment->id}", $comment->getUrl($post), array(
                 'class'=>'cid',
                 'title'=>'Permalink to this comment',
             )); ?>
-            <?php echo $comment->authorLink; ?>&nbsp;<span><?php echo $comment->create_time; ?></span>
+            <?= $comment->authorLink; ?>&nbsp;<span><?= Yii::$app->formatter->asDate($comment->created_at); ?>
         </div>
 
         <div class="content">
-            <?php echo nl2br(Html::encode($comment->content)); ?>
+            <?= nl2br(Html::encode($comment->content)); ?>
         </div>
 
     </div><!-- comment -->

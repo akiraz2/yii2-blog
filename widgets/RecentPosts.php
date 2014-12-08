@@ -21,7 +21,7 @@ class RecentPosts extends Widget
 
     public function run()
     {
-        $posts = BlogPost::find()->where(['status' => BlogPost::STATUS_ACTIVE])->orderBy(['create_time' => SORT_DESC])->limit($this->maxPosts)->all();
+        $posts = BlogPost::find()->where(['status' => BlogPost::STATUS_ACTIVE])->orderBy(['created_at' => SORT_DESC])->limit($this->maxPosts)->all();
 
         return $this->render('recentPosts', [
             'title' => $this->title,

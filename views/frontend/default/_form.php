@@ -39,6 +39,7 @@ use funson86\blog\Module;
             }
 
             if(result){
+                jQuery(".btn-success").attr("disabled", "disable");
                 jQuery.post("' . Yii::$app->request->absoluteUrl . '",
                     {
                         "BlogComment[author]":jQuery("#blogcomment-author").val(),
@@ -49,7 +50,6 @@ use funson86\blog\Module;
                     function(data,status){
                         if(data == "success"){
                             jQuery(".comment:last").after("<div class=\'comment\'><div class=\'author\'><a href=\'" + jQuery("#blogcomment-url").val() + "\'>" + jQuery("#blogcomment-author").val() +"</a>&nbsp;<span>" + "正在审核" + "</span></div><div class=\'content\'>" + jQuery("#blogcomment-content").val() +"</div></div>");
-                            jQuery(".btn-success").attr("disabled", "disable");
                         }else{
                         }
                     });
