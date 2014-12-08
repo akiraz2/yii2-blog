@@ -21,7 +21,7 @@ use funson86\blog\Module;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'parent_id')->dropDownList(ArrayHelper::merge([0 => Module::t('app', 'Root Catalog')], ArrayHelper::map(BlogCatalog::get(0, BlogCatalog::find()->all()), 'id', 'str_label'))) ?>
+    <?= $form->field($model, 'parent_id')->dropDownList(ArrayHelper::merge([0 => Module::t('blog', 'Root Catalog')], ArrayHelper::map(BlogCatalog::get(0, BlogCatalog::find()->all()), 'id', 'str_label'))) ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => 255]) ?>
 

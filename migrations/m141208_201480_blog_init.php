@@ -30,7 +30,7 @@ class m141208_201480_blog_init extends Migration
             '{{%blog_catalog}}',
             [
                 'id' => Schema::TYPE_PK,
-                'parent_id' => Schema::TYPE_INTEGER . 'NOT NULL DEFAULT 0',
+                'parent_id' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 0',
                 'title' => Schema::TYPE_STRING . '(255) NOT NULL',
                 'surname' => Schema::TYPE_STRING . '(128) NOT NULL',
                 'banner' => Schema::TYPE_STRING . '(255) NOT NULL',
@@ -38,6 +38,7 @@ class m141208_201480_blog_init extends Migration
                 'sort_order' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 50',
                 'page_size' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 10',
                 'template' => Schema::TYPE_STRING . '(255) NOT NULL DEFAULT "post"',
+                'redirect_url' => Schema::TYPE_STRING . '(255) DEFAULT NULL',
                 'status' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 1',
                 'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
                 'updated_at' => Schema::TYPE_INTEGER . ' NOT NULL'
@@ -57,9 +58,9 @@ class m141208_201480_blog_init extends Migration
             '{{%blog_post}}',
             [
                 'id' => Schema::TYPE_PK,
-                'catalog_id' => Schema::TYPE_INTEGER . 'NOT NULL',
+                'catalog_id' => Schema::TYPE_INTEGER . ' NOT NULL',
                 'title' => Schema::TYPE_STRING . '(255) NOT NULL',
-                'content' => Schema::TYPE_TEXT . 'NOT NULL',
+                'content' => Schema::TYPE_TEXT . ' NOT NULL',
                 'tags' => Schema::TYPE_STRING . '(255) NOT NULL',
                 'surname' => Schema::TYPE_STRING . '(128) NOT NULL',
                 'click' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 0',
@@ -86,8 +87,8 @@ class m141208_201480_blog_init extends Migration
             '{{%blog_comment}}',
             [
                 'id' => Schema::TYPE_PK,
-                'post_id' => Schema::TYPE_INTEGER . 'NOT NULL',
-                'content' => Schema::TYPE_TEXT . 'NOT NULL',
+                'post_id' => Schema::TYPE_INTEGER . ' NOT NULL',
+                'content' => Schema::TYPE_TEXT . ' NOT NULL',
                 'author' => Schema::TYPE_STRING . '(128) NOT NULL',
                 'email' => Schema::TYPE_STRING . '(128) NOT NULL',
                 'url' => Schema::TYPE_STRING . '(128) NULL',
@@ -113,7 +114,7 @@ class m141208_201480_blog_init extends Migration
             [
                 'id' => Schema::TYPE_PK,
                 'name' => Schema::TYPE_STRING . '(128) NOT NULL',
-                'frequency' => Schema::TYPE_INTEGER . 'NOT NULL DEFAULT 1',
+                'frequency' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 1',
             ],
             $tableOptions
         );

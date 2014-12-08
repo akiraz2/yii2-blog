@@ -18,8 +18,8 @@ use yii\helpers\Html;
  * @property string $email
  * @property string $url
  * @property integer $status
- * @property string $create_time
- * @property string $update_time
+ * @property integer $created_at
+ * @property integer $updated_at
  *
  * @property BlogPost $post
  */
@@ -39,18 +39,13 @@ class BlogComment extends \yii\db\ActiveRecord
     }
 
     /**
-     * create_time, update_time to now()
+     * created_at, updated_at to now()
      * crate_user_id, update_user_id to current login user id
      */
     public function behaviors()
     {
         return [
-            [
-                'class' => TimestampBehavior::className(),
-                'createdAtAttribute' => 'create_time',
-                'updatedAtAttribute' => 'update_time',
-                'value' => new Expression('NOW()'),
-            ],
+            'class' => TimestampBehavior::className(),
         ];
     }
 
@@ -63,7 +58,7 @@ class BlogComment extends \yii\db\ActiveRecord
             [['post_id', 'content', 'author', 'email'], 'required'],
             [['post_id', 'status'], 'integer'],
             [['content'], 'string'],
-            [['create_time', 'update_time'], 'safe'],
+            [['created_at', 'updated_at'], 'safe'],
             [['author', 'email', 'url'], 'string', 'max' => 128]
         ];
     }
@@ -81,8 +76,8 @@ class BlogComment extends \yii\db\ActiveRecord
             'email' => Module::t('blog', 'Email'),
             'url' => Module::t('blog', 'Url'),
             'status' => Module::t('blog', 'Status'),
-            'create_time' => Module::t('blog', 'Create Time'),
-            'update_time' => Module::t('blog', 'Update Time'),
+            'created_at' => Module::t('blog', 'Created At'),
+            'updated_at' => Module::t('blog', 'Updated At'),
         ];
     }
 
@@ -104,7 +99,7 @@ class BlogComment extends \yii\db\ActiveRecord
 
     /**
      * Before save.
-     * create_time update_time
+     * created_at updated_at
      */
     /*public function beforeSave($insert)
     {
@@ -173,11 +168,11 @@ class BlogComment extends \yii\db\ActiveRecord
             'blog_comment.status' => BlogComment::STATUS_ACTIVE,
             'blog_post.status' => BlogPost::STATUS_ACTIVE,
         ])->orderBy([
-            'create_time' => SORT_DESC
+            'created_at' => SORT_DESC
         ])->limit($limit)->all();
         /*return $this->with('post')->findAll(array(
             'condition'=>'t.status='.CONSTANT::STATUS_ACTIVE .' AND post.status='.CONSTANT::STATUS_ACTIVE,
-            'order'=>'t.create_time DESC',
+            'order'=>'t.created_at DESC',
             'limit'=>$limit,
         ));*/
     }

@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ['class' => 'form-control', 'prompt' => Module::t('blog', 'PROMPT_STATUS')]
                     )
             ],
-            'create_time',
+            'created_at:date',
             // 'update_time',
 
             ['class' => 'yii\grid\ActionColumn'],

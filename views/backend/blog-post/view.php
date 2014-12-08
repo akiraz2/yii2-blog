@@ -28,7 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'catalog_id',
             [
                 'attribute' => 'catalog_id',
                 'value' => $model->catalog->title,
@@ -46,8 +45,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status',
                 'value' => $model->statusLabel,
             ],
-            'create_time',
-            'update_time',
+            'created_at:datetime',
+            'updated_at:datetime',
         ],
     ]) ?>
 

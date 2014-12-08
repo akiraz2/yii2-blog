@@ -19,7 +19,7 @@ class BlogPostSearch extends BlogPost
     {
         return [
             [['id', 'catalog_id', 'click', 'user_id', 'status'], 'integer'],
-            [['title', 'content', 'tags', 'surname', 'create_time', 'update_time'], 'safe'],
+            [['title', 'content', 'tags', 'surname', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -43,7 +43,7 @@ class BlogPostSearch extends BlogPost
     {
         $query = BlogPost::find();
         
-        $query->orderBy(['create_time' => SORT_DESC]);
+        $query->orderBy(['created_at' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -59,8 +59,8 @@ class BlogPostSearch extends BlogPost
             'click' => $this->click,
             'user_id' => $this->user_id,
             'status' => $this->status,
-            'create_time' => $this->create_time,
-            'update_time' => $this->update_time,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])

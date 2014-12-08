@@ -23,8 +23,8 @@ use yii\helpers\Html;
  * @property integer $click
  * @property integer $user_id
  * @property integer $status
- * @property string $create_time
- * @property string $update_time
+ * @property integer $created_at
+ * @property integer $updated_at
  *
  * @property BlogComment[] $blogComments
  * @property BlogCatalog $catalog
@@ -47,18 +47,13 @@ class BlogPost extends \yii\db\ActiveRecord
     }
 
     /**
-     * create_time, update_time to now()
+     * created_at, updated_at to now()
      * crate_user_id, update_user_id to current login user id
      */
     public function behaviors()
     {
         return [
-            [
-                'class' => TimestampBehavior::className(),
-                'createdAtAttribute' => 'create_time',
-                'updatedAtAttribute' => 'update_time',
-                'value' => new Expression('NOW()'),
-            ],
+            'class' => TimestampBehavior::className(),
         ];
     }
 
@@ -71,7 +66,7 @@ class BlogPost extends \yii\db\ActiveRecord
             [['catalog_id', 'title', 'content', 'tags', 'surname', 'user_id'], 'required'],
             [['catalog_id', 'click', 'user_id', 'status'], 'integer'],
             [['content'], 'string'],
-            [['create_time', 'update_time'], 'safe'],
+            [['created_at', 'updated_at'], 'safe'],
             [['title', 'tags', 'surname'], 'string', 'max' => 128]
         ];
     }
@@ -91,8 +86,8 @@ class BlogPost extends \yii\db\ActiveRecord
             'click' => Module::t('blog', 'Click'),
             'user_id' => Module::t('blog', 'User ID'),
             'status' => Module::t('blog', 'Status'),
-            'create_time' => Module::t('blog', 'Create Time'),
-            'update_time' => Module::t('blog', 'Update Time'),
+            'created_at' => Module::t('blog', 'Created At'),
+            'updated_at' => Module::t('blog', 'Updated At'),
             'commentsCount' => Module::t('blog', 'Comments Count'),
         ];
     }
@@ -133,7 +128,7 @@ class BlogPost extends \yii\db\ActiveRecord
 
     /**
      * Before save.
-     * create_time update_time
+     * created_at updated_at
      */
     /*public function beforeSave($insert)
     {

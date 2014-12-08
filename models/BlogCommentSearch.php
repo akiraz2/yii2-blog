@@ -19,7 +19,7 @@ class BlogCommentSearch extends BlogComment
     {
         return [
             [['id', 'post_id', 'status'], 'integer'],
-            [['content', 'author', 'email', 'url', 'create_time', 'update_time'], 'safe'],
+            [['content', 'author', 'email', 'url', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -43,7 +43,7 @@ class BlogCommentSearch extends BlogComment
     {
         $query = BlogComment::find();
         
-        $query->orderBy(['create_time' => SORT_DESC]);
+        $query->orderBy(['created_at' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,8 +57,8 @@ class BlogCommentSearch extends BlogComment
             'id' => $this->id,
             'post_id' => $this->post_id,
             'status' => $this->status,
-            'create_time' => $this->create_time,
-            'update_time' => $this->update_time,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'content', $this->content])

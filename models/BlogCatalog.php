@@ -21,8 +21,8 @@ use funson86\blog\Module;
  * @property string $template
  * @property string $redirect_url
  * @property integer $status
- * @property string $create_time
- * @property string $update_time
+ * @property integer $created_at
+ * @property integer $updated_at
  *
  * @property BlogPost[] $blogPosts
  */
@@ -47,18 +47,13 @@ class BlogCatalog extends \yii\db\ActiveRecord
     }
 
     /**
-     * create_time, update_time to now()
+     * created_at, updated_at to now()
      * crate_user_id, update_user_id to current login user id
      */
     public function behaviors()
     {
         return [
-            [
-                'class' => TimestampBehavior::className(),
-                'createdAtAttribute' => 'create_time',
-                'updatedAtAttribute' => 'update_time',
-                'value' => new Expression('NOW()'),
-            ],
+            TimestampBehavior::className(),
         ];
     }
 
@@ -70,7 +65,7 @@ class BlogCatalog extends \yii\db\ActiveRecord
         return [
             [['parent_id', 'is_nav', 'sort_order', 'page_size', 'status'], 'integer'],
             [['title', 'surname'], 'required'],
-            [['create_time', 'update_time'], 'safe'],
+            [['created_at', 'updated_at'], 'safe'],
             [['title', 'banner', 'template', 'redirect_url'], 'string', 'max' => 255],
             [['surname'], 'string', 'max' => 128]
         ];
@@ -93,8 +88,8 @@ class BlogCatalog extends \yii\db\ActiveRecord
             'template' => Module::t('blog', 'Template'),
             'redirect_url' => Module::t('blog', 'Redirect Url'),
             'status' => Module::t('blog', 'Status'),
-            'create_time' => Module::t('blog', 'Create Time'),
-            'update_time' => Module::t('blog', 'Update Time'),
+            'created_at' => Module::t('blog', 'Created At'),
+            'updated_at' => Module::t('blog', 'Updated At'),
         ];
     }
 
@@ -121,7 +116,7 @@ class BlogCatalog extends \yii\db\ActiveRecord
 
     /**
      * Before save.
-     * create_time update_time
+     * created_at update_time
      */
     /*public function beforeSave($insert)
     {
@@ -237,7 +232,7 @@ class BlogCatalog extends \yii\db\ActiveRecord
                 $newArray [] = array ('id' => $v['id'], 'title' => $v['title'], 'parent_id' => $v['parent_id'],  'sort_order' => $v['sort_order'],
                     'banner' => $v['banner'], //'postsCount'=>$v['postsCount'],
                     'is_nav' => $v['is_nav'], 'template' => $v['template'],
-                    'status' => $v['status'], 'create_time' => $v['create_time'], 'update_time' => $v['update_time'], 'redirect_url' => $v['redirect_url'], 'str_repeat' => $strRepeat, 'str_label' => $strRepeat.$v['title'],);
+                    'status' => $v['status'], 'created_at' => $v['created_at'], 'updated_at' => $v['updated_at'], 'redirect_url' => $v['redirect_url'], 'str_repeat' => $strRepeat, 'str_label' => $strRepeat.$v['title'],);
 
                 $tempArray = self::get ( $v['id'], $array, ($level + $add) );
                 if ($tempArray)

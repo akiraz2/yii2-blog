@@ -74,6 +74,8 @@ return [
     'Status' => '状态',
     'Create Time' => '录入时间',
     'Update Time' => '更新时间',
+    'Created At' => '录入时间',
+    'Updated At' => '更新时间',
 
     'Catalog ID' => '分类名称',
     'Content' => '内容',
