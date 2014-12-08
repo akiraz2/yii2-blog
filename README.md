@@ -1,6 +1,6 @@
 Yii2 Blog
 =========
-Yii2 Blog for other application
+Yii2 Blog for other application, especially for [Yii2 Adminlte](https://github.com/funson86/yii2-adminlte)
 
 Installation
 ------------
@@ -27,16 +27,8 @@ Usage
 
 Once the extension is installed, simply use it in your code by  :
 
-配置前台config.php文件
-
+### Config url rewrite in /common/config/main.php
 ```php
-   'defaultRoute' => 'blog', //如果要设置blog为网站默认的页面，否则注释掉
-    'modules' => [
-        'blog' => [
-            'class' => 'funson86\blog\Module',
-            'controllerNamespace' => 'funson86\blog\controllers\backend'
-        ],
-    ],
     'components' => [
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -50,5 +42,43 @@ Once the extension is installed, simply use it in your code by  :
     ],
 ```
 
+### Config backend modules in backend/config/main.php
 
+```php
+    'modules' => [
+        'blog' => [
+            'class' => 'funson86\blog\Module',
+            'controllerNamespace' => 'funson86\blog\controllers\backend'
+        ],
+    ],
+```
 
+### Config frontend modules in frontend/config/main.php
+
+```php
+    'defaultRoute' => 'blog', //set blog as default route
+    'modules' => [
+        'blog' => [
+            'class' => 'funson86\blog\Module',
+            'controllerNamespace' => 'funson86\blog\controllers\frontend'
+        ],
+    ],
+```
+
+### Add yii2-blog params in /frontend/config/params.php.
+```php
+return [
+    'blogTitle' => 'HikeBlog',
+    'blogTitleSeo' => 'Simple Blog based on Yii2',
+    'blogFooter' => 'Copyright &copy; ' . date('Y') . ' by ahuasheng on Yii2. All Rights Reserved.',
+    'blogPostPageCount' => '2',
+    'blogLinks' => [
+        'Google' => 'http://www.google.com',
+        'Funson86 Blog' => 'http://github.com/funson86/yii2-blog',
+    ],
+];
+```
+
+### Access Url
+- backend : http://you-domain/backend/web/blog
+- frontend : http://you-domain/fontend/web/blog
