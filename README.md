@@ -27,6 +27,14 @@ Usage
 
 Once the extension is installed, simply use it in your code by  :
 
+### Migration
+
+Migration run
+
+```php
+yii migrate --migrationPath=@funson86/blog/migrations
+```
+
 ### Config url rewrite in /common/config/main.php
 ```php
     'components' => [
