@@ -37,6 +37,7 @@ yii migrate --migrationPath=@funson86/blog/migrations
 
 ### Config url rewrite in /common/config/main.php
 ```php
+    'timeZone' => 'Asia/Shanghai', //time zone affect the formatter datetime format
     'components' => [
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -46,6 +47,13 @@ yii migrate --migrationPath=@funson86/blog/migrations
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ],
+        ],
+        'formatter' => [ //for the showing of date datetime
+            'dateFormat' => 'yyyy-MM-dd',
+            'datetimeFormat' => 'yyyy-MM-dd HH:mm:ss',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => ' ',
+            'currencyCode' => 'CNY',
         ],
     ],
 ```
