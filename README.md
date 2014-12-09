@@ -96,5 +96,9 @@ return [
 ```
 
 ### Access Url
-- backend : http://you-domain/backend/web/blog
-- frontend : http://you-domain/fontend/web/blog
+1. backend : http://you-domain/backend/web/blog
+   - Catalog : http://you-domain/backend/web/blog/blog-catalog
+   - Post : http://you-domain/backend/web/blog/blog-post
+   - Comment : http://you-domain/backend/web/blog/blog-comment
+   - Tag : http://you-domain/backend/web/blog/blog-tag
+2. frontend : http://you-domain/fontend/web/blog
