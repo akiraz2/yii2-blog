@@ -43,7 +43,7 @@ class BlogCatalogController extends Controller
      */
     public function actionIndex()
     {
-        //'visible' => Yii::$app->user->can('readYourAuth'),
+        //if(!Yii::$app->user->can('readPost')) throw new HttpException(403, 'No Auth');
 
         $searchModel = new BlogCatalogSearch();
         $dataProvider = BlogCatalog::get(0, BlogCatalog::find()->all());
@@ -61,7 +61,7 @@ class BlogCatalogController extends Controller
      */
     public function actionView($id)
     {
-        //'visible' => Yii::$app->user->can('readYourAuth'),
+        //if(!Yii::$app->user->can('readPost')) throw new HttpException(401, 'No Auth');
         
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -75,7 +75,7 @@ class BlogCatalogController extends Controller
      */
     public function actionCreate()
     {
-        //'visible' => Yii::$app->user->can('createYourAuth'),
+        //if(!Yii::$app->user->can('createPost')) throw new HttpException(401, 'No Auth');
 
         $model = new BlogCatalog();
         $model->loadDefaultValues();
@@ -100,7 +100,7 @@ class BlogCatalogController extends Controller
      */
     public function actionUpdate($id)
     {
-        //'visible' => Yii::$app->user->can('updateYourAuth'),
+        //if(!Yii::$app->user->can('updatePost')) throw new HttpException(401, 'No Auth');
 
         $model = $this->findModel($id);
 
@@ -121,7 +121,7 @@ class BlogCatalogController extends Controller
      */
     public function actionDelete($id)
     {
-        //'visible' => Yii::$app->user->can('deleteYourAuth'),
+        //if(!Yii::$app->user->can('deletePost')) throw new HttpException(401, 'No Auth');
 
         $this->findModel($id)->delete();
         //$model = $this->findModel($id);

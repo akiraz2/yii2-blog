@@ -42,6 +42,8 @@ class BlogCommentController extends Controller
      */
     public function actionIndex()
     {
+        //if(!Yii::$app->user->can('readPost')) throw new HttpException(403, 'No Auth');
+
         $searchModel = new BlogCommentSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -58,6 +60,8 @@ class BlogCommentController extends Controller
      */
     public function actionView($id)
     {
+        //if(!Yii::$app->user->can('readPost')) throw new HttpException(401, 'No Auth');
+        
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -70,6 +74,8 @@ class BlogCommentController extends Controller
      */
     public function actionCreate()
     {
+        //if(!Yii::$app->user->can('createPost')) throw new HttpException(401, 'No Auth');
+
         $model = new BlogComment();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -89,6 +95,8 @@ class BlogCommentController extends Controller
      */
     public function actionUpdate($id)
     {
+        //if(!Yii::$app->user->can('updatePost')) throw new HttpException(401, 'No Auth');
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -108,6 +116,8 @@ class BlogCommentController extends Controller
      */
     public function actionDelete($id)
     {
+        //if(!Yii::$app->user->can('deletePost')) throw new HttpException(401, 'No Auth');
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
