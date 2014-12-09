@@ -81,7 +81,7 @@ yii migrate --migrationPath=@funson86/blog/migrations
     ],
 ```
 
-### Add yii2-blog params in /frontend/config/params.php.
+### Add yii2-blog params in /common/config/params.php.
 ```php
 return [
     'blogTitle' => 'HikeBlog',
@@ -92,6 +92,7 @@ return [
         'Google' => 'http://www.google.com',
         'Funson86 Blog' => 'http://github.com/funson86/yii2-blog',
     ],
+    'blogUploadPath' => 'upload/', //default to frontend/web/upload
 ];
 ```
 

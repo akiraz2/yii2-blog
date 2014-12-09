@@ -66,7 +66,8 @@ class BlogCatalog extends \yii\db\ActiveRecord
             [['parent_id', 'is_nav', 'sort_order', 'page_size', 'status'], 'integer'],
             [['title', 'surname'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
-            [['title', 'banner', 'template', 'redirect_url'], 'string', 'max' => 255],
+            [['title', 'template', 'redirect_url'], 'string', 'max' => 255],
+            [['banner'], 'file', 'extensions' => 'jpg, png', 'mimeTypes' => 'image/jpeg, image/png',],
             [['surname'], 'string', 'max' => 128]
         ];
     }

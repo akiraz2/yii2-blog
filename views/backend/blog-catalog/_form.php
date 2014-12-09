@@ -27,7 +27,7 @@ use funson86\blog\Module;
 
     <?= $form->field($model, 'surname')->textInput(['maxlength' => 128]) ?>
 
-    <?= $form->field($model, 'banner')->textInput(['maxlength' => 255]) ?>
+    <?= $form->field($model, 'banner')->fileInput() ?>
 
     <?= $form->field($model, 'is_nav')->dropDownList(BlogCatalog::getArrayIsNav()) ?>
 
