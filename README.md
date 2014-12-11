@@ -10,7 +10,7 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist funson86/yii2-blog "*"
+php composer.phar require --prefer-dist funson86/yii2-blog "dev-master"
 ```
 
 or add
