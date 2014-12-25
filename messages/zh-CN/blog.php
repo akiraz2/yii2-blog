@@ -78,6 +78,7 @@ return [
     'Updated At' => '更新时间',
 
     'Catalog ID' => '分类名称',
+    'User Id' => '用户',
     'Content' => '内容',
     'Tags' => '标签',
     'Click' => '点击数',

@@ -25,10 +25,7 @@ use yii\helpers\Html;
  */
 class BlogComment extends \yii\db\ActiveRecord
 {
-    const STATUS_INACTIVE = 0;
-    const STATUS_ACTIVE = 1;
-    const STATUS_DELETED = -1;
-    private $_statusLabel;
+    private $_status;
 
     /**
      * @inheritdoc
@@ -97,6 +94,14 @@ class BlogComment extends \yii\db\ActiveRecord
         return $this->hasOne(BlogPost::className(), ['id' => 'post_id']);
     }
 
+    public function getStatus()
+    {
+        if ($this->_status === null) {
+            $this->_status = new Status($this->status);
+        }
+        return $this->_status;
+    }
+
     /**
      * Before save.
      * created_at updated_at
@@ -122,31 +127,6 @@ class BlogComment extends \yii\db\ActiveRecord
         // add your code here
     }*/
 
-    /**
-     * @inheritdoc
-     */
-    public static function getArrayStatus()
-    {
-        return [
-            self::STATUS_INACTIVE => Module::t('blog', 'STATUS_INACTIVE'),
-            self::STATUS_ACTIVE => Module::t('blog', 'STATUS_ACTIVE'),
-            self::STATUS_DELETED => Module::t('blog', 'STATUS_DELETED'),
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getStatusLabel()
-    {
-        if ($this->_statusLabel === null) 
-        {
-            $statuses = self::getArrayStatus();
-            $this->_statusLabel = $statuses[$this->status];
-        }
-        return $this->_statusLabel;
-    }
-
     public function getAuthorLink()
     {
         if(!empty($this->url))
@@ -165,8 +145,8 @@ class BlogComment extends \yii\db\ActiveRecord
     public static  function findRecentComments($limit=10)
     {
         return self::find()->joinWith('blogPost')->where([
-            'blog_comment.status' => BlogComment::STATUS_ACTIVE,
-            'blog_post.status' => BlogPost::STATUS_ACTIVE,
+            'blog_comment.status' => Status::STATUS_ACTIVE,
+            'blog_post.status' => Status::STATUS_ACTIVE,
         ])->orderBy([
             'created_at' => SORT_DESC
         ])->limit($limit)->all();

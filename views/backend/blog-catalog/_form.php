@@ -39,7 +39,7 @@ use funson86\blog\Module;
 
     <?= $form->field($model, 'redirect_url')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'status')->dropDownList(BlogCatalog::getArrayStatus()) ?>
+    <?= $form->field($model, 'status')->dropDownList(\funson86\blog\models\Status::labels()) ?>
 
     <div class="form-group">
         <label class="col-lg-2 control-label" for="">&nbsp;</label>

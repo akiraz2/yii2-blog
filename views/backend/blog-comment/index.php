@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use funson86\blog\Module;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
+use funson86\blog\models\Status;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\blog\models\BlogCommentSearch */
@@ -47,7 +48,28 @@ $this->params['breadcrumbs'][] = $this->title;
             'author',
             'email:email',
             // 'url:url',
-            // 'status',
+            [
+                'attribute' => 'status',
+                'format' => 'html',
+                'value' => function ($model) {
+                    if ($model->status === Status::STATUS_ACTIVE) {
+                        $class = 'label-success';
+                    } elseif ($model->status === Status::STATUS_INACTIVE) {
+                        $class = 'label-warning';
+                    } else {
+                        $class = 'label-danger';
+                    }
+
+                    return '<span class="label ' . $class . '">' . $model->getStatus()->label . '</span>';
+                },
+                'filter' => Html::activeDropDownList(
+                    $searchModel,
+                    'status',
+                    Status::labels(),
+                    ['class' => 'form-control', 'prompt' => Module::t('blog', 'PROMPT_STATUS')]
+                )
+            ],
+
             // 'create_time',
             // 'update_time',
 

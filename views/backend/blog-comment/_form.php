@@ -25,7 +25,7 @@ use \yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'url')->textInput(['maxlength' => 128]) ?>
 
-    <?= $form->field($model, 'status')->dropDownList($model->getArrayStatus()) ?>
+    <?= $form->field($model, 'status')->dropDownList(\funson86\blog\models\Status::labels()) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Module::t('blog', 'Create') : Module::t('blog', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -33,7 +33,7 @@ class m141208_201480_blog_init extends Migration
                 'parent_id' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 0',
                 'title' => Schema::TYPE_STRING . '(255) NOT NULL',
                 'surname' => Schema::TYPE_STRING . '(128) NOT NULL',
-                'banner' => Schema::TYPE_STRING . '(255) NOT NULL',
+                'banner' => Schema::TYPE_STRING . '(255) ',
                 'is_nav' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 1',
                 'sort_order' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 50',
                 'page_size' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 10',

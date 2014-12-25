@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'redirect_url:url',
             [
                 'attribute' => 'status',
-                'value' => $model->statusLabel,
+                'value' => $model->getStatus()->label,
             ],
             'created_at:datetime',
             'updated_at:datetime',

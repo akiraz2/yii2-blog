@@ -28,15 +28,12 @@ use funson86\blog\Module;
  */
 class BlogCatalog extends \yii\db\ActiveRecord
 {
-    const STATUS_INACTIVE = 0;
-    const STATUS_ACTIVE = 1;
-    const STATUS_DELETED = -1;
     const IS_NAV_YES = 1;
     const IS_NAV_NO = 0;
     const PAGE_TYPE_LIST = 'list';
     const PAGE_TYPE_PAGE = 'page';
     private $_isNavLabel;
-    private $_statusLabel;
+    private $_status;
 
     /**
      * @inheritdoc
@@ -115,6 +112,14 @@ class BlogCatalog extends \yii\db\ActiveRecord
         return $this->hasOne(BlogCatalog::className(), ['id' => 'parent_id']);
     }
 
+    public function getStatus()
+    {
+        if ($this->_status === null) {
+            $this->_status = new Status($this->status);
+        }
+        return $this->_status;
+    }
+
     /**
      * Before save.
      * created_at update_time
@@ -140,41 +145,6 @@ class BlogCatalog extends \yii\db\ActiveRecord
         // add your code here
     }*/
 
-    /**
-     * @inheritdoc
-     */
-    public static function getArrayStatus()
-    {
-        return [
-            self::STATUS_INACTIVE => Module::t('blog', 'STATUS_INACTIVE'),
-            self::STATUS_ACTIVE => Module::t('blog', 'STATUS_ACTIVE'),
-            self::STATUS_DELETED => Module::t('blog', 'STATUS_DELETED'),
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function getOneStatusLabel($status)
-    {
-        if($status)
-        {
-            $statuses = self::getArrayStatus();
-            return $statuses[$status];
-        }
-        else
-            return;
-    }
-
-    public function getStatusLabel()
-    {
-        if ($this->_statusLabel === null)
-        {
-            $statuses = self::getArrayStatus();
-            $this->_statusLabel = $statuses[$this->status];
-        }
-        return $this->_statusLabel;
-    }
 
     /**
      * @inheritdoc

@@ -31,12 +31,9 @@ use yii\helpers\Html;
  */
 class BlogPost extends \yii\db\ActiveRecord
 {
-    const STATUS_INACTIVE = 0;
-    const STATUS_ACTIVE = 1;
-    const STATUS_DELETED = -1;
-
     private $_oldTags;
-    private $_statusLabel;
+
+    private $_status;
 
     /**
      * @inheritdoc
@@ -126,6 +123,14 @@ class BlogPost extends \yii\db\ActiveRecord
         return $this->hasMany(BlogComment::className(), ['post_id' => 'id']);
     }
 
+    public function getStatus()
+    {
+        if ($this->_status === null) {
+            $this->_status = new Status($this->status);
+        }
+        return $this->_status;
+    }
+
     /**
      * Before save.
      * created_at updated_at
@@ -171,31 +176,6 @@ class BlogPost extends \yii\db\ActiveRecord
         parent::afterFind();
         $this->_oldTags = $this->tags;
     }
-    /**
-     * @inheritdoc
-     */
-    public static function getArrayStatus()
-    {
-        return [
-            self::STATUS_INACTIVE => Module::t('blog', 'STATUS_INACTIVE'),
-            self::STATUS_ACTIVE => Module::t('blog', 'STATUS_ACTIVE'),
-            self::STATUS_DELETED => Module::t('blog', 'STATUS_DELETED'),
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getStatusLabel()
-    {
-        if ($this->_statusLabel === null) 
-        {
-            $statuses = self::getArrayStatus();
-            $this->_statusLabel = $statuses[$this->status];
-        }
-        return $this->_statusLabel;
-    }
-
 
     /**
      * Normalizes the user-entered tags.

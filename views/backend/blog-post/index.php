@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use funson86\blog\Module;
+use funson86\blog\models\Status;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\blog\models\BlogPostSearch */
@@ -49,20 +50,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status',
                 'format' => 'html',
                 'value' => function ($model) {
-                        if ($model->status === $model::STATUS_ACTIVE) {
+                        if ($model->status === Status::STATUS_ACTIVE) {
                             $class = 'label-success';
-                        } elseif ($model->status === $model::STATUS_INACTIVE) {
+                        } elseif ($model->status === Status::STATUS_INACTIVE) {
                             $class = 'label-warning';
                         } else {
                             $class = 'label-danger';
                         }
 
-                        return '<span class="label ' . $class . '">' . $model->statusLabel . '</span>';
+                        return '<span class="label ' . $class . '">' . $model->getStatus()->label . '</span>';
                     },
                 'filter' => Html::activeDropDownList(
                         $searchModel,
                         'status',
-                        \funson86\blog\models\BlogPost::getArrayStatus(),
+                        Status::labels(),
                         ['class' => 'form-control', 'prompt' => Module::t('blog', 'PROMPT_STATUS')]
                     )
             ],

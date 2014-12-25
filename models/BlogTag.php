@@ -16,10 +16,7 @@ use funson86\blog\Module;
  */
 class BlogTag extends \yii\db\ActiveRecord
 {
-    const STATUS_INACTIVE = 0;
-    const STATUS_ACTIVE = 1;
-    const STATUS_DELETED = -1;
-    private $_statusLabel;
+    private $_status;
 
     /**
      * @inheritdoc
@@ -69,6 +66,14 @@ class BlogTag extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getStatus()
+    {
+        if ($this->_status === null) {
+            $this->_status = new Status($this->status);
+        }
+        return $this->_status;
+    }
+
     /**
      * Before save.
      * create_time update_time
@@ -93,32 +98,6 @@ class BlogTag extends \yii\db\ActiveRecord
         parent::afterSave($insert, $changedAttributes);
         // add your code here
     }*/
-
-    /**
-     * @inheritdoc
-     */
-    public static function getArrayStatus()
-    {
-        return [
-            self::STATUS_INACTIVE => Module::t('app', 'STATUS_INACTIVE'),
-            self::STATUS_ACTIVE => Module::t('app', 'STATUS_ACTIVE'),
-            self::STATUS_DELETED => Module::t('app', 'STATUS_DELETED'),
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getStatusLabel()
-    {
-        if ($this->_statusLabel === null) 
-        {
-            $statuses = self::getArrayStatus();
-            $this->_statusLabel = $statuses[$this->status];
-        }
-        return $this->_statusLabel;
-    }
-
 
     public static function string2array($tags)
     {

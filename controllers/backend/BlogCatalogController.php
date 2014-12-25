@@ -87,9 +87,11 @@ class BlogCatalogController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->banner = UploadedFile::getInstance($model, 'banner');
             if ($model->validate()) {
-                $bannerName = Yii::$app->params['blogUploadPath'] . date('Ymdhis') . rand(1000, 9999) . '.' . $model->banner->extension;
-                $model->banner->saveAs(Yii::getAlias('@frontend/web') . DIRECTORY_SEPARATOR . $bannerName);
-                $model->banner = $bannerName;
+                if ($model->banner) {
+                    $bannerName = Yii::$app->params['blogUploadPath'] . date('Ymdhis') . rand(1000, 9999) . '.' . $model->banner->extension;
+                    $model->banner->saveAs(Yii::getAlias('@frontend/web') . DIRECTORY_SEPARATOR . $bannerName);
+                    $model->banner = $bannerName;
+                }
                 $model->save(false);
 
                 return $this->redirect(['view', 'id' => $model->id]);
