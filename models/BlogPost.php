@@ -218,7 +218,7 @@ class BlogPost extends \yii\db\ActiveRecord
      */
     public function addComment($comment)
     {
-        $comment->status = BlogComment::STATUS_INACTIVE;
+        $comment->status = Status::STATUS_INACTIVE;
         $comment->post_id = $this->id;
         return $comment->save();
     }

@@ -2,6 +2,7 @@
 namespace funson86\blog\widgets;
 
 use funson86\blog\models\BlogPost;
+use funson86\blog\models\Status;
 use yii\base\Widget;
 use yii\helpers\Html;
 
@@ -21,7 +22,7 @@ class RecentPosts extends Widget
 
     public function run()
     {
-        $posts = BlogPost::find()->where(['status' => BlogPost::STATUS_ACTIVE])->orderBy(['created_at' => SORT_DESC])->limit($this->maxPosts)->all();
+        $posts = BlogPost::find()->where(['status' => Status::STATUS_ACTIVE])->orderBy(['created_at' => SORT_DESC])->limit($this->maxPosts)->all();
 
         return $this->render('recentPosts', [
             'title' => $this->title,
