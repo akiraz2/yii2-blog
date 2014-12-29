@@ -89,7 +89,7 @@ return [
     'Post ID' => '文章',
     'Author' => '作者',
     'Email' => '电子邮箱',
-    'Url' => 'Rrl网址',
+    'Url' => 'Url网址',
 
     'Frequency' => '次数',
 
