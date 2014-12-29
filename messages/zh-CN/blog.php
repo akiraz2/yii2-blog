@@ -25,6 +25,7 @@ return [
     'Create' => '创建',
     'Update ' => '更新',
     'Update' => '更新',
+    'View' => '查看',
     'Delete' => '删除',
     'Are you sure you want to delete this item?' => '您确定要删除此项吗？',
     'Login' => '登录',
@@ -66,7 +67,7 @@ return [
     'Title' => '名称',
     'Surname' => '优化名称',
     'Banner' => 'Banner图片',
-    'Is Nav' => '是否导航显示',
+    'Is Nav' => '导航是否显示',
     'Sort Order' => '排序',
     'Page Size' => '每页显示数量',
     'Template' => '栏目模板',
@@ -78,6 +79,7 @@ return [
     'Updated At' => '更新时间',
 
     'Catalog ID' => '分类名称',
+    'Add Sub Catelog'=>'增加子栏目',
     'User Id' => '用户',
     'Content' => '内容',
     'Tags' => '标签',
@@ -87,13 +89,13 @@ return [
     'Post ID' => '文章',
     'Author' => '作者',
     'Email' => '电子邮箱',
-    'Url' => '网址',
+    'Url' => 'Rrl网址',
 
     'Frequency' => '次数',
 
     'Directly Input Time' => '可直接输入日期，格式：2015-01-01',
     'Unit comments' => '条评论',
-    'Leave a Comment' => '留下评论',
-    'Add Comment' => '发表评论',
-
+    'Write comments' => '留下评论',
+    'Add comments' => '发表评论',
+    'Actions' => '操作',
 ];

@@ -8,6 +8,7 @@ use yii\web\Controller;
 use funson86\blog\models\BlogCatalog;
 use funson86\blog\models\BlogPost;
 use funson86\blog\models\BlogComment;
+use funson86\blog\models\Status;
 use funson86\blog\models\BlogTag;
 use yii\widgets\ActiveForm;
 
@@ -65,7 +66,7 @@ class DefaultController extends Controller
     {
         $query = BlogPost::find();
         $query->where([
-            'status' => BlogPost::STATUS_ACTIVE,
+            'status' => Status::STATUS_ACTIVE,
         ]);
 
         if(Yii::$app->request->get('tag'))
@@ -105,7 +106,7 @@ class DefaultController extends Controller
         {
             $query = BlogPost::find();
             $query->where([
-                'status' => BlogPost::STATUS_ACTIVE,
+                'status' => Status::STATUS_ACTIVE,
                 'catalog_id' => Yii::$app->request->get('id'),
             ]);
         }
@@ -149,7 +150,7 @@ class DefaultController extends Controller
         {
             $post = BlogPost::findOne(Yii::$app->request->get('id'));
             $post->updateCounters(['click' => 1]);
-            $comments = BlogComment::find()->where(['post_id' => $post->id, 'status' => BlogComment::STATUS_ACTIVE])->orderBy(['created_at' => SORT_ASC])->all();
+            $comments = BlogComment::find()->where(['post_id' => $post->id, 'status' => Status::STATUS_ACTIVE])->orderBy(['created_at' => SORT_ASC])->all();
             $comment = $this->newComment($post);
         }
         else
@@ -177,7 +178,7 @@ class DefaultController extends Controller
             $comment->load(Yii::$app->request->post());
             if($post->addComment($comment))
             {
-                if($comment->status == BlogComment::STATUS_INACTIVE)
+                if($comment->status == Status::STATUS_INACTIVE)
                     echo Yii::$app->formatter->asText('success');
             }
             else

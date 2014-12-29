@@ -25,12 +25,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <thead>
         <tr>
             <th>ID</th>
-            <th>名称</th>
-            <th>排序</th>
-            <th>模板</th>
-            <th>顶级目录</th>
-            <th>状态</th>
-            <th>&nbsp;</th>
+            <th><?=Module::t('blog', 'Title') ?> </th>
+            <th><?=Module::t('blog', 'Sort Order') ?></th>
+            <th><?=Module::t('blog', 'Template') ?></th>
+            <th><?=Module::t('blog', 'Is Nav') ?></th>
+            <th><?=Module::t('blog', 'Status') ?></th>
+            <th><?=Module::t('blog', 'Actions') ?></th>
+
         </tr>
         </thead>
         <tbody>
@@ -43,10 +44,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <td><?= BlogCatalog::getOneIsNavLabel($item['is_nav']); ?></td>
             <td><?= \funson86\blog\models\Status::labels()[$item['status']]; ?></td>
             <td>
-                <a href="<?= \Yii::$app->getUrlManager()->createUrl(['blog/blog-catalog/create','parent_id'=>$item['id']]); ?>" title="增加子栏目" data-pjax="0"><span class="glyphicon glyphicon-plus-sign"></span></a>
-                <a href="<?= \Yii::$app->getUrlManager()->createUrl(['blog/blog-catalog/view','id'=>$item['id']]); ?>"" title="查看" data-pjax="0"><span class="glyphicon glyphicon-eye-open"></span></a>
-                <a href="<?= \Yii::$app->getUrlManager()->createUrl(['blog/blog-catalog/update','id'=>$item['id']]); ?>"" title="更新" data-pjax="0"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a href="<?= \Yii::$app->getUrlManager()->createUrl(['blog/blog-catalog/delete','id'=>$item['id']]); ?>"" title="删除" data-confirm="您确定要删除此项吗？" data-method="post" data-pjax="0"><span class="glyphicon glyphicon-trash"></span></a>
+                <a href="<?= \Yii::$app->getUrlManager()->createUrl(['blog/blog-catalog/create','parent_id'=>$item['id']]); ?>" title="<?= Module::t('blog', 'Add Sub Catelog');?>" data-pjax="0"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                <a href="<?= \Yii::$app->getUrlManager()->createUrl(['blog/blog-catalog/view','id'=>$item['id']]); ?>"" title="<?= Module::t('blog', 'View');?>" data-pjax="0"><span class="glyphicon glyphicon-eye-open"></span></a>
+                <a href="<?= \Yii::$app->getUrlManager()->createUrl(['blog/blog-catalog/update','id'=>$item['id']]); ?>"" title="<?= Module::t('blog', 'Update');?>" data-pjax="0"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a href="<?= \Yii::$app->getUrlManager()->createUrl(['blog/blog-catalog/delete','id'=>$item['id']]); ?>"" title="<?= Module::t('blog', 'Delete');?>" data-confirm="<?= Module::t('blog', 'Are you sure you want to delete this item?');?>" data-method="post" data-pjax="0"><span class="glyphicon glyphicon-trash"></span></a>
             </td>
         </tr>
         <?php } ?>

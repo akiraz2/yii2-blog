@@ -181,21 +181,34 @@ class BlogCatalog extends \yii\db\ActiveRecord
         return $this->_isNavLabel;
     }
 
+    /**
+     * @param int $parentId  parent catalog id
+     * @param array $array  catalog array list
+     * @param int $level  catalog level, will affect $repeat
+     * @param int $add  times of $repeat
+     * @param string $repeat  symbols or spaces to be added for sub catalog
+     * @return array  catalog collections
+     */
 
     static public function get($parentId = 0, $array = array(), $level = 0, $add = 2, $repeat = '　')
     {
         $strRepeat = '';
+        // add some spaces or symbols for non top level categories
         if ($level>1) {
             for($j = 0; $j < $level; $j ++)
             {
                 $strRepeat .= $repeat;
             }
         }
+
+        // i feel this is useless
         if($level>0)
             $strRepeat .= '';
 
         $newArray = array ();
         $tempArray = array ();
+
+        //performance is not very good here
         foreach ( ( array ) $array as $v )
         {
             if ($v['parent_id'] == $parentId)
@@ -205,7 +218,7 @@ class BlogCatalog extends \yii\db\ActiveRecord
                     'is_nav' => $v['is_nav'], 'template' => $v['template'],
                     'status' => $v['status'], 'created_at' => $v['created_at'], 'updated_at' => $v['updated_at'], 'redirect_url' => $v['redirect_url'], 'str_repeat' => $strRepeat, 'str_label' => $strRepeat.$v['title'],);
 
-                $tempArray = self::get ( $v['id'], $array, ($level + $add) );
+                $tempArray = self::get ( $v['id'], $array, ($level + $add), $add, $repeat);
                 if ($tempArray)
                 {
                     $newArray = array_merge ( $newArray, $tempArray );
@@ -215,6 +228,13 @@ class BlogCatalog extends \yii\db\ActiveRecord
         return $newArray;
     }
 
+    /**
+     * return all sub catalogs of a parent catalog
+     * @param int $parentId
+     * @param array $array
+     * @return array
+     */
+
     static public function getCatalog($parentId=0,$array = array())
     {
         $newArray=array();
@@ -223,7 +243,11 @@ class BlogCatalog extends \yii\db\ActiveRecord
             if ($v['parent_id']==$parentId)
             {
                 $newArray[$v['id']]=array(
-                    'text'=>$v['title'].' 导航['.($v['is_nav'] ? Module::t('common', 'CONSTANT_YES') : Module::t('common', 'CONSTANT_NO')).'] 排序['.$v['sort_order'].'] 类型['.($v['page_type'] == 'list' ? Module::t('common', 'PAGE_TYPE_LIST') : Module::t('common', 'PAGE_TYPE_PAGE')).'] 状态['.F::getStatus2($v['status']).'] [<a href="'.Yii::app()->createUrl('/catalog/update',array('id'=>$v['id'])).'">修改</a>][<a href="'.Yii::app()->createUrl('/catalog/create',array('id'=>$v['id'])).'">增加子菜单</a>]&nbsp;&nbsp[<a href="'.Yii::app()->createUrl('/catalog/delete',array('id'=>$v['id'])).'">删除</a>]',
+                    'text'=>$v['title'].' 导航['.($v['is_nav'] ? Module::t('common', 'CONSTANT_YES') : Module::t('common', 'CONSTANT_NO')).'] 排序['.$v['sort_order'].
+                        '] 类型['.($v['page_type'] == 'list' ? Module::t('common', 'PAGE_TYPE_LIST') : Module::t('common', 'PAGE_TYPE_PAGE')).'] 状态['.
+                        F::getStatus2($v['status']).'] [<a href="'.Yii::app()->createUrl('/catalog/update',array('id'=>$v['id'])).'">修改</a>][<a href="'
+                        .Yii::app()->createUrl('/catalog/create',array('id'=>$v['id'])).'">增加子菜单</a>]&nbsp;&nbsp[<a href="'.
+                        Yii::app()->createUrl('/catalog/delete',array('id'=>$v['id'])).'">删除</a>]',
                     //'children'=>array(),
                 );
 
