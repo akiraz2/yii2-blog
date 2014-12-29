@@ -11,8 +11,8 @@ use funson86\blog\Module;
 /* @var $form yii\widgets\ActiveForm */
 
 //fix the issue that it can assign itself as parent
-$pCatalog = ArrayHelper::merge([0 => Module::t('blog', 'Root Catalog')], ArrayHelper::map(BlogCatalog::get(0, BlogCatalog::find()->all()), 'id', 'str_label'));
-unset($pCatalog[$model->id]);
+$parentCatalog = ArrayHelper::merge([0 => Module::t('blog', 'Root Catalog')], ArrayHelper::map(BlogCatalog::get(0, BlogCatalog::find()->all()), 'id', 'str_label'));
+unset($parentCatalog[$model->id]);
 
 ?>
 
@@ -26,7 +26,7 @@ unset($pCatalog[$model->id]);
         ],
     ]); ?>
 
-    <?= $form->field($model, 'parent_id')->dropDownList($pCatalog) ?>
+    <?= $form->field($model, 'parent_id')->dropDownList($parentCatalog) ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => 255]) ?>
 
