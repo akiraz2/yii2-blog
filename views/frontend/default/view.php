@@ -32,7 +32,7 @@ echo $this->render('_view', [
     <?php endif; ?>
 
     <div id='reply'>
-        <h3><?= Module::t('blog', 'Leave a Comment'); ?></h3>
+        <h3><?= Module::t('blog', 'Write comments'); ?></h3>
         <?= $this->render('_form', [
             'model' => $comment,
         ]);?>

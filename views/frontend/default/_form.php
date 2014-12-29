@@ -22,7 +22,7 @@ use funson86\blog\Module;
 
     <div class="form-group">
         <label class="col-lg-1 control-label" for="">&nbsp;</label>
-        <?= Html::button(Module::t('blog', 'Add Comment'), ['class' => 'btn btn-success']) ?>
+        <?= Html::button(Module::t('blog', 'Add comments'), ['class' => 'btn btn-success']) ?>
     </div>
 
 
