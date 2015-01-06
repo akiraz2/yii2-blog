@@ -10,7 +10,8 @@ namespace funson86\blog\models;
 
 use funson86\blog\Module;
 
-class Status {
+class Status
+{
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
     const STATUS_DELETED = -1;
@@ -41,4 +42,4 @@ class Status {
         return isset($labels[$id]) ? $labels[$id] : null;
     }
 
-} 
+}
