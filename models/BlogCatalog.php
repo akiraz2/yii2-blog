@@ -279,7 +279,7 @@ class BlogCatalog extends \yii\db\ActiveRecord
         return $str;
     }
 
-    static public function getRootCatalogId($id=0,$array = array())
+    static public function getRootCatalogId($id = 0, $array = [])
     {
         if(0 == $id)
         {
@@ -288,13 +288,12 @@ class BlogCatalog extends \yii\db\ActiveRecord
 
         foreach ((array)$array as $v)
         {
-            if ($v['id']==$id)
-            {
+            if ($v['id'] == $id) {
                 $parentId = $v['parent_id'];
                 if(0 == $parentId)
                     return $id;
                 else
-                    return self::getRootCatalogId($parentId,$array);
+                    return self::getRootCatalogId($parentId, $array);
             }
         }
     }
