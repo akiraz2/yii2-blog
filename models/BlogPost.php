@@ -20,6 +20,7 @@ use yii\helpers\Html;
  * @property string $content
  * @property string $tags
  * @property string $surname
+ * @property string $banner
  * @property integer $click
  * @property integer $user_id
  * @property integer $status
@@ -62,8 +63,9 @@ class BlogPost extends \yii\db\ActiveRecord
         return [
             [['catalog_id', 'title', 'content', 'tags', 'surname', 'user_id'], 'required'],
             [['catalog_id', 'click', 'user_id', 'status'], 'integer'],
-            [['content'], 'string'],
+            [['brief', 'content'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
+            [['banner'], 'file', 'extensions' => 'jpg, png', 'mimeTypes' => 'image/jpeg, image/png',],
             [['title', 'tags', 'surname'], 'string', 'max' => 128]
         ];
     }
@@ -77,9 +79,11 @@ class BlogPost extends \yii\db\ActiveRecord
             'id' => Module::t('blog', 'ID'),
             'catalog_id' => Module::t('blog', 'Catalog ID'),
             'title' => Module::t('blog', 'Title'),
+            'brief' => Module::t('blog', 'Brief'),
             'content' => Module::t('blog', 'Content'),
             'tags' => Module::t('blog', 'Tags'),
             'surname' => Module::t('blog', 'Surname'),
+            'banner' => Module::t('blog', 'Banner'),
             'click' => Module::t('blog', 'Click'),
             'user_id' => Module::t('blog', 'User ID'),
             'status' => Module::t('blog', 'Status'),

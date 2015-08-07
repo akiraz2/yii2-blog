@@ -33,9 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => $model->catalog->title,
             ],
             'title',
+            'brief:ntext',
             'content:ntext',
             'tags',
             'surname',
+            'banner',
             'click',
             [
                 'attribute' => 'user_id',

@@ -2,6 +2,7 @@
 
 namespace funson86\blog\controllers\backend;
 
+use funson86\blog\models\Status;
 use Yii;
 use funson86\blog\models\BlogPost;
 use funson86\blog\models\BlogPostSearch;
@@ -9,6 +10,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\UploadedFile;
 
 /**
  * BlogPostController implements the CRUD actions for BlogPost model.
@@ -82,8 +84,22 @@ class BlogPostController extends Controller
         $model->loadDefaultValues();
         $model->user_id = Yii::$app->user->identity->id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->banner = UploadedFile::getInstance($model, 'banner');
+            if ($model->validate()) {
+                if ($model->banner) {
+                    $bannerName = Yii::$app->params['blogUploadPath'] . date('Ymdhis') . rand(1000, 9999) . '.' . $model->banner->extension;
+                    $model->banner->saveAs(Yii::getAlias('@frontend/web') . DIRECTORY_SEPARATOR . $bannerName);
+                    $model->banner = $bannerName;
+                }
+                $model->save(false);
+
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -102,9 +118,26 @@ class BlogPostController extends Controller
         //if(!Yii::$app->user->can('updatePost')) throw new HttpException(401, 'No Auth');
 
         $model = $this->findModel($id);
+        $oldBanner = $model->banner;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->banner = UploadedFile::getInstance($model, 'banner');
+            if ($model->validate()) {
+                if($model->banner){
+                    $bannerName = Yii::$app->params['blogUploadPath'] . date('Ymdhis') . rand(1000, 9999) . '.' . $model->banner->extension;
+                    $model->banner->saveAs(Yii::getAlias('@frontend/web') . DIRECTORY_SEPARATOR . $bannerName);
+                    $model->banner = $bannerName;
+                } else {
+                    $model->banner = $oldBanner;
+                }
+
+                $model->save(false);
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
+            }
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -124,7 +157,7 @@ class BlogPostController extends Controller
 
         //$this->findModel($id)->delete();
         $model = $this->findModel($id);
-        $model->status = BlogPost::STATUS_DELETED;
+        $model->status = Status::STATUS_DELETED;
         $model->save();
 
         return $this->redirect(['index']);

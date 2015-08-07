@@ -81,6 +81,7 @@ return [
     'Catalog ID' => '分类名称',
     'Add Sub Catelog'=>'增加子栏目',
     'User Id' => '用户',
+    'Brief' => '摘要',
     'Content' => '内容',
     'Tags' => '标签',
     'Click' => '点击数',
