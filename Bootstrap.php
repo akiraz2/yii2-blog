@@ -1,6 +1,11 @@
 <?php
+/**
+ * Project: yii2-blog for internal using
+ * Author: akiraz2
+ * Copyright (c) 2018.
+ */
 
-namespace funson86\blog;
+namespace akiraz2\blog;
 
 use yii\base\BootstrapInterface;
 
@@ -24,13 +29,13 @@ class Bootstrap implements BootstrapInterface
         )*/;
 
         // Add module I18N category.
-        if (!isset($app->i18n->translations['funson86/blog']) && !isset($app->i18n->translations['funson86/*'])) {
-            $app->i18n->translations['funson86/blog'] = [
+        if (!isset($app->i18n->translations['akiraz2/blog']) && !isset($app->i18n->translations['akiraz2/*'])) {
+            $app->i18n->translations['akiraz2/blog'] = [
                 'class' => 'yii\i18n\PhpMessageSource',
-                'basePath' => '@funson86/blog/messages',
+                'basePath' => '@akiraz2/blog/messages',
                 'forceTranslation' => true,
                 'fileMap' => [
-                    'funson86/blog' => 'blog.php',
+                    'akiraz2/blog' => 'blog.php',
                 ]
             ];
         }

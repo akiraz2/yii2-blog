@@ -1,7 +1,13 @@
 <?php
 /**
+ * Project: yii2-blog for internal using
+ * Author: akiraz2
+ * Copyright (c) 2018.
+ */
+
+/**
  * Created by PhpStorm.
- * User: funson
+ * User: akiraz2
  * Date: 2014/10/25
  * Time: 10:33
  */

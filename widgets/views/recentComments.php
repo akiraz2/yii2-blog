@@ -1,4 +1,10 @@
 <?php
+/**
+ * Project: yii2-blog for internal using
+ * Author: akiraz2
+ * Copyright (c) 2018.
+ */
+
 use yii\helpers\Html;
 ?>
 <div class="portlet">

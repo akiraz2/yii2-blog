@@ -1,6 +1,6 @@
 Yii2 Blog
 =========
-Yii2 Blog for other application, especially for [Yii2 Adminlte](https://github.com/funson86/yii2-adminlte)
+Yii2 Blog for other application, cloned from https://github.com/funson86/yii2-blog
 
 
 
@@ -12,13 +12,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist funson86/yii2-blog "dev-master"
+php composer.phar require --prefer-dist akiraz2/yii2-blog "dev-master"
 ```
 
 or add
 
 ```
-"funson86/yii2-blog": "*"
+"akiraz2/yii2-blog": "*"
 ```
 
 to the require section of your `composer.json` file.
@@ -30,12 +30,12 @@ to the require section of your `composer.json` file.
 Migration run
 
 ```php
-yii migrate --migrationPath=@funson86/blog/migrations
+yii migrate --migrationPath=@akiraz2/blog/migrations
 ```
 
 ### Config url rewrite in /common/config/main.php
 ```php
-    'timeZone' => 'Asia/Shanghai', //time zone affect the formatter datetime format
+    'timeZone' => 'Europe/Moscow', //time zone affect the formatter datetime format
     'components' => [
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -49,9 +49,9 @@ yii migrate --migrationPath=@funson86/blog/migrations
         'formatter' => [ //for the showing of date datetime
             'dateFormat' => 'yyyy-MM-dd',
             'datetimeFormat' => 'yyyy-MM-dd HH:mm:ss',
-            'decimalSeparator' => ',',
+            'decimalSeparator' => '.',
             'thousandSeparator' => ' ',
-            'currencyCode' => 'CNY',
+            'currencyCode' => 'RUB',
         ],
     ],
 ```
@@ -61,8 +61,8 @@ yii migrate --migrationPath=@funson86/blog/migrations
 ```php
     'modules' => [
         'blog' => [
-            'class' => 'funson86\blog\Module',
-            'controllerNamespace' => 'funson86\blog\controllers\backend'
+            'class' => 'akiraz2\blog\Module',
+            'controllerNamespace' => 'akiraz2\blog\controllers\backend'
         ],
     ],
 ```
@@ -73,8 +73,8 @@ yii migrate --migrationPath=@funson86/blog/migrations
     'defaultRoute' => 'blog', //set blog as default route
     'modules' => [
         'blog' => [
-            'class' => 'funson86\blog\Module',
-            'controllerNamespace' => 'funson86\blog\controllers\frontend'
+            'class' => 'akiraz2\blog\Module',
+            'controllerNamespace' => 'akiraz2\blog\controllers\frontend'
         ],
     ],
 ```
@@ -82,22 +82,22 @@ yii migrate --migrationPath=@funson86/blog/migrations
 ### Add yii2-blog params in /common/config/params.php.
 ```php
 return [
-    'blogTitle' => 'HikeBlog',
+    'blogTitle' => 'SimpleBlog',
     'blogTitleSeo' => 'Simple Blog based on Yii2',
-    'blogFooter' => 'Copyright &copy; ' . date('Y') . ' by ahuasheng on Yii2. All Rights Reserved.',
+    'blogFooter' => 'Copyright &copy; ' . date('Y') . ' by akiraz on Yii2. All Rights Reserved.',
     'blogPostPageCount' => '10',
     'blogLinks' => [
         'Google' => 'http://www.google.com',
-        'Funson86 Blog' => 'http://github.com/funson86/yii2-blog',
+        'akiraz2 Blog' => 'http://github.com/akiraz2/yii2-blog',
     ],
-    'blogUploadPath' => 'upload/', //default to frontend/web/upload
+    'blogUploadPath' => '/img/blog/upload/', //default to frontend/web/upload
 ];
 ```
 
 ### Access Url
-1. backend : http://you-domain/backend/web/blog
-   - Catalog : http://you-domain/backend/web/blog/blog-catalog
-   - Post : http://you-domain/backend/web/blog/blog-post
-   - Comment : http://you-domain/backend/web/blog/blog-comment
-   - Tag : http://you-domain/backend/web/blog/blog-tag
-2. frontend : http://you-domain/fontend/web/blog
+1. backend : http://backend.you-domain/blog
+   - Catalog : http://backend.you-domain/blog/blog-catalog
+   - Post : http://backend.you-domain/blog/blog-post
+   - Comment : http://backend.you-domain/blog/blog-comment
+   - Tag : http://backend.you-domain/blog/blog-tag
+2. frontend : http://you-domain/blog

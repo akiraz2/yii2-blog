@@ -1,11 +1,16 @@
 <?php
+/**
+ * Project: yii2-blog for internal using
+ * Author: akiraz2
+ * Copyright (c) 2018.
+ */
 
-namespace funson86\blog\controllers\backend;
+namespace akiraz2\blog\controllers\backend;
 
-use funson86\blog\models\Status;
+use akiraz2\blog\models\Status;
 use Yii;
-use funson86\blog\models\BlogPost;
-use funson86\blog\models\BlogPostSearch;
+use akiraz2\blog\models\BlogPost;
+use akiraz2\blog\models\BlogPostSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

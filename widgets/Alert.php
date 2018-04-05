@@ -1,11 +1,11 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * Project: yii2-blog for internal using
+ * Author: akiraz2
+ * Copyright (c) 2018.
  */
 
-namespace funson86\blog\widgets;
+namespace akiraz2\blog\widgets;
 
 /**
  * Alert widget renders a message from session flash. All flash messages are displayed

@@ -1,8 +1,14 @@
 <?php
-namespace funson86\blog\widgets;
+/**
+ * Project: yii2-blog for internal using
+ * Author: akiraz2
+ * Copyright (c) 2018.
+ */
+
+namespace akiraz2\blog\widgets;
 
 use Yii;
-use funson86\blog\models\BlogTag;
+use akiraz2\blog\models\BlogTag;
 use yii\base\Widget;
 use yii\helpers\Html;
 

@@ -1,8 +1,14 @@
 <?php
+/**
+ * Project: yii2-blog for internal using
+ * Author: akiraz2
+ * Copyright (c) 2018.
+ */
+
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
 use yii\widgets\ActiveForm;
-use funson86\blog\Module;
+use akiraz2\blog\Module;
 ?>
 
 <div class="form">

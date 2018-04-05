@@ -1,4 +1,10 @@
 <?php
+/**
+ * Project: yii2-blog for internal using
+ * Author: akiraz2
+ * Copyright (c) 2018.
+ */
+
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
 ?>
@@ -9,7 +15,7 @@ use yii\helpers\StringHelper;
         <div class="author">
             <?= Html::a("#{$comment->id}", $comment->getUrl($post), [
                 'class' => 'cid',
-                'title' => \funson86\blog\Module::t('blog', 'Permalink to this comment'),
+                'title' => \akiraz2\blog\Module::t('blog', 'Permalink to this comment'),
             ]); ?>
             <?= $comment->authorLink; ?>&nbsp;<span><?= Yii::$app->formatter->asDate($comment->created_at); ?>
         </div>

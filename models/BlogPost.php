@@ -1,12 +1,17 @@
 <?php
+/**
+ * Project: yii2-blog for internal using
+ * Author: akiraz2
+ * Copyright (c) 2018.
+ */
 
-namespace funson86\blog\models;
+namespace akiraz2\blog\models;
 
 use common\models\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
-use funson86\blog\Module;
+use akiraz2\blog\Module;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 

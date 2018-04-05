@@ -1,11 +1,16 @@
 <?php
+/**
+ * Project: yii2-blog for internal using
+ * Author: akiraz2
+ * Copyright (c) 2018.
+ */
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use funson86\blog\Module;
+use akiraz2\blog\Module;
 
 /* @var $this yii\web\View */
-/* @var $model funson86\blog\models\BlogCatalogSearch */
+/* @var $model akiraz2\blog\models\BlogCatalogSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

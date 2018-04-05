@@ -1,16 +1,22 @@
 <?php
+/**
+ * Project: yii2-blog for internal using
+ * Author: akiraz2
+ * Copyright (c) 2018.
+ */
+
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-use funson86\blog\assets\AppAsset;
-use funson86\blog\widgets\Alert;
-use funson86\blog\widgets\Search;
-use funson86\blog\widgets\TagCloud;
-use funson86\blog\widgets\Links;
-use funson86\blog\widgets\RecentComments;
-use funson86\blog\widgets\SiteStat;
-use funson86\blog\widgets\RecentPosts;
+use akiraz2\blog\assets\AppAsset;
+use akiraz2\blog\widgets\Alert;
+use akiraz2\blog\widgets\Search;
+use akiraz2\blog\widgets\TagCloud;
+use akiraz2\blog\widgets\Links;
+use akiraz2\blog\widgets\RecentComments;
+use akiraz2\blog\widgets\SiteStat;
+use akiraz2\blog\widgets\RecentPosts;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -68,7 +74,7 @@ AppAsset::register($this);
                 'maxTags' => 5,
             ]) ?>
 
-            <?= \funson86\blog\widgets\RecentPosts::widget([
+            <?= \akiraz2\blog\widgets\RecentPosts::widget([
                 'title' => '<i class="icon-st"></i>最新博文',
                 'maxPosts' => 5,
             ]) ?>

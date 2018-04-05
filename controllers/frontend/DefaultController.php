@@ -1,15 +1,20 @@
 <?php
+/**
+ * Project: yii2-blog for internal using
+ * Author: akiraz2
+ * Copyright (c) 2018.
+ */
 
-namespace funson86\blog\controllers\frontend;
+namespace akiraz2\blog\controllers\frontend;
 
 use Yii;
 use yii\data\Pagination;
 use yii\web\Controller;
-use funson86\blog\models\BlogCatalog;
-use funson86\blog\models\BlogPost;
-use funson86\blog\models\BlogComment;
-use funson86\blog\models\Status;
-use funson86\blog\models\BlogTag;
+use akiraz2\blog\models\BlogCatalog;
+use akiraz2\blog\models\BlogPost;
+use akiraz2\blog\models\BlogComment;
+use akiraz2\blog\models\Status;
+use akiraz2\blog\models\BlogTag;
 use yii\widgets\ActiveForm;
 
 class DefaultController extends Controller

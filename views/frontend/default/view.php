@@ -1,7 +1,13 @@
 <?php
+/**
+ * Project: yii2-blog for internal using
+ * Author: akiraz2
+ * Copyright (c) 2018.
+ */
+
 use yii\helpers\Html;
 use yii\widgets\ListView;
-use funson86\blog\Module;
+use akiraz2\blog\Module;
 
 $this->title = Yii::$app->params['blogTitle'] . ' - ' . Yii::$app->params['blogTitleSeo'];
 $this->params['breadcrumbs'][] = '文章';

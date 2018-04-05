@@ -1,10 +1,15 @@
 <?php
+/**
+ * Project: yii2-blog for internal using
+ * Author: akiraz2
+ * Copyright (c) 2018.
+ */
 
-namespace funson86\blog\controllers\backend;
+namespace akiraz2\blog\controllers\backend;
 
 use Yii;
-use funson86\blog\models\BlogTag;
-use funson86\blog\models\BlogTagSearch;
+use akiraz2\blog\models\BlogTag;
+use akiraz2\blog\models\BlogTagSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

@@ -1,11 +1,16 @@
 <?php
+/**
+ * Project: yii2-blog for internal using
+ * Author: akiraz2
+ * Copyright (c) 2018.
+ */
 
-namespace funson86\blog;
+namespace akiraz2\blog;
 use Yii;
 
 class Module extends \yii\base\Module
 {
-    public $controllerNamespace = 'funson86\blog\controllers\frontend';
+    public $controllerNamespace = 'akiraz2\blog\controllers\frontend';
 
     protected $_isBackend;
 
@@ -14,13 +19,13 @@ class Module extends \yii\base\Module
         parent::init();
 
         if ($this->getIsBackend() === true) {
-            $this->setViewPath('@funson86/blog/views/backend');
+            $this->setViewPath('@akiraz2/blog/views/backend');
         } elseif (isset(Yii::$app->params['blogTheme'])) {
             $this->setViewPath('@frontend/themes/blog');
             $this->setLayoutPath('@frontend/themes/blog/layouts');
         } else {
-            $this->setViewPath('@funson86/blog/views/frontend');
-            $this->setLayoutPath('@funson86/blog/views/frontend/layouts');
+            $this->setViewPath('@akiraz2/blog/views/frontend');
+            $this->setLayoutPath('@akiraz2/blog/views/frontend/layouts');
         }
     }
 
@@ -52,7 +57,7 @@ class Module extends \yii\base\Module
      */
     public static function t($category, $message, $params = [], $language = null)
     {
-        return Yii::t('funson86/' . $category, $message, $params, $language);
+        return Yii::t('akiraz2/' . $category, $message, $params, $language);
     }
 
     /**

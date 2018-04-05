@@ -1,10 +1,15 @@
 <?php
+/**
+ * Project: yii2-blog for internal using
+ * Author: akiraz2
+ * Copyright (c) 2018.
+ */
 
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
-use funson86\blog\Module;
-use funson86\blog\models\Status;
+use akiraz2\blog\Module;
+use akiraz2\blog\models\Status;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\blog\models\BlogPostSearch */
@@ -35,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Html::activeDropDownList(
                         $searchModel,
                         'catalog_id',
-                        \funson86\blog\models\BlogPost::getArrayCatalog(),
+                        \akiraz2\blog\models\BlogPost::getArrayCatalog(),
                         ['class' => 'form-control', 'prompt' => Module::t('blog', 'Please Filter')]
                     )
             ],

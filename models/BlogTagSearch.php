@@ -1,14 +1,19 @@
 <?php
+/**
+ * Project: yii2-blog for internal using
+ * Author: akiraz2
+ * Copyright (c) 2018.
+ */
 
-namespace funson86\blog\models;
+namespace akiraz2\blog\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use funson86\blog\models\BlogTag;
+use akiraz2\blog\models\BlogTag;
 
 /**
- * BlogTagSearch represents the model behind the search form about `funson86\blog\models\BlogTag`.
+ * BlogTagSearch represents the model behind the search form about `akiraz2\blog\models\BlogTag`.
  */
 class BlogTagSearch extends BlogTag
 {

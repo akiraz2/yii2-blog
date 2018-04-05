@@ -1,15 +1,25 @@
 <?php
 /**
+ * Project: yii2-blog for internal using
+ * Author: akiraz2
+ * Copyright (c) 2018.
+ */
+
+/**
  * Common Status Class
- * User: funson
+ * User: akiraz2
  * Date: 2014/06/25
  * Time: 9:50
  */
 
-namespace funson86\blog\models;
+namespace akiraz2\blog\models;
 
-use funson86\blog\Module;
+use akiraz2\blog\Module;
 
+/**
+ * Class Status
+ * @package akiraz2\blog\models
+ */
 class Status
 {
     const STATUS_INACTIVE = 0;

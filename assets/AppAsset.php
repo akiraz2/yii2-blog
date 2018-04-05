@@ -1,11 +1,11 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * Project: yii2-blog for internal using
+ * Author: akiraz2
+ * Copyright (c) 2018.
  */
 
-namespace funson86\blog\assets;
+namespace akiraz2\blog\assets;
 
 use Yii;
 use yii\web\AssetBundle;
@@ -16,7 +16,7 @@ use yii\web\AssetBundle;
  */
 class AppAsset extends AssetBundle
 {
-    public $sourcePath = '@funson86/blog/assets/default';
+    public $sourcePath = '@akiraz2/blog/assets/default';
     public $baseUrl = '@web';
     public $css = [
         'css/screen.css',
