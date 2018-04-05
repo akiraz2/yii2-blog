@@ -8,20 +8,20 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
-use \akiraz2\blog\models\BlogCatalog;
+use \akiraz2\blog\models\BlogCategory;
 use akiraz2\blog\Module;
 
 /* @var $this yii\web\View */
-/* @var $model akiraz2\blog\models\BlogCatalog */
+/* @var $model akiraz2\blog\models\BlogCategory */
 /* @var $form yii\widgets\ActiveForm */
 
 //fix the issue that it can assign itself as parent
-$parentCatalog = ArrayHelper::merge([0 => Module::t('blog', 'Root Catalog')], ArrayHelper::map(BlogCatalog::get(0, BlogCatalog::find()->all()), 'id', 'str_label'));
-unset($parentCatalog[$model->id]);
+$parentCategory = ArrayHelper::merge([0 => Module::t('blog', 'Root Category')], ArrayHelper::map(BlogCategory::get(0, BlogCategory::find()->all()), 'id', 'str_label'));
+unset($parentCategory[$model->id]);
 
 ?>
 
-<div class="blog-catalog-form">
+<div class="blog-category-form">
 
     <?php $form = ActiveForm::begin([
         'options'=>['class' => 'form-horizontal', 'enctype'=>'multipart/form-data'],
@@ -31,15 +31,15 @@ unset($parentCatalog[$model->id]);
         ],
     ]); ?>
 
-    <?= $form->field($model, 'parent_id')->dropDownList($parentCatalog) ?>
+    <?= $form->field($model, 'parent_id')->dropDownList($parentCategory) ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'surname')->textInput(['maxlength' => 128]) ?>
+    <?= $form->field($model, 'slug')->textInput(['maxlength' => 128]) ?>
 
     <?= $form->field($model, 'banner')->fileInput() ?>
 
-    <?= $form->field($model, 'is_nav')->dropDownList(BlogCatalog::getArrayIsNav()) ?>
+    <?= $form->field($model, 'is_nav')->dropDownList(BlogCategory::getArrayIsNav()) ?>
 
     <?= $form->field($model, 'sort_order')->textInput() ?>
 

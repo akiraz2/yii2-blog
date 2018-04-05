@@ -8,8 +8,8 @@
 namespace akiraz2\blog\controllers\backend;
 
 use Yii;
-use akiraz2\blog\models\BlogCatalog;
-use akiraz2\blog\models\BlogCatalogSearch;
+use akiraz2\blog\models\BlogCategory;
+use akiraz2\blog\models\BlogCategorySearch;
 use yii\helpers\FileHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -18,9 +18,9 @@ use yii\filters\AccessControl;
 use yii\web\UploadedFile;
 
 /**
- * BlogCatalogController implements the CRUD actions for BlogCatalog model.
+ * BlogCategoryController implements the CRUD actions for BlogCategory model.
  */
-class BlogCatalogController extends Controller
+class BlogCategoryController extends Controller
 {
     public function behaviors()
     {
@@ -44,15 +44,15 @@ class BlogCatalogController extends Controller
     }
 
     /**
-     * Lists all BlogCatalog models.
+     * Lists all BlogCategory models.
      * @return mixed
      */
     public function actionIndex()
     {
         //if(!Yii::$app->user->can('readPost')) throw new HttpException(403, 'No Auth');
 
-        $searchModel = new BlogCatalogSearch();
-        $dataProvider = BlogCatalog::get(0, BlogCatalog::find()->all());
+        $searchModel = new BlogCategorySearch();
+        $dataProvider = BlogCategory::get(0, BlogCategory::find()->all());
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -61,7 +61,7 @@ class BlogCatalogController extends Controller
     }
 
     /**
-     * Displays a single BlogCatalog model.
+     * Displays a single BlogCategory model.
      * @param integer $id
      * @return mixed
      */
@@ -75,7 +75,7 @@ class BlogCatalogController extends Controller
     }
 
     /**
-     * Creates a new BlogCatalog model.
+     * Creates a new BlogCategory model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
@@ -83,7 +83,7 @@ class BlogCatalogController extends Controller
     {
         //if(!Yii::$app->user->can('createPost')) throw new HttpException(401, 'No Auth');
 
-        $model = new BlogCatalog();
+        $model = new BlogCategory();
         $model->loadDefaultValues();
 
         if(isset($_GET['parent_id']) && $_GET['parent_id'] > 0)
@@ -113,7 +113,7 @@ class BlogCatalogController extends Controller
     }
 
     /**
-     * Updates an existing BlogCatalog model.
+     * Updates an existing BlogCategory model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -151,7 +151,7 @@ class BlogCatalogController extends Controller
     }
 
     /**
-     * Deletes an existing BlogCatalog model.
+     * Deletes an existing BlogCategory model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -162,22 +162,22 @@ class BlogCatalogController extends Controller
 
         $this->findModel($id)->delete();
         //$model = $this->findModel($id);
-        //$model->status = BlogCatalog::STATUS_DELETED;
+        //$model->status = BlogCategory::STATUS_DELETED;
         //$model->save();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the BlogCatalog model based on its primary key value.
+     * Finds the BlogCategory model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return BlogCatalog the loaded model
+     * @return BlogCategory the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = BlogCatalog::findOne($id)) !== null) {
+        if (($model = BlogCategory::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

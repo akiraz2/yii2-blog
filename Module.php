@@ -7,6 +7,7 @@
 
 namespace akiraz2\blog;
 use Yii;
+use yii\i18n\PhpMessageSource;
 
 class Module extends \yii\base\Module
 {
@@ -14,6 +15,9 @@ class Module extends \yii\base\Module
 
     protected $_isBackend;
 
+    /**
+     *
+     */
     public function init()
     {
         parent::init();

@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'catalog_id') ?>
+    <?= $form->field($model, 'category_id') ?>
 
     <?= $form->field($model, 'title') ?>
 
@@ -31,7 +31,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'tags') ?>
 
-    <?php // echo $form->field($model, 'surname') ?>
+    <?php // echo $form->field($model, 'slug') ?>
 
     <?php // echo $form->field($model, 'click') ?>
 

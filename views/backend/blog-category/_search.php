@@ -10,11 +10,11 @@ use yii\widgets\ActiveForm;
 use akiraz2\blog\Module;
 
 /* @var $this yii\web\View */
-/* @var $model akiraz2\blog\models\BlogCatalogSearch */
+/* @var $model akiraz2\blog\models\BlogCategorySearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="blog-catalog-search">
+<div class="blog-category-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -27,7 +27,7 @@ use akiraz2\blog\Module;
 
     <?= $form->field($model, 'title') ?>
 
-    <?= $form->field($model, 'surname') ?>
+    <?= $form->field($model, 'slug') ?>
 
     <?= $form->field($model, 'banner') ?>
 

@@ -23,8 +23,8 @@ class BlogPostSearch extends BlogPost
     public function rules()
     {
         return [
-            [['id', 'catalog_id', 'click', 'user_id', 'status'], 'integer'],
-            [['title', 'content', 'tags', 'surname', 'created_at', 'updated_at'], 'safe'],
+            [['id', 'category_id', 'click', 'user_id', 'status'], 'integer'],
+            [['title', 'content', 'tags', 'slug', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -60,7 +60,7 @@ class BlogPostSearch extends BlogPost
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'catalog_id' => $this->catalog_id,
+            'category_id' => $this->category_id,
             'click' => $this->click,
             'user_id' => $this->user_id,
             'status' => $this->status,
@@ -71,7 +71,7 @@ class BlogPostSearch extends BlogPost
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'content', $this->content])
             ->andFilterWhere(['like', 'tags', $this->tags])
-            ->andFilterWhere(['like', 'surname', $this->surname]);
+            ->andFilterWhere(['like', 'slug', $this->slug]);
 
         return $dataProvider;
     }

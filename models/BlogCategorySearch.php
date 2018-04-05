@@ -10,12 +10,12 @@ namespace akiraz2\blog\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use akiraz2\blog\models\BlogCatalog;
+use akiraz2\blog\models\BlogCategory;
 
 /**
- * BlogCatalogSearch represents the model behind the search form about `akiraz2\blog\models\BlogCatalog`.
+ * BlogCategorySearch represents the model behind the search form about `akiraz2\blog\models\BlogCategory`.
  */
-class BlogCatalogSearch extends BlogCatalog
+class BlogCategorySearch extends BlogCategory
 {
     /**
      * @inheritdoc
@@ -24,7 +24,7 @@ class BlogCatalogSearch extends BlogCatalog
     {
         return [
             [['id', 'parent_id', 'is_nav', 'sort_order', 'page_size', 'status'], 'integer'],
-            [['title', 'surname', 'banner', 'template', 'redirect_url', 'create_time', 'update_time'], 'safe'],
+            [['title', 'slug', 'banner', 'template', 'redirect_url', 'create_time', 'update_time'], 'safe'],
         ];
     }
 
@@ -46,7 +46,7 @@ class BlogCatalogSearch extends BlogCatalog
      */
     public function search($params)
     {
-        $query = BlogCatalog::find();
+        $query = BlogCategory::find();
         
         $query->orderBy(['sort_order' => SORT_ASC, 'create_time' => SORT_DESC]);
 
@@ -70,7 +70,7 @@ class BlogCatalogSearch extends BlogCatalog
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'surname', $this->surname])
+            ->andFilterWhere(['like', 'slug', $this->slug])
             ->andFilterWhere(['like', 'banner', $this->banner])
             ->andFilterWhere(['like', 'template', $this->template])
             ->andFilterWhere(['like', 'redirect_url', $this->redirect_url]);

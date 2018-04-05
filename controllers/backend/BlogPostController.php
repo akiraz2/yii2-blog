@@ -53,12 +53,12 @@ class BlogPostController extends Controller
 
         $searchModel = new BlogPostSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $arrayCatalog = BlogPost::getArrayCatalog();
+        $arrayCategory = BlogPost::getArrayCategory();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'arrayCatalog' => $arrayCatalog,
+            'arrayCategory' => $arrayCategory,
         ]);
     }
 

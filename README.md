@@ -96,7 +96,7 @@ return [
 
 ### Access Url
 1. backend : http://backend.you-domain/blog
-   - Catalog : http://backend.you-domain/blog/blog-catalog
+   - Category : http://backend.you-domain/blog/blog-category
    - Post : http://backend.you-domain/blog/blog-post
    - Comment : http://backend.you-domain/blog/blog-comment
    - Tag : http://backend.you-domain/blog/blog-tag

@@ -9,7 +9,7 @@ use yii\helpers\Html;
 use akiraz2\blog\Module;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
-use akiraz2\blog\models\BlogCatalog;
+use akiraz2\blog\models\BlogCategory;
 use kartik\markdown\MarkdownEditor;
 use mihaildev\ckeditor\CKEditor;
 
@@ -28,7 +28,7 @@ use mihaildev\ckeditor\CKEditor;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'catalog_id')->dropDownList(ArrayHelper::map(BlogCatalog::get(0, BlogCatalog::find()->all()), 'id', 'str_label')) ?>
+    <?= $form->field($model, 'category_id')->dropDownList(ArrayHelper::map(BlogCategory::get(0, BlogCategory::find()->all()), 'id', 'str_label')) ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => 128]) ?>
 
@@ -43,7 +43,7 @@ use mihaildev\ckeditor\CKEditor;
 
     <?= $form->field($model, 'tags')->textInput(['maxlength' => 128]) ?>
 
-    <?= $form->field($model, 'surname')->textInput(['maxlength' => 128]) ?>
+    <?= $form->field($model, 'slug')->textInput(['maxlength' => 128]) ?>
 
     <?= $form->field($model, 'banner')->fileInput() ?>
 

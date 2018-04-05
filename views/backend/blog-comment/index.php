@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 /*'filter' => Html::activeDropDownList(
                     $searchModel,
                     'post_id',
-                    \akiraz2\blog\models\BlogPost::getArrayCatalog(),
+                    \akiraz2\blog\models\BlogPost::getArrayCategory(),
                     ['class' => 'form-control', 'prompt' => Module::t('blog', 'Please Filter')]
                 )*/
             ],

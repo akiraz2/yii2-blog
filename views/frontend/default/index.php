@@ -13,7 +13,7 @@ $this->title = Yii::$app->params['blogTitle'] . ' - ' . Yii::$app->params['blogT
 $this->params['breadcrumbs'][] = '文章';
 
 /*$this->breadcrumbs=[
-    //$post->catalog->title => Yii::app()->createUrl('post/catalog', array('id'=>$post->catalog->id, 'surname'=>$post->catalog->surname)),
+    //$post->category->title => Yii::app()->createUrl('post/category', array('id'=>$post->category->id, 'slug'=>$post->category->slug)),
     '文章',
 ];*/
 

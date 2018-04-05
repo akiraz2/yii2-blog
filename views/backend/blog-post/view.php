@@ -34,14 +34,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             [
-                'attribute' => 'catalog_id',
-                'value' => $model->catalog->title,
+                'attribute' => 'category_id',
+                'value' => $model->category->title,
             ],
             'title',
             'brief:ntext',
             'content:ntext',
             'tags',
-            'surname',
+            'slug',
             'banner',
             'click',
             [

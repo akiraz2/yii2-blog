@@ -9,6 +9,7 @@ namespace akiraz2\blog\models;
 
 use common\models\User;
 use Yii;
+use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 use akiraz2\blog\Module;
@@ -20,11 +21,11 @@ use yii\helpers\Html;
  * This is the model class for table "blog_post".
  *
  * @property integer $id
- * @property integer $catalog_id
+ * @property integer $category_id
  * @property string $title
  * @property string $content
  * @property string $tags
- * @property string $surname
+ * @property string $slug
  * @property string $banner
  * @property integer $click
  * @property integer $user_id
@@ -33,7 +34,7 @@ use yii\helpers\Html;
  * @property integer $updated_at
  *
  * @property BlogComment[] $blogComments
- * @property BlogCatalog $catalog
+ * @property BlogCategory $category
  */
 class BlogPost extends \yii\db\ActiveRecord
 {
@@ -56,7 +57,12 @@ class BlogPost extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            'class' => TimestampBehavior::className(),
+            'class' => TimestampBehavior::class,
+            [
+                'class' => SluggableBehavior::class,
+                'attribute' => 'title',
+                'slugAttribute' => 'slug'
+            ]
         ];
     }
 
@@ -66,12 +72,12 @@ class BlogPost extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['catalog_id', 'title', 'content', 'tags', 'surname', 'user_id'], 'required'],
-            [['catalog_id', 'click', 'user_id', 'status'], 'integer'],
+            [['category_id', 'title', 'content', 'tags', 'slug', 'user_id'], 'required'],
+            [['category_id', 'click', 'user_id', 'status'], 'integer'],
             [['brief', 'content'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['banner'], 'file', 'extensions' => 'jpg, png', 'mimeTypes' => 'image/jpeg, image/png',],
-            [['title', 'tags', 'surname'], 'string', 'max' => 128]
+            [['title', 'tags', 'slug'], 'string', 'max' => 128]
         ];
     }
 
@@ -82,12 +88,12 @@ class BlogPost extends \yii\db\ActiveRecord
     {
         return [
             'id' => Module::t('blog', 'ID'),
-            'catalog_id' => Module::t('blog', 'Catalog ID'),
+            'category_id' => Module::t('blog', 'Category ID'),
             'title' => Module::t('blog', 'Title'),
             'brief' => Module::t('blog', 'Brief'),
             'content' => Module::t('blog', 'Content'),
             'tags' => Module::t('blog', 'Tags'),
-            'surname' => Module::t('blog', 'Surname'),
+            'slug' => Module::t('blog', 'Slug'),
             'banner' => Module::t('blog', 'Banner'),
             'click' => Module::t('blog', 'Click'),
             'user_id' => Module::t('blog', 'User ID'),
@@ -114,9 +120,9 @@ class BlogPost extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCatalog()
+    public function getCategory()
     {
-        return $this->hasOne(BlogCatalog::className(), ['id' => 'catalog_id']);
+        return $this->hasOne(BlogCategory::className(), ['id' => 'category_id']);
     }
 
     /**
@@ -189,9 +195,9 @@ class BlogPost extends \yii\db\ActiveRecord
     /**
      * Normalizes the user-entered tags.
      */
-    public static function getArrayCatalog()
+    public static function getArrayCategory()
     {
-        return ArrayHelper::map(BlogCatalog::find()->all(), 'id', 'title');
+        return ArrayHelper::map(BlogCategory::find()->all(), 'id', 'title');
     }
 
     /**
@@ -207,7 +213,7 @@ class BlogPost extends \yii\db\ActiveRecord
      */
     public function getUrl()
     {
-        return Yii::$app->getUrlManager()->createUrl(['blog/default/view', 'id' => $this->id, 'surname' => $this->surname]);
+        return Yii::$app->getUrlManager()->createUrl(['blog/default/view', 'id' => $this->id, 'slug' => $this->slug]);
     }
 
     /**

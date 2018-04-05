@@ -10,13 +10,13 @@ use yii\widgets\DetailView;
 use akiraz2\blog\Module;
 
 /* @var $this yii\web\View */
-/* @var $model akiraz2\blog\models\BlogCatalog */
+/* @var $model akiraz2\blog\models\BlogCategory */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Module::t('blog', 'Blog Catalogs'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Module::t('blog', 'Blog Categorys'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="blog-catalog-view">
+<div class="blog-category-view">
 
     <p>
         <?= Html::a(Module::t('blog', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -35,10 +35,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             [
                 'attribute' => 'parent_id',
-                'value' => $model->parent_id ? $model->parent->title : Module::t('blog', 'Root Catalog'),
+                'value' => $model->parent_id ? $model->parent->title : Module::t('blog', 'Root Category'),
             ],
             'title',
-            'surname',
+            'slug',
             'banner',
             [
                 'attribute' => 'is_nav',

@@ -10,7 +10,7 @@ namespace akiraz2\blog\controllers\frontend;
 use Yii;
 use yii\data\Pagination;
 use yii\web\Controller;
-use akiraz2\blog\models\BlogCatalog;
+use akiraz2\blog\models\BlogCategory;
 use akiraz2\blog\models\BlogPost;
 use akiraz2\blog\models\BlogComment;
 use akiraz2\blog\models\Status;
@@ -40,20 +40,20 @@ class DefaultController extends Controller
 
             //menu
             $id = isset($_GET['id']) ? $_GET['id'] : 0;
-            $rootId = ($id>0) ? BlogCatalog::getRootCatalogId($id, BlogCatalog::find()->all()) : 0;
-            $allCatalog = BlogCatalog::findAll([
+            $rootId = ($id>0) ? BlogCategory::getRootCategoryId($id, BlogCategory::find()->all()) : 0;
+            $allCategory = BlogCategory::findAll([
                 'parent_id' => 0
             ]);
-            foreach($allCatalog as $catalog)
+            foreach($allCategory as $category)
             {
-                $item = ['label'=>$catalog->title, 'active'=>($catalog->id == $rootId)];
-                if($catalog->redirect_url)
+                $item = ['label'=>$category->title, 'active'=>($category->id == $rootId)];
+                if($category->redirect_url)
                 {// redirect to other site
-                    $item['url'] = $catalog->redirect_url;
+                    $item['url'] = $category->redirect_url;
                 }
                 else
                 {
-                    $item['url'] = Yii::$app->getUrlManager()->createUrl(['/blog/default/catalog/','id'=>$catalog->id, 'surname'=>$catalog->surname]);
+                    $item['url'] = Yii::$app->getUrlManager()->createUrl(['/blog/default/category/','id'=>$category->id, 'slug'=>$category->slug]);
                 }
 
                 if(!empty($item))
@@ -105,14 +105,14 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function actionCatalog()
+    public function actionCategory()
     {
         if(Yii::$app->request->get('id') && Yii::$app->request->get('id') > 0)
         {
             $query = BlogPost::find();
             $query->where([
                 'status' => Status::STATUS_ACTIVE,
-                'catalog_id' => Yii::$app->request->get('id'),
+                'category_id' => Yii::$app->request->get('id'),
             ]);
         }
         else

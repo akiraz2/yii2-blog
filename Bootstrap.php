@@ -8,6 +8,7 @@
 namespace akiraz2\blog;
 
 use yii\base\BootstrapInterface;
+use yii\i18n\PhpMessageSource;
 
 /**
  * Blogs module bootstrap class.
@@ -29,10 +30,10 @@ class Bootstrap implements BootstrapInterface
         )*/;
 
         // Add module I18N category.
-        if (!isset($app->i18n->translations['akiraz2/blog']) && !isset($app->i18n->translations['akiraz2/*'])) {
+        if (!isset($app->i18n->translations['akiraz2/blog'])) {
             $app->i18n->translations['akiraz2/blog'] = [
-                'class' => 'yii\i18n\PhpMessageSource',
-                'basePath' => '@akiraz2/blog/messages',
+                'class' => PhpMessageSource::class,
+                'basePath' =>  __DIR__ .'/messages',
                 'forceTranslation' => true,
                 'fileMap' => [
                     'akiraz2/blog' => 'blog.php',

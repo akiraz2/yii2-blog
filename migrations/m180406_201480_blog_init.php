@@ -15,12 +15,12 @@ use yii\db\Schema;
  * Create blog tables.
  *
  * Will be created 4 tables:
- * - `{{%blog_catalog}}` - Blog catalog
+ * - `{{%blog_category}}` - Blog category
  * - `{{%blog_post}}` -
  * - `{{%blog_comment}}` -
  * - `{{%blog_tag}}` -
  */
-class m141208_201480_blog_init extends Migration
+class m180406_201480_blog_init extends Migration
 {
     /**
      * @inheritdoc
@@ -30,14 +30,14 @@ class m141208_201480_blog_init extends Migration
         // MySql table options
         $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
 
-        // table blog_catalog
+        // table blog_category
         $this->createTable(
-            '{{%blog_catalog}}',
+            '{{%blog_category}}',
             [
                 'id' => Schema::TYPE_PK,
                 'parent_id' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 0',
                 'title' => Schema::TYPE_STRING . '(255) NOT NULL',
-                'surname' => Schema::TYPE_STRING . '(128) NOT NULL',
+                'slug' => Schema::TYPE_STRING . '(128) NOT NULL',
                 'banner' => Schema::TYPE_STRING . '(255) ',
                 'is_nav' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 1',
                 'sort_order' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 50',
@@ -52,10 +52,10 @@ class m141208_201480_blog_init extends Migration
         );
 
         // Indexes
-        $this->createIndex('is_nav', '{{%blog_catalog}}', 'is_nav');
-        $this->createIndex('sort_order', '{{%blog_catalog}}', 'sort_order');
-        $this->createIndex('status', '{{%blog_catalog}}', 'status');
-        $this->createIndex('created_at', '{{%blog_catalog}}', 'created_at');
+        $this->createIndex('is_nav', '{{%blog_category}}', 'is_nav');
+        $this->createIndex('sort_order', '{{%blog_category}}', 'sort_order');
+        $this->createIndex('status', '{{%blog_category}}', 'status');
+        $this->createIndex('created_at', '{{%blog_category}}', 'created_at');
 
 
         // table blog_post
@@ -63,12 +63,12 @@ class m141208_201480_blog_init extends Migration
             '{{%blog_post}}',
             [
                 'id' => Schema::TYPE_PK,
-                'catalog_id' => Schema::TYPE_INTEGER . ' NOT NULL',
+                'category_id' => Schema::TYPE_INTEGER . ' NOT NULL',
                 'title' => Schema::TYPE_STRING . '(255) NOT NULL',
                 'brief' => Schema::TYPE_TEXT,
                 'content' => Schema::TYPE_TEXT . ' NOT NULL',
                 'tags' => Schema::TYPE_STRING . '(255) NOT NULL',
-                'surname' => Schema::TYPE_STRING . '(128) NOT NULL',
+                'slug' => Schema::TYPE_STRING . '(128) NOT NULL',
                 'banner' => Schema::TYPE_STRING . '(255) ',
                 'click' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 0',
                 'user_id' => Schema::TYPE_INTEGER . ' NOT NULL',
@@ -80,12 +80,12 @@ class m141208_201480_blog_init extends Migration
         );
 
         // Indexes
-        $this->createIndex('catalog_id', '{{%blog_post}}', 'catalog_id');
+        $this->createIndex('category_id', '{{%blog_post}}', 'category_id');
         $this->createIndex('status', '{{%blog_post}}', 'status');
         $this->createIndex('created_at', '{{%blog_post}}', 'created_at');
 
         // Foreign Keys
-        $this->addForeignKey('FK_post_catalog', '{{%blog_post}}', 'catalog_id', '{{%blog_catalog}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('FK_post_category', '{{%blog_post}}', 'category_id', '{{%blog_category}}', 'id', 'CASCADE', 'CASCADE');
         $this->addForeignKey('FK_post_user', '{{%blog_post}}', 'user_id', '{{%user}}', 'id', 'CASCADE', 'CASCADE');
 
 
@@ -151,7 +151,7 @@ class m141208_201480_blog_init extends Migration
      */
     private function getProfileSql()
     {
-        return "INSERT INTO {{%profiles}} (`user_id`, `name`, `surname`) VALUES (1, 'Administration', 'Site')";
+        return "INSERT INTO {{%profiles}} (`user_id`, `name`, `slug`) VALUES (1, 'Administration', 'Site')";
     }
 
     /**
@@ -162,6 +162,6 @@ class m141208_201480_blog_init extends Migration
         $this->dropTable('{{%blog_tag}}');
         $this->dropTable('{{%blog_comment}}');
         $this->dropTable('{{%blog_post}}');
-        $this->dropTable('{{%blog_catalog}}');
+        $this->dropTable('{{%blog_category}}');
     }
 }

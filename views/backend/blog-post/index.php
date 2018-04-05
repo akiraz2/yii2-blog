@@ -33,21 +33,21 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\CheckboxColumn'],
 
             [
-                'attribute'=>'catalog_id',
+                'attribute'=>'category_id',
                 'value'=>function ($model) {
-                        return $model->catalog->title;
+                        return $model->category->title;
                     },
                 'filter' => Html::activeDropDownList(
                         $searchModel,
-                        'catalog_id',
-                        \akiraz2\blog\models\BlogPost::getArrayCatalog(),
+                        'category_id',
+                        \akiraz2\blog\models\BlogPost::getArrayCategory(),
                         ['class' => 'form-control', 'prompt' => Module::t('blog', 'Please Filter')]
                     )
             ],
             'title',
             // 'content:ntext',
             // 'tags',
-            // 'surname',
+            // 'slug',
             // 'click',
             // 'user_id',
             'commentsCount',

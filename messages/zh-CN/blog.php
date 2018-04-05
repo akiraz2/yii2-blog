@@ -43,8 +43,8 @@ return [
     'The file "{file}" is not an image.' => '文件 "{file}" 不是一个图像文件。',
     'Hello, {name}' => '你好,{name}',
 
-    'Blog Catalogs' => '分类',
-    'Blog Catalog' => '分类',
+    'Blog Categorys' => '分类',
+    'Blog Category' => '分类',
     'Blog Post' => '文章',
     'Blog Posts' => '文章',
     'Blog Comment' => '评论',
@@ -68,10 +68,10 @@ return [
     'successfully removed' => '删除成功',
     'still used' => '还在使用',
 
-    'Root Catalog' => '顶级目录',
+    'Root Category' => '顶级目录',
     'Parent ID' => '上级名称',
     'Title' => '名称',
-    'Surname' => '优化名称',
+    'Slug' => '优化名称',
     'Banner' => 'Banner图片',
     'Is Nav' => '导航是否显示',
     'Sort Order' => '排序',
@@ -84,7 +84,7 @@ return [
     'Created At' => '录入时间',
     'Updated At' => '更新时间',
 
-    'Catalog ID' => '分类名称',
+    'Category ID' => '分类名称',
     'Add Sub Catelog'=>'增加子栏目',
     'User Id' => '用户',
     'Brief' => '摘要',
