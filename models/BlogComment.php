@@ -7,6 +7,8 @@
 
 namespace akiraz2\blog\models;
 
+use akiraz2\blog\traits\ModuleTrait;
+use akiraz2\blog\traits\StatusTrait;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
@@ -30,6 +32,8 @@ use yii\helpers\Html;
  */
 class BlogComment extends \yii\db\ActiveRecord
 {
+    use StatusTrait, ModuleTrait;
+
     private $_status;
 
     /**

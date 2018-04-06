@@ -18,29 +18,8 @@ use yii\filters\AccessControl;
 /**
  * CommentController implements the CRUD actions for Comment model.
  */
-class BlogCommentController extends Controller
+class BlogCommentController extends BaseAdminController
 {
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@']
-                    ]
-                ]
-            ],
-        ];
-    }
-
     /**
      * Lists all Comment models.
      * @return mixed

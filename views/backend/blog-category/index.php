@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <thead>
         <tr>
             <th>ID</th>
+            <th><?=Module::t('blog', 'Banner') ?></th>
             <th><?=Module::t('blog', 'Title') ?> </th>
             <th><?=Module::t('blog', 'Sort Order') ?></th>
             <th><?=Module::t('blog', 'Template') ?></th>
@@ -43,11 +44,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php foreach($dataProvider as $item){ ?>
         <tr data-key="1">
             <td><?= $item['id']; ?></td>
+            <td><?= Html::img($item['banner'], ['class' => 'img-responsive', 'width' => 100]);?></td>
             <td><?= $item['str_label']; ?></td>
             <td><?= $item['sort_order']; ?></td>
             <td><?= $item['template']; ?></td>
             <td><?= BlogCategory::getOneIsNavLabel($item['is_nav']); ?></td>
-            <td><?= \akiraz2\blog\models\Status::labels()[$item['status']]; ?></td>
+            <td><?= $item['status']; ?></td>
             <td>
                 <a href="<?= \Yii::$app->getUrlManager()->createUrl(['blog/blog-category/create','parent_id'=>$item['id']]); ?>" title="<?= Module::t('blog', 'Add Sub Catelog');?>" data-pjax="0"><span class="glyphicon glyphicon-plus-sign"></span></a>
                 <a href="<?= \Yii::$app->getUrlManager()->createUrl(['blog/blog-category/view','id'=>$item['id']]); ?>"" title="<?= Module::t('blog', 'View');?>" data-pjax="0"><span class="glyphicon glyphicon-eye-open"></span></a>

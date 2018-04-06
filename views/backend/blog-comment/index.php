@@ -57,20 +57,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status',
                 'format' => 'html',
                 'value' => function ($model) {
-                    if ($model->status === Status::STATUS_ACTIVE) {
+                    if ($model->status === \akiraz2\blog\traits\IActiveStatus::STATUS_ACTIVE) {
                         $class = 'label-success';
-                    } elseif ($model->status === Status::STATUS_INACTIVE) {
+                    } elseif ($model->status === \akiraz2\blog\traits\IActiveStatus::STATUS_INACTIVE) {
                         $class = 'label-warning';
                     } else {
                         $class = 'label-danger';
                     }
 
-                    return '<span class="label ' . $class . '">' . $model->getStatus()->label . '</span>';
+                    return '<span class="label ' . $class . '">' . $model->getStatus() . '</span>';
                 },
                 'filter' => Html::activeDropDownList(
                     $searchModel,
                     'status',
-                    Status::labels(),
+                    \akiraz2\blog\models\BlogPost::getStatusList(),
                     ['class' => 'form-control', 'prompt' => Module::t('blog', 'PROMPT_STATUS')]
                 )
             ],

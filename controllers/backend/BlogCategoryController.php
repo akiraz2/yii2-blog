@@ -7,42 +7,21 @@
 
 namespace akiraz2\blog\controllers\backend;
 
-use Yii;
 use akiraz2\blog\models\BlogCategory;
 use akiraz2\blog\models\BlogCategorySearch;
-use yii\helpers\FileHelper;
+use akiraz2\blog\traits\ModuleTrait;
+use Yii;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 use yii\web\UploadedFile;
 
 /**
  * BlogCategoryController implements the CRUD actions for BlogCategory model.
  */
-class BlogCategoryController extends Controller
+class BlogCategoryController extends BaseAdminController
 {
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@']
-                    ]
-                ]
-            ],
-        ];
-    }
-
     /**
      * Lists all BlogCategory models.
      * @return mixed
@@ -69,7 +48,7 @@ class BlogCategoryController extends Controller
     public function actionView($id)
     {
         //if(!Yii::$app->user->can('readPost')) throw new HttpException(401, 'No Auth');
-        
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -87,8 +66,8 @@ class BlogCategoryController extends Controller
         $model = new BlogCategory();
         $model->loadDefaultValues();
 
-        if(isset($_GET['parent_id']) && $_GET['parent_id'] > 0)
-        $model->parent_id = $_GET['parent_id'];
+        if (isset($_GET['parent_id']) && $_GET['parent_id'] > 0)
+            $model->parent_id = $_GET['parent_id'];
 
         if ($model->load(Yii::$app->request->post())) {
             $model->banner = UploadedFile::getInstance($model, 'banner');
@@ -125,30 +104,13 @@ class BlogCategoryController extends Controller
 
         $model = $this->findModel($id);
         $oldBanner = $model->banner;
-
-        if ($model->load(Yii::$app->request->post())) {
-            $model->banner = UploadedFile::getInstance($model, 'banner');
-            if ($model->validate()) {
-                if($model->banner){
-                    $bannerName = Yii::$app->params['blogUploadPath'] . date('Ymdhis') . rand(1000, 9999) . '.' . $model->banner->extension;
-                    $model->banner->saveAs(Yii::getAlias('@frontend/web') . DIRECTORY_SEPARATOR . $bannerName);
-                    $model->banner = $bannerName;
-                } else {
-                    $model->banner = $oldBanner;
-                }
-
-                $model->save(false);
-                return $this->redirect(['view', 'id' => $model->id]);
-            } else {
-                return $this->render('create', [
-                    'model' => $model,
-                ]);
-            }
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+
     }
 
     /**

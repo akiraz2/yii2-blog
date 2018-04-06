@@ -13,6 +13,16 @@ class Module extends \yii\base\Module
 {
     public $controllerNamespace = 'akiraz2\blog\controllers\frontend';
 
+    public $urlManager = 'urlManagerFrontend';
+
+    public $imgFilePath = '@frontend/web/img/blog/';
+
+    public $imgFileUrl = '/img/blog/';
+
+    public $adminAccessControl = 'yii\filters\AccessControl';
+
+    public $blogPostPageCount = 10;
+
     protected $_isBackend;
 
     /**
@@ -76,5 +86,9 @@ class Module extends \yii\base\Module
         }
 
         return $this->_isBackend;
+    }
+
+    public function getImgFullPathUrl() {
+        return \Yii::$app->get($this->urlManager)->getHostInfo().$this->imgFileUrl;
     }
 }

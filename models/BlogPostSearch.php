@@ -7,6 +7,7 @@
 
 namespace akiraz2\blog\models;
 
+use akiraz2\blog\traits\IActiveStatus;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -17,6 +18,9 @@ use akiraz2\blog\models\BlogPost;
  */
 class BlogPostSearch extends BlogPost
 {
+    const SCENARIO_ADMIN = 'admin';
+    const SCENARIO_USER = 'user';
+
     /**
      * @inheritdoc
      */
@@ -24,7 +28,7 @@ class BlogPostSearch extends BlogPost
     {
         return [
             [['id', 'category_id', 'click', 'user_id', 'status'], 'integer'],
-            [['title', 'content', 'tags', 'slug', 'created_at', 'updated_at'], 'safe'],
+            [['title'], 'string'],
         ];
     }
 
@@ -33,8 +37,10 @@ class BlogPostSearch extends BlogPost
      */
     public function scenarios()
     {
-        // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCENARIO_ADMIN] = ['id', 'category_id', 'click', 'user_id', 'status', 'title'];
+        $scenarios[self::SCENARIO_USER] = ['category_id', 'title'];
+        return $scenarios;
     }
 
     /**
@@ -47,11 +53,13 @@ class BlogPostSearch extends BlogPost
     public function search($params)
     {
         $query = BlogPost::find();
-        
         $query->orderBy(['created_at' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => $this->module->blogPostPageCount,
+            ]
         ]);
 
         if (!($this->load($params) && $this->validate())) {
@@ -63,7 +71,7 @@ class BlogPostSearch extends BlogPost
             'category_id' => $this->category_id,
             'click' => $this->click,
             'user_id' => $this->user_id,
-            'status' => $this->status,
+            'status' => ($this->scenario== self::SCENARIO_USER)? IActiveStatus::STATUS_ACTIVE : $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);

@@ -33,7 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn'],
-
             [
                 'attribute'=>'category_id',
                 'value'=>function ($model) {
@@ -46,12 +45,16 @@ $this->params['breadcrumbs'][] = $this->title;
                         ['class' => 'form-control', 'prompt' => Module::t('blog', 'Please Filter')]
                     )
             ],
+            [
+                'attribute'=>'banner',
+                'value'=>function ($model) {
+                    return Html::img($model->getThumbFileUrl('banner', 'thumb'), ['class' => 'img-responsive', 'width' => 100]);
+                },
+                'format' => 'raw',
+                'filter' => false
+            ],
             'title',
-            // 'content:ntext',
-            // 'tags',
-            // 'slug',
-            // 'click',
-            // 'user_id',
+            'click',
             'commentsCount',
             [
                 'attribute' => 'status',
@@ -76,7 +79,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'created_at:date',
             // 'update_time',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

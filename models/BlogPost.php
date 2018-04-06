@@ -8,15 +8,19 @@
 namespace akiraz2\blog\models;
 
 use akiraz2\blog\traits\IActiveStatus;
+use akiraz2\blog\traits\ModuleTrait;
 use akiraz2\blog\traits\StatusTrait;
 use common\models\User;
 use Yii;
+use yii\behaviors\AttributeBehavior;
 use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 use yii\db\Expression;
 use akiraz2\blog\Module;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yiidreamteam\upload\ImageUploadBehavior;
 
 
 /**
@@ -26,6 +30,7 @@ use yii\helpers\Html;
  * @property integer $category_id
  * @property string $title
  * @property string $content
+ * @property string $brief
  * @property string $tags
  * @property string $slug
  * @property string $banner
@@ -40,7 +45,7 @@ use yii\helpers\Html;
  */
 class BlogPost extends \yii\db\ActiveRecord
 {
-    use StatusTrait;
+    use StatusTrait, ModuleTrait;
 
     private $_oldTags;
 
@@ -66,7 +71,27 @@ class BlogPost extends \yii\db\ActiveRecord
                 'class' => SluggableBehavior::class,
                 'attribute' => 'title',
                 'slugAttribute' => 'slug'
-            ]
+            ],
+            [
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'user_id'
+                ],
+                'value' => function ($event) {
+                    return Yii::$app->user->getId();
+                },
+            ],
+            [
+                'class' => ImageUploadBehavior::class,
+                'attribute' => 'banner',
+                'thumbs' => [
+                    'thumb' => ['width' => 400, 'height' => 300]
+                ],
+                'filePath' => $this->module->imgFilePath . '/[[model]]/[[pk]].[[extension]]',
+                'fileUrl' => $this->module->getImgFullPathUrl(). '/[[model]]/[[pk]].[[extension]]',
+                'thumbPath' => $this->module->imgFilePath . '/[[model]]/[[profile]]_[[pk]].[[extension]]',
+                'thumbUrl' => $this->module->getImgFullPathUrl().'/[[model]]/[[profile]]_[[pk]].[[extension]]',
+            ],
         ];
     }
 
@@ -76,12 +101,12 @@ class BlogPost extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id', 'title', 'content', 'tags', 'slug', 'user_id'], 'required'],
+            [['category_id', 'title', 'content'], 'required'],
             [['category_id', 'click', 'user_id', 'status'], 'integer'],
             [['brief', 'content'], 'string'],
-            [['created_at', 'updated_at'], 'safe'],
-            [['banner'], 'file', 'extensions' => 'jpg, png', 'mimeTypes' => 'image/jpeg, image/png',],
-            [['title', 'tags', 'slug'], 'string', 'max' => 128]
+            [['banner'], 'file', 'extensions' => 'jpg, png, webp', 'mimeTypes' => 'image/jpeg, image/png, image/webp',],
+            [['title', 'tags', 'slug'], 'string', 'max' => 128],
+            ['click', 'default', 'value' => 0]
         ];
     }
 

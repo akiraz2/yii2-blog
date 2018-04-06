@@ -7,6 +7,9 @@
 
 namespace akiraz2\blog\controllers\frontend;
 
+use akiraz2\blog\models\BlogPostSearch;
+use akiraz2\blog\traits\IActiveStatus;
+use akiraz2\blog\traits\ModuleTrait;
 use Yii;
 use yii\data\Pagination;
 use yii\web\Controller;
@@ -19,8 +22,10 @@ use yii\widgets\ActiveForm;
 
 class DefaultController extends Controller
 {
+    use ModuleTrait;
+
     public $mainMenu = [];
-    public $layout = 'main';
+    //public $layout = 'main';
 
     /**
      * @inheritdoc
@@ -69,39 +74,18 @@ class DefaultController extends Controller
 
     public function actionIndex()
     {
-        $query = BlogPost::find();
-        $query->where([
-            'status' => Status::STATUS_ACTIVE,
-        ]);
+        $searchModel = new BlogPostSearch();
+        $searchModel->scenario= BlogPostSearch::SCENARIO_USER;
 
-        if(Yii::$app->request->get('tag'))
-            $query->andFilterWhere([
-                'like', 'tags', Yii::$app->request->get('tag'),
-            ]);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        if(Yii::$app->request->get('keyword'))
-        {
-            $keyword = strtr(Yii::$app->request->get('keyword'), array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\'));
-            $keyword = Yii::$app->formatter->asText($keyword);
-
-            $query->andFilterWhere([
-                'or', ['like', 'title', $keyword], ['like', 'content', $keyword]
-            ]);
-        }
-
-        $pagination = new Pagination([
-            'defaultPageSize' => Yii::$app->params['blogPostPageCount'],
-            'totalCount' => $query->count(),
-        ]);
-
-        $posts = $query->orderBy('created_at desc')
-            ->offset($pagination->offset)
-            ->limit($pagination->limit)
-            ->all();
+        $categories = BlogCategory::find()->where(['status' => IActiveStatus::STATUS_ACTIVE, 'is_nav' => BlogCategory::IS_NAV_YES])
+            ->orderBy(['sort_order' => SORT_ASC])->all();
 
         return $this->render('index', [
-            'posts' => $posts,
-            'pagination' => $pagination,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'categories' => $categories
         ]);
     }
 

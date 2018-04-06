@@ -30,7 +30,7 @@ use \yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'url')->textInput(['maxlength' => 128]) ?>
 
-    <?= $form->field($model, 'status')->dropDownList(\akiraz2\blog\models\Status::labels()) ?>
+    <?= $form->field($model, 'status')->dropDownList(BlogPost::getStatusList()) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Module::t('blog', 'Create') : Module::t('blog', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

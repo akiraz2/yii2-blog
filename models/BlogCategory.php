@@ -7,6 +7,7 @@
 
 namespace akiraz2\blog\models;
 
+use akiraz2\blog\traits\ModuleTrait;
 use akiraz2\blog\traits\StatusTrait;
 use Yii;
 use yii\behaviors\SluggableBehavior;
@@ -36,7 +37,7 @@ use yiidreamteam\upload\ImageUploadBehavior;
  */
 class BlogCategory extends \yii\db\ActiveRecord
 {
-    use StatusTrait;
+    use StatusTrait, ModuleTrait;
 
     const IS_NAV_YES = 1;
     const IS_NAV_NO = 0;
@@ -72,10 +73,10 @@ class BlogCategory extends \yii\db\ActiveRecord
                 'thumbs' => [
                     'thumb' => ['width' => 400, 'height' => 300]
                 ],
-                'filePath' => '@frontend/web/img/blog/category/[[pk]].[[extension]]',
-                'fileUrl' => Yii::$app->urlManagerFrontend->getHostInfo() . '/img/blog/category/[[pk]].[[extension]]',
-                'thumbPath' => '@frontend/web/img/blog/category/[[profile]]_[[pk]].[[extension]]',
-                'thumbUrl' => Yii::$app->urlManagerFrontend->getHostInfo() . '/img/blog/category/[[profile]]_[[pk]].[[extension]]',
+                'filePath' => $this->module->imgFilePath . '/[[model]]/[[pk]].[[extension]]',
+                'fileUrl' => $this->module->getImgFullPathUrl(). '/[[model]]/[[pk]].[[extension]]',
+                'thumbPath' => $this->module->imgFilePath . '/[[model]]/[[profile]]_[[pk]].[[extension]]',
+                'thumbUrl' => $this->module->getImgFullPathUrl().'/[[model]]/[[profile]]_[[pk]].[[extension]]',
             ],
         ];
     }
@@ -89,7 +90,7 @@ class BlogCategory extends \yii\db\ActiveRecord
             [['parent_id', 'is_nav', 'sort_order', 'page_size', 'status'], 'integer'],
             [['title'], 'required'],
             [['title', 'template', 'redirect_url', 'slug'], 'string', 'max' => 255],
-            [['banner'], 'file', 'extensions' => 'jpg, png', 'mimeTypes' => 'image/jpeg, image/png',],
+            [['banner'], 'file', 'extensions' => 'jpg, png, webp', 'mimeTypes' => 'image/jpeg, image/png, image/webp',],
         ];
     }
 
@@ -204,9 +205,9 @@ class BlogCategory extends \yii\db\ActiveRecord
             if ($v['parent_id'] == $parentId)
             {
                 $newArray [] = array ('id' => $v['id'], 'title' => $v['title'], 'parent_id' => $v['parent_id'],  'sort_order' => $v['sort_order'],
-                    'banner' => $v['banner'], //'postsCount'=>$v['postsCount'],
+                    'banner' => $v->getThumbFileUrl('banner', 'thumb'), //'postsCount'=>$v['postsCount'],
                     'is_nav' => $v['is_nav'], 'template' => $v['template'],
-                    'status' => $v['status'], 'created_at' => $v['created_at'], 'updated_at' => $v['updated_at'], 'redirect_url' => $v['redirect_url'], 'str_repeat' => $strRepeat, 'str_label' => $strRepeat.$v['title'],);
+                    'status' => $v->getStatus(), 'created_at' => $v['created_at'], 'updated_at' => $v['updated_at'], 'redirect_url' => $v['redirect_url'], 'str_repeat' => $strRepeat, 'str_label' => $strRepeat.$v['title'],);
 
                 $tempArray = self::get ( $v['id'], $array, ($level + $add), $add, $repeat);
                 if ($tempArray)

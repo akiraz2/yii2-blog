@@ -6,27 +6,33 @@
  */
 
 use yii\helpers\Html;
-use yii\helpers\StringHelper;
+
 ?>
 
-<div class="post">
-    <div class="title">
-        <?= Html::a(Html::encode($data->title), $data->url); ?>
+<div class="blog-brief">
+    <div class="blog-brief__img">
+        <?= Html::img($model->getImageFileUrl('banner')); ?>
     </div>
-    <div class="nav">
-        <i class="icon-date"></i><?= Yii::$app->formatter->asDate($data->created_at); ?>
-        <i class="icon-edit"></i><?= 'By ' . $data->user->username; ?>
-        <i class="icon-cat"></i><?= '<a href="'. Yii::$app->getUrlManager()->createUrl(['/blog/default/category/', 'id'=>$data->category->id, 'slug'=>$data->category->slug]) .'">' . $data->category->title . '</a>'; ?>
-        <i class="icon-comment"></i><?= Html::a("评论{$data->commentsCount}条", $data->url.'#comments'); ?>
-        <i class="icon-smiley"></i>阅读<?= $data->click; ?>次
+    <div class="blog-brief__wrap">
+        <div class="blog-brief__cat">
+            <?= $model->category->title; ?>
+        </div>
+        <h4 class="blog-brief__title title title--4">
+            <?= Html::a(Html::encode($model->title), $model->url); ?>
+        </h4>
+        <div class="blog-brief__content">
+            <?php
+            echo \yii\helpers\HtmlPurifier::process($model->brief);
+            ?>
+        </div>
+
+        <div class="blog-brief__nav">
+            <span>
+                <i class="fa fa-calendar"></i><?= Yii::$app->formatter->asDate($model->created_at); ?>
+            </span>
+            <span>
+                <i class="fa fa-eye"></i><?= $model->click; ?>
+            </span>
+        </div>
     </div>
-    <div class="content">
-        <?php
-        $parser = new \cebe\markdown\GithubMarkdown();
-        echo $parser->parse($data->content);
-        ?>
-    </div>
-    <span class="tag"><i class="icon-views"></i><?= implode(' ', $data->tagLinks); ?> <?= '<a href="'. Yii::$app->getUrlManager()->createUrl(['/blog/default/category/', 'id'=>$data->category->id, 'slug'=>$data->category->slug]) .'">' . $data->category->title . '</a>'; ?></span>
-    <span class="more"><?= Html::a('阅读全文', $data->url, array('target'=>'_blank', 'title'=>Html::encode($data->title))); ?></span>
-    <div class="clear"></div>
 </div>

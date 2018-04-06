@@ -39,10 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'title',
             'brief:ntext',
-            'content:ntext',
+            'content:html',
             'tags',
             'slug',
-            'banner',
+            [
+                'attribute' => 'user_id',
+                'value' => $model->getThumbFileUrl('banner', 'thumb'),
+            ],
             'click',
             [
                 'attribute' => 'user_id',
@@ -50,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'status',
-                'value' => $model->getStatus()->label,
+                'value' => $model->getStatus(),
             ],
             'created_at:datetime',
             'updated_at:datetime',

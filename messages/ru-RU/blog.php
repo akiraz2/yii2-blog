@@ -13,6 +13,7 @@
  */
 
 return [
+    'Blog' => 'Статьи',
     'STATUS_ACTIVE' => 'Актив',
     'STATUS_INACTIVE' => 'Неактив',
     'STATUS_DELETED' => 'Удалено',
