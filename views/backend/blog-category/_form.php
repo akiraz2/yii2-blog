@@ -49,7 +49,7 @@ unset($parentCategory[$model->id]);
 
     <?= $form->field($model, 'redirect_url')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'status')->dropDownList(\akiraz2\blog\models\Status::labels()) ?>
+    <?= $form->field($model, 'status')->dropDownList(BlogCategory::getStatusList()) ?>
 
     <div class="form-group">
         <label class="col-lg-2 control-label" for="">&nbsp;</label>

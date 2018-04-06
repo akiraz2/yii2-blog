@@ -64,6 +64,7 @@ class BlogCategoryController extends Controller
      * Displays a single BlogCategory model.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {

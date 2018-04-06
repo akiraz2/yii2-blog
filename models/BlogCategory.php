@@ -7,11 +7,13 @@
 
 namespace akiraz2\blog\models;
 
+use akiraz2\blog\traits\StatusTrait;
 use Yii;
 use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 use akiraz2\blog\Module;
+use yiidreamteam\upload\ImageUploadBehavior;
 
 /**
  * This is the model class for table "blog_category".
@@ -34,6 +36,8 @@ use akiraz2\blog\Module;
  */
 class BlogCategory extends \yii\db\ActiveRecord
 {
+    use StatusTrait;
+
     const IS_NAV_YES = 1;
     const IS_NAV_NO = 0;
     const PAGE_TYPE_LIST = 'list';
@@ -61,7 +65,18 @@ class BlogCategory extends \yii\db\ActiveRecord
                 'class' => SluggableBehavior::class,
                 'attribute' => 'title',
                 'slugAttribute' => 'slug',
-            ]
+            ],
+            [
+                'class' => ImageUploadBehavior::class,
+                'attribute' => 'banner',
+                'thumbs' => [
+                    'thumb' => ['width' => 400, 'height' => 300]
+                ],
+                'filePath' => '@frontend/web/img/blog/category/[[pk]].[[extension]]',
+                'fileUrl' => Yii::$app->urlManagerFrontend->getHostInfo() . '/img/blog/category/[[pk]].[[extension]]',
+                'thumbPath' => '@frontend/web/img/blog/category/[[profile]]_[[pk]].[[extension]]',
+                'thumbUrl' => Yii::$app->urlManagerFrontend->getHostInfo() . '/img/blog/category/[[profile]]_[[pk]].[[extension]]',
+            ],
         ];
     }
 
@@ -72,11 +87,9 @@ class BlogCategory extends \yii\db\ActiveRecord
     {
         return [
             [['parent_id', 'is_nav', 'sort_order', 'page_size', 'status'], 'integer'],
-            [['title', 'slug'], 'required'],
-            [['created_at', 'updated_at'], 'safe'],
-            [['title', 'template', 'redirect_url'], 'string', 'max' => 255],
+            [['title'], 'required'],
+            [['title', 'template', 'redirect_url', 'slug'], 'string', 'max' => 255],
             [['banner'], 'file', 'extensions' => 'jpg, png', 'mimeTypes' => 'image/jpeg, image/png',],
-            [['slug'], 'string', 'max' => 128]
         ];
     }
 
@@ -107,12 +120,12 @@ class BlogCategory extends \yii\db\ActiveRecord
      */
     public function getBlogPosts()
     {
-        return $this->hasMany(BlogPost::className(), ['category_id' => 'id']);
+        return $this->hasMany(BlogPost::class, ['category_id' => 'id']);
     }
 
     public function getPostsCount()
     {
-        return $this->count(BlogPost::className(), ['category_id' => 'id']);
+        return $this->count(BlogPost::class, ['category_id' => 'id']);
     }
 
     /**
@@ -120,42 +133,8 @@ class BlogCategory extends \yii\db\ActiveRecord
      */
     public function getParent()
     {
-        return $this->hasOne(BlogCategory::className(), ['id' => 'parent_id']);
+        return $this->hasOne(BlogCategory::class, ['id' => 'parent_id']);
     }
-
-    public function getStatus()
-    {
-        if ($this->_status === null) {
-            $this->_status = new Status($this->status);
-        }
-        return $this->_status;
-    }
-
-    /**
-     * Before save.
-     * created_at update_time
-     */
-    /*public function beforeSave($insert)
-    {
-        if(parent::beforeSave($insert))
-        {
-            // add your code here
-            return true;
-        }
-        else
-            return false;
-    }*/
-
-    /**
-     * After save.
-     *
-     */
-    /*public function afterSave($insert, $changedAttributes)
-    {
-        parent::afterSave($insert, $changedAttributes);
-        // add your code here
-    }*/
-
 
     /**
      * @inheritdoc

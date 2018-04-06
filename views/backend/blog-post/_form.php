@@ -49,7 +49,7 @@ use mihaildev\ckeditor\CKEditor;
 
     <?= $form->field($model, 'click')->textInput() ?>
 
-    <?= $form->field($model, 'status')->dropDownList(\akiraz2\blog\models\Status::labels()) ?>
+    <?= $form->field($model, 'status')->dropDownList(\akiraz2\blog\models\BlogPost::getStatusList()) ?>
 
     <div class="form-group">
         <label class="col-lg-2 control-label" for="">&nbsp;</label>

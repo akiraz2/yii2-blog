@@ -7,6 +7,8 @@
 
 namespace akiraz2\blog\models;
 
+use akiraz2\blog\traits\IActiveStatus;
+use akiraz2\blog\traits\StatusTrait;
 use common\models\User;
 use Yii;
 use yii\behaviors\SluggableBehavior;
@@ -38,6 +40,8 @@ use yii\helpers\Html;
  */
 class BlogPost extends \yii\db\ActiveRecord
 {
+    use StatusTrait;
+
     private $_oldTags;
 
     private $_status;
@@ -138,29 +142,6 @@ class BlogPost extends \yii\db\ActiveRecord
         return $this->hasMany(BlogComment::className(), ['post_id' => 'id']);
     }
 
-    public function getStatus()
-    {
-        if ($this->_status === null) {
-            $this->_status = new Status($this->status);
-        }
-        return $this->_status;
-    }
-
-    /**
-     * Before save.
-     * created_at updated_at
-     */
-    /*public function beforeSave($insert)
-    {
-        if(parent::beforeSave($insert))
-        {
-            // add your code here
-            return true;
-        }
-        else
-            return false;
-    }*/
-
     /**
      * After save.
      *
@@ -233,7 +214,7 @@ class BlogPost extends \yii\db\ActiveRecord
      */
     public function addComment($comment)
     {
-        $comment->status = Status::STATUS_INACTIVE;
+        $comment->status = IActiveStatus::STATUS_INACTIVE;
         $comment->post_id = $this->id;
         return $comment->save();
     }

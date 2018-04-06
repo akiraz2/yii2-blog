@@ -1,25 +1,86 @@
 {
-    "name": "akiraz2/yii2-blog",
-    "description": "Yii2 Blog for other application",
-    "type": "yii2-extension",
-    "keywords": ["yii2","extension"],
-    "license": "Apache-2.0",
-    "authors": [
-        {
-            "name": "Akiraz",
-            "email": "akiraz@bk.ru"
-        }
-    ],
-    "require": {
-        "yiisoft/yii2": "*",
-        "mihaildev/yii2-ckeditor": "*"
-    },
-    "autoload": {
-        "psr-4": {
-            "akiraz2\\blog\\": ""
-        }
-    },
-    "extra": {
-        "bootstrap": "akiraz2\\blog\\Bootstrap"
+  "name": "akiraz2/yii2-blog",
+  "description": "Yii2 Blog for other application. Only for internal using. forked from funson86 and improved.",
+  "type": "yii2-extension",
+  "keywords": [
+    "yii2",
+    "extension",
+    "blog",
+    "post",
+    "category",
+    "tag",
+    "module"
+  ],
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Akiraz",
+      "email": "akiraz@bk.ru"
     }
+  ],
+  "require": {
+    "yiisoft/yii2": "*",
+    "mihaildev/yii2-ckeditor": "*",
+    "yiidoc/yii2-redactor": "*",
+    "yii-dream-team/yii2-upload-behavior": "*"
+  },
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "yii-dream-team/yii2-upload-behavior",
+        "type": "yii2-extension",
+        "description": "Yii2 file/image upload behavior for ActiveRecord",
+        "keywords": [
+          "file",
+          "image",
+          "upload",
+          "behavior",
+          "resize",
+          "thumb"
+        ],
+        "license": "MIT",
+        "homepage": "http://yiidreamteam.com/yii2/upload-behavior",
+        "authors": [
+          {
+            "name": "Alexey Samoylov",
+            "email": "alexey.samoylov@gmail.com",
+            "homepage": "http://yiidreamteam.com/team/alexey",
+            "role": "Developer"
+          }
+        ],
+        "minimum-stability": "dev",
+        "require": {
+          "php": ">=7.1.0",
+          "yiisoft/yii2": "*",
+          "masterexploder/phpthumb": "*"
+        },
+        "repositories": [
+          {
+            "type": "git",
+            "url": "https://github.com/yii-dream-team/PHPThumb"
+          }
+        ],
+        "autoload": {
+          "psr-4": {
+            "yiidreamteam\\upload\\": "./src"
+          }
+        },
+        "version": "1.0.0",
+        "source": {
+          "type": "git",
+          "url": "https://github.com/akiraz2/yii2-upload-behavior",
+          "reference": "master"
+        }
+      }
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "akiraz2\\blog\\": ""
+    }
+  },
+  "extra": {
+    "bootstrap": "akiraz2\\blog\\Bootstrap"
+  }
 }
