@@ -22,7 +22,8 @@
     "yiisoft/yii2": "*",
     "mihaildev/yii2-ckeditor": "*",
     "yiidoc/yii2-redactor": "*",
-    "yii-dream-team/yii2-upload-behavior": "*"
+    "yii-dream-team/yii2-upload-behavior": "*",
+    "rmrevin/yii2-fontawesome": "~3.0"
   },
   "repositories": [
     {

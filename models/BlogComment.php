@@ -7,6 +7,7 @@
 
 namespace akiraz2\blog\models;
 
+use akiraz2\blog\traits\IActiveStatus;
 use akiraz2\blog\traits\ModuleTrait;
 use akiraz2\blog\traits\StatusTrait;
 use Yii;
@@ -14,6 +15,8 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 use akiraz2\blog\Module;
 use yii\helpers\Html;
+use yii\helpers\StringHelper;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "blog_comment".
@@ -24,6 +27,7 @@ use yii\helpers\Html;
  * @property string $author
  * @property string $email
  * @property string $url
+ * @property string $captcha
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
@@ -33,6 +37,11 @@ use yii\helpers\Html;
 class BlogComment extends \yii\db\ActiveRecord
 {
     use StatusTrait, ModuleTrait;
+
+    const SCENARIO_ADMIN = 'admin';
+    const SCENARIO_USER = 'user';
+
+    public $captcha;
 
     private $_status;
 
@@ -58,14 +67,29 @@ class BlogComment extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCENARIO_ADMIN] = ['post_id', 'content', 'author', 'email', 'status', 'url'];
+        $scenarios[self::SCENARIO_USER] = ['content', 'author', 'email', 'captcha'];
+        return $scenarios;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
             [['post_id', 'content', 'author', 'email'], 'required'],
+            ['email', 'email'],
+            [['author', 'content'], 'filter', 'filter' => 'strip_tags'],
+            [['author', 'captcha', 'email'], 'trim'],
             [['post_id', 'status'], 'integer'],
             [['content'], 'string'],
-            [['created_at', 'updated_at'], 'safe'],
-            [['author', 'email', 'url'], 'string', 'max' => 128]
+            [['author', 'email', 'url'], 'string', 'max' => 128],
+            ['captcha', 'captcha', 'captchaAction' => Url::to('/blog/default/captcha'), 'on' => self::SCENARIO_USER],
+            ['captcha', 'required', 'on' => self::SCENARIO_USER]
         ];
     }
 
@@ -84,6 +108,7 @@ class BlogComment extends \yii\db\ActiveRecord
             'status' => Module::t('blog', 'Status'),
             'created_at' => Module::t('blog', 'Created At'),
             'updated_at' => Module::t('blog', 'Updated At'),
+            'captcha' => Module::t('blog', 'Verify code'),
         ];
     }
 
@@ -103,39 +128,6 @@ class BlogComment extends \yii\db\ActiveRecord
         return $this->hasOne(BlogPost::className(), ['id' => 'post_id']);
     }
 
-    public function getStatus()
-    {
-        if ($this->_status === null) {
-            $this->_status = new Status($this->status);
-        }
-        return $this->_status;
-    }
-
-    /**
-     * Before save.
-     * created_at updated_at
-     */
-    /*public function beforeSave($insert)
-    {
-        if(parent::beforeSave($insert))
-        {
-            // add your code here
-            return true;
-        }
-        else
-            return false;
-    }*/
-
-    /**
-     * After save.
-     *
-     */
-    /*public function afterSave($insert, $changedAttributes)
-    {
-        parent::afterSave($insert, $changedAttributes);
-        // add your code here
-    }*/
-
     public function getAuthorLink()
     {
         if(!empty($this->url))
@@ -154,15 +146,20 @@ class BlogComment extends \yii\db\ActiveRecord
     public static  function findRecentComments($limit=10)
     {
         return self::find()->joinWith('blogPost')->where([
-            'blog_comment.status' => Status::STATUS_ACTIVE,
-            'blog_post.status' => Status::STATUS_ACTIVE,
+            'blog_comment.status' => IActiveStatus::STATUS_ACTIVE,
+            'blog_post.status' => IActiveStatus::STATUS_ACTIVE,
         ])->orderBy([
             'created_at' => SORT_DESC
         ])->limit($limit)->all();
-        /*return $this->with('post')->findAll(array(
-            'condition'=>'t.status='.CONSTANT::STATUS_ACTIVE .' AND post.status='.CONSTANT::STATUS_ACTIVE,
-            'order'=>'t.created_at DESC',
-            'limit'=>$limit,
-        ));*/
+    }
+
+    public function getMaskedEmail() {
+        list($email_username, $email_domain) = explode('@', $this->email);
+        $masked_email_username = preg_replace('/(.)./', "$1*", $email_username);
+        return implode('@', array($masked_email_username, $email_domain));
+    }
+
+    public function getContent() {
+        return ($this->status==IActiveStatus::STATUS_ACTIVE)? $this->content : StringHelper::truncate($this->content, 15);
     }
 }

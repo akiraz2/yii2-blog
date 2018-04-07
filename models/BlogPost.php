@@ -222,6 +222,11 @@ class BlogPost extends \yii\db\ActiveRecord
         return Yii::$app->getUrlManager()->createUrl(['blog/default/view', 'id' => $this->id, 'slug' => $this->slug]);
     }
 
+    public function getAbsoluteUrl()
+    {
+        return Yii::$app->getUrlManager()->createAbsoluteUrl(['blog/default/view', 'id' => $this->id, 'slug' => $this->slug]);
+    }
+
     /**
      *
      */

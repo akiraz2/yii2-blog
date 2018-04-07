@@ -23,6 +23,12 @@ class Module extends \yii\base\Module
 
     public $blogPostPageCount = 10;
 
+    public $blogCommentPageCount = 20;
+
+    public $enableComments = true;
+
+    public $schemaOrg = [];
+
     protected $_isBackend;
 
     /**

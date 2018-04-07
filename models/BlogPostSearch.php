@@ -62,7 +62,7 @@ class BlogPostSearch extends BlogPost
             ]
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
+        if (!($this->load($params,($this->scenario== self::SCENARIO_USER)?'': 'BlogPostSearch') && $this->validate())) {
             return $dataProvider;
         }
 

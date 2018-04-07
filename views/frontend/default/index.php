@@ -5,7 +5,6 @@
  * Copyright (c) 2018.
  */
 
-use yii\helpers\Html;
 use yii\widgets\ListView;
 
 //$this->title = Yii::$app->params['blogTitle'] . ' - ' . Yii::$app->params['blogTitleSeo'];
@@ -26,23 +25,11 @@ use yii\widgets\ListView;
                 </div>
                 <div class="col-md-5">
                     <div class="blog-index__search">
-                        <ul class="blog-index__cat-list">
-                            <?php
-                            $items = [];
-
-                            for ($i = 0; $i < count($categories); $i++) {
-                                $category = $categories[$i];
-                                $items[] = [
-                                    'label' => $category->title,
-                                    'url' => ['default/index', 'BlogPostSearch[category_id]' => $category->id]
-                                ];
-                                //echo "<li>" . Html::a($category->title, ['index', 'BlogPostSearch[category_id]' => $category->id]) . "</li>";
-                            } ?>
-                        </ul>
                         <?= \yii\widgets\Menu::widget([
-                            'items' => $items,
-                            'route' => 'blog/default/index',
-                            //'params' => ['BlogPostSearch[category_id]' => 1]
+                            'items' => $cat_items,
+                            'options' => [
+                                'class' => 'blog-index__cat'
+                            ]
                         ]);
                         ?>
                     </div>
