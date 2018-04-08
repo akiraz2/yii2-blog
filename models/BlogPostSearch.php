@@ -55,6 +55,11 @@ class BlogPostSearch extends BlogPost
         $query = BlogPost::find();
         $query->orderBy(['created_at' => SORT_DESC]);
 
+        if($this->scenario== self::SCENARIO_USER) {
+            $query->andWhere(['blog_post.status' => IActiveStatus::STATUS_ACTIVE])->innerJoinWith('category')
+            ->andWhere(['blog_category.status' => IActiveStatus::STATUS_ACTIVE]);
+        }
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
@@ -67,19 +72,23 @@ class BlogPostSearch extends BlogPost
         }
 
         $query->andFilterWhere([
-            'id' => $this->id,
             'category_id' => $this->category_id,
-            'click' => $this->click,
-            'user_id' => $this->user_id,
-            'status' => ($this->scenario== self::SCENARIO_USER)? IActiveStatus::STATUS_ACTIVE : $this->status,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'content', $this->content])
-            ->andFilterWhere(['like', 'tags', $this->tags])
-            ->andFilterWhere(['like', 'slug', $this->slug]);
+        if($this->scenario== self::SCENARIO_ADMIN) {
+            $query->andFilterWhere([
+                'id' => $this->id,
+                'status' => $this->status,
+                'click' => $this->click,
+                'user_id' => $this->user_id,
+                'created_at' => $this->created_at,
+                'updated_at' => $this->updated_at,
+            ]);
+            $query->andFilterWhere(['like', 'title', $this->title])
+                ->andFilterWhere(['like', 'content', $this->content])
+                ->andFilterWhere(['like', 'tags', $this->tags])
+                ->andFilterWhere(['like', 'slug', $this->slug]);
+        }
 
         return $dataProvider;
     }

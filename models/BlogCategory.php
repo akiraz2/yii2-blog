@@ -89,6 +89,7 @@ class BlogCategory extends \yii\db\ActiveRecord
         return [
             [['parent_id', 'is_nav', 'sort_order', 'page_size', 'status'], 'integer'],
             [['title'], 'required'],
+            [['sort_order', 'page_size'], 'default', 'value' => 0],
             [['title', 'template', 'redirect_url', 'slug'], 'string', 'max' => 255],
             [['banner'], 'file', 'extensions' => 'jpg, png, webp', 'mimeTypes' => 'image/jpeg, image/png, image/webp',],
         ];

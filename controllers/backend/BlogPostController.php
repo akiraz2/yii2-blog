@@ -28,9 +28,8 @@ class BlogPostController extends BaseAdminController
      */
     public function actionIndex()
     {
-        //if(!Yii::$app->user->can('readPost')) throw new HttpException(403, 'No Auth');
-
         $searchModel = new BlogPostSearch();
+        $searchModel->scenario= BlogPostSearch::SCENARIO_ADMIN;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $arrayCategory = BlogPost::getArrayCategory();
 
@@ -48,8 +47,6 @@ class BlogPostController extends BaseAdminController
      */
     public function actionView($id)
     {
-        //if(!Yii::$app->user->can('readPost')) throw new HttpException(401, 'No Auth');
-
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -78,11 +75,7 @@ class BlogPostController extends BaseAdminController
      */
     public function actionCreate()
     {
-        //if(!Yii::$app->user->can('createPost')) throw new HttpException(401, 'No Auth');
-
         $model = new BlogPost();
-        //$model->loadDefaultValues();
-        // $model->user_id = Yii::$app->user->identity->id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -102,8 +95,6 @@ class BlogPostController extends BaseAdminController
      */
     public function actionUpdate($id)
     {
-        //if(!Yii::$app->user->can('updatePost')) throw new HttpException(401, 'No Auth');
-
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -123,9 +114,6 @@ class BlogPostController extends BaseAdminController
      */
     public function actionDelete($id)
     {
-        //if(!Yii::$app->user->can('deletePost')) throw new HttpException(401, 'No Auth');
-
-        //$this->findModel($id)->delete();
         $model = $this->findModel($id);
         $model->status = IActiveStatus::STATUS_ARCHIVE;
         $model->save();
