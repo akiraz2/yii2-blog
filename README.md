@@ -1,15 +1,11 @@
-#Yii2 Super Blog 
-[![Packagist Version](https://img.shields.io/packagist/v/akiraz2/yii2-blog.svg?style=flat-square)](https://packagist.org/packages/akiraz2/yii2-blog)
-[![Total Downloads](https://img.shields.io/packagist/dt/akiraz2/yii2-blog.svg?style=flat-square)](https://packagist.org/packages/akiraz2/yii2-blog)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+# Yii2 Super Blog [![Packagist Version](https://img.shields.io/packagist/v/akiraz2/yii2-blog.svg?style=flat-square)](https://packagist.org/packages/akiraz2/yii2-blog) [![Total Downloads](https://img.shields.io/packagist/dt/akiraz2/yii2-blog.svg?style=flat-square)](https://packagist.org/packages/akiraz2/yii2-blog) [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
 Yii2 Super Blog is simple, configured yii2 Module with frontend and backend, cloned from unmaintained repo 
 [funson86/yii2-blog](https://github.com/funson86/yii2-blog),
  fully reorganized and improved.
 
 
-
-##Features:
+## Features:
 
 * Blog Post with image banner, **seo** tags
 * Blog Category (nested) with image banner, seo tags
@@ -134,9 +130,9 @@ yii migrate --migrationPath=@akiraz2/blog/migrations
 2. frontend : http://you-domain.com/blog
 
 
-##Usage
+## Usage
 
-###Overriding views
+### Overriding views
 
 When you start using Yii2-blog you will probably find that you need to override the default views provided by the module.
 Although view names are not configurable, Yii2 provides a way to override views using themes. To get started you should
@@ -162,11 +158,11 @@ if a view exists in the theme directory it will be used instead of the original 
 > **NOTE:** Just copy all necessary views from `@akiraz2/yii2-blog/views/frontend/default` to `@app/views/blog` and change!
 
 
-###How to change captcha in Comments
+### How to change captcha in Comments
 
 Not yet...
 
-###User model
+### User model
 Module Yii2-Blog use `common\models\User`, so if you use custom user component or Module like
  [dektrium/yii2-user](https://github.com/dektrium/yii2-user), you should create model under path `common\models\User` with overriding your user-model.
  
@@ -182,7 +178,7 @@ Module Yii2-Blog use `common\models\User`, so if you use custom user component o
  } 
  ```
 
-###CustomAdminAccessControl for backend
+### CustomAdminAccessControl for backend
 
 For example, using [dektrium/yii2-user](https://github.com/dektrium/yii2-user)
 
