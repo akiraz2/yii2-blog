@@ -11,6 +11,14 @@ use akiraz2\blog\Module;
 use yii\helpers\Html;
 
 $this->title = $post->title;
+if(Yii::$app->get('opengraph', false)) {
+    Yii::$app->opengraph->set([
+        'title' => $this->title,
+        'description' => $post->brief,
+        'image' => $post->getImageFileUrl('banner'),
+    ]);
+}
+
 $this->params['breadcrumbs'][] = [
     'label' => Module::t('blog', 'Blog'),
     'url' => ['default/index']

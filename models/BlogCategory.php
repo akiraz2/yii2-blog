@@ -124,6 +124,9 @@ class BlogCategory extends \yii\db\ActiveRecord
         return $this->hasMany(BlogPost::class, ['category_id' => 'id']);
     }
 
+    /**
+     * @return integer
+     */
     public function getPostsCount()
     {
         return $this->count(BlogPost::class, ['category_id' => 'id']);

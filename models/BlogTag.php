@@ -7,6 +7,8 @@
 
 namespace akiraz2\blog\models;
 
+use akiraz2\blog\traits\ModuleTrait;
+use akiraz2\blog\traits\StatusTrait;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
@@ -21,6 +23,8 @@ use akiraz2\blog\Module;
  */
 class BlogTag extends \yii\db\ActiveRecord
 {
+    use StatusTrait, ModuleTrait;
+
     private $_status;
 
     /**
@@ -30,22 +34,6 @@ class BlogTag extends \yii\db\ActiveRecord
     {
         return 'blog_tag';
     }
-
-    /**
-     * create_time, update_time to now()
-     * crate_user_id, update_user_id to current login user id
-     */
-    /*public function behaviors()
-    {
-        return [
-            [
-                'class' => TimestampBehavior::className(),
-                'createdAtAttribute' => 'create_time',
-                'updatedAtAttribute' => 'update_time',
-                'value' => new Expression('NOW()'),
-            ],
-        ];
-    }*/
 
     /**
      * @inheritdoc
@@ -70,39 +58,6 @@ class BlogTag extends \yii\db\ActiveRecord
             'frequency' => Module::t('blog', 'Frequency'),
         ];
     }
-
-    public function getStatus()
-    {
-        if ($this->_status === null) {
-            $this->_status = new Status($this->status);
-        }
-        return $this->_status;
-    }
-
-    /**
-     * Before save.
-     * create_time update_time
-     */
-    /*public function beforeSave($insert)
-    {
-        if(parent::beforeSave($insert))
-        {
-            // add your code here
-            return true;
-        }
-        else
-            return false;
-    }*/
-
-    /**
-     * After save.
-     *
-     */
-    /*public function afterSave($insert, $changedAttributes)
-    {
-        parent::afterSave($insert, $changedAttributes);
-        // add your code here
-    }*/
 
     public static function string2array($tags)
     {
@@ -130,13 +85,7 @@ class BlogTag extends \yii\db\ActiveRecord
 
     public static function addTags($tags)
     {
-        /*$res = Tag::findAll([
-            'name' => $tags,
-        ]);
-        foreach($res as $tag)
-        {
-            $tag->updateCounters(['frequency' => 1]);
-        }*/
+
         BlogTag::updateAllCounters(['frequency' => 1], 'name in ("' . implode ( '"," ', $tags) . '")');
 
         foreach($tags as $name)
@@ -156,13 +105,6 @@ class BlogTag extends \yii\db\ActiveRecord
         if(empty($tags))
             return;
 
-        /*$res = BlogTag::findAll([
-            'name' => $tags,
-        ]);
-        foreach($res as $tag)
-        {
-            $tag->updateCounters(['frequency' => -1]);
-        }*/
         BlogTag::updateAllCounters(['frequency' => 1], 'name in ("' . implode ( '"," ', $tags) . '")');
         BlogTag::deleteAll('frequency <= 0');
     }

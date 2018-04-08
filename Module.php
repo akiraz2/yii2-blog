@@ -15,9 +15,9 @@ class Module extends \yii\base\Module
 
     public $urlManager = 'urlManagerFrontend';
 
-    public $imgFilePath = '@frontend/web/img/blog/';
+    public $imgFilePath = '@frontend/web/img/blog';
 
-    public $imgFileUrl = '/img/blog/';
+    public $imgFileUrl = '/img/blog';
 
     public $adminAccessControl = 'yii\filters\AccessControl';
 
@@ -94,6 +94,9 @@ class Module extends \yii\base\Module
         return $this->_isBackend;
     }
 
+    /**
+     * @return string
+     */
     public function getImgFullPathUrl() {
         return \Yii::$app->get($this->urlManager)->getHostInfo().$this->imgFileUrl;
     }

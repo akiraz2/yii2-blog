@@ -21,13 +21,12 @@ class Bootstrap implements BootstrapInterface
     public function bootstrap($app)
     {
         // Add module URL rules.
-        /*$app->getUrlManager()->addRules(
+        $app->getUrlManager()->addRules(
             [
-                'POST <_m:blogs>' => '<_m>/user/create',
-                '<_m:blogs>' => '<_m>/default/index',
-                '<_m:blogs>/<id:\d+>-<alias:[a-zA-Z0-9_-]{1,100}+>' => '<_m>/default/view',
+                '<_m:blog>' => '<_m>/default/index',
+                '<_m:blog>/<id:\d+>-<slug:[a-zA-Z0-9_-]{1,100}+>' => '<_m>/default/view',
             ]
-        )*/;
+        );
 
         // Add module I18N category.
         if (!isset($app->i18n->translations['akiraz2/blog'])) {
