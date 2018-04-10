@@ -11,6 +11,15 @@ use akiraz2\blog\Module;
 use yii\helpers\Html;
 
 $this->title = $post->title;
+Yii::$app->view->registerMetaTag([
+    'name' => 'description',
+    'content' => $post->brief
+]);
+Yii::$app->view->registerMetaTag([
+    'name' => 'keywords',
+    'content' => $this->title
+]);
+
 if(Yii::$app->get('opengraph', false)) {
     Yii::$app->opengraph->set([
         'title' => $this->title,

@@ -6,8 +6,25 @@
  */
 
 use yii\widgets\ListView;
+use \akiraz2\blog\Module;
 
-//$this->title = Yii::$app->params['blogTitle'] . ' - ' . Yii::$app->params['blogTitleSeo'];
+$this->title = Module::t('blog', 'Blog');
+Yii::$app->view->registerMetaTag([
+    'name' => 'description',
+    'content' => Yii::$app->name. ' '.Module::t('blog', 'Blog')
+]);
+Yii::$app->view->registerMetaTag([
+    'name' => 'keywords',
+    'content' => Yii::$app->name.', '.Module::t('blog', 'Blog')
+]);
+
+if(Yii::$app->get('opengraph', false)) {
+    Yii::$app->opengraph->set([
+        'title' => $this->title,
+        'description' => Module::t('blog', 'Blog'),
+        //'image' => '',
+    ]);
+}
 //$this->params['breadcrumbs'][] = '文章';
 
 /*$this->breadcrumbs=[
@@ -21,7 +38,7 @@ use yii\widgets\ListView;
         <div class="container">
             <div class="row">
                 <div class="col-md-7">
-                    <h1 class="title title--1"><?= \akiraz2\blog\Module::t('blog', 'Blog'); ?></h1>
+                    <h1 class="title title--1"><?= Module::t('blog', 'Blog'); ?></h1>
                 </div>
                 <div class="col-md-5">
                     <div class="blog-index__search">
