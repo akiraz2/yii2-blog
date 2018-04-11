@@ -13,7 +13,7 @@ class Module extends \yii\base\Module
 {
     public $controllerNamespace = 'akiraz2\blog\controllers\frontend';
 
-    public $urlManager = 'urlManagerFrontend';
+    public $urlManager = 'urlManager';
 
     public $imgFilePath = '@frontend/web/img/blog';
 
@@ -28,6 +28,8 @@ class Module extends \yii\base\Module
     public $enableComments = true;
 
     public $schemaOrg = [];
+
+    public $redactorModule= 'redactorBlog';
 
     protected $_isBackend;
 
