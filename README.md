@@ -7,7 +7,7 @@ Yii2 Super Blog is simple, configured yii2 Module with frontend and backend, clo
 
 ## Features:
 
-* Blog Post with image banner, **seo** tags
+* Blog Post with image banner, **seo** tags, [imperavi redactor 2 widget](https://github.com/yiidoc/yii2-redactor)
 * Blog Category (nested) with image banner, seo tags
 * Blog Tags
 * Blog Comment (can be disabled), with standard yii2 captcha (can be [ReCaptcha2](https://packagist.org/packages/himiklab/yii2-recaptcha-widget))
@@ -80,7 +80,7 @@ yii migrate --migrationPath=@akiraz2/blog/migrations
             'urlManager' => 'urlManagerFrontend',
             'imgFilePath' => '@frontend/web/img/blog/',
             'imgFileUrl' => '/img/blog/',
-            'adminAccessControl' => 'common\components\AdminAccessControl',        
+            //'adminAccessControl' => 'common\components\AdminAccessControl', // 'yii\filters\AccessControl' - by default        
         ],
      ],    
 ```
@@ -158,9 +158,36 @@ if a view exists in the theme directory it will be used instead of the original 
 > **NOTE:** Just copy all necessary views from `@akiraz2/yii2-blog/views/frontend/default` to `@app/views/blog` and change!
 
 
+### How to change upload path Imperavi Redactor widget
+
+Yii2 blog module use imperavi redactor 2 Module [https://github.com/yiidoc/yii2-redactor](https://github.com/yiidoc/yii2-redactor) with moduleName "redactorBlog".
+
+> **NOTE:** Embedded Module `redactorBlog` use own UploadController with AccessControl! and only in Backend! and only you dont override default config
+
+If you want change default config, you should add redactor module manually
+
+Config backend modules in backend/config/main.php
+ 
+ ```php
+     'modules' => [
+         'blog' => [
+             'class' => 'akiraz2\blog\Module',
+             'controllerNamespace' => 'akiraz2\blog\controllers\backend',
+             'redactorModule' => 'redactor' // 'redactorBlog' - default, maybe you want use standard module 'redactor' with own config
+         ],
+         'redactor' => [
+             'class' => 'yii\redactor\RedactorModule',
+             'uploadDir' => '@frontend/web/img/upload/',
+             'uploadUrl' => $params['frontendHost'] . '/img/upload',
+             'imageAllowExtensions' => ['jpg', 'png', 'gif', 'svg']
+         ],
+     ],
+ ```
+
+
 ### How to change captcha in Comments
 
-Not yet...
+Not yet... If you are using Recaptcha2 in your project with my yii2-blog, please PR me!
 
 ### User model
 Module Yii2-Blog use `common\models\User`, so if you use custom user component or Module like
@@ -201,8 +228,7 @@ Create file `common\components\AdminAccessControl.php`
     use yii\filters\AccessControl;
     
     class AdminAccessControl extends AccessControl
-    {
-    
+    {    
         public function init()
         {
             $this->rules[] =[

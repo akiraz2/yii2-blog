@@ -1,6 +1,6 @@
 {
   "name": "akiraz2/yii2-blog",
-  "description": "Yii2 Blog for other application. Only for internal using. forked from funson86 and improved.",
+  "description": "Simple, configurable blog module for Yii2 (post, comment, nested category, tags). + frontend, backend. + SEO! (Opengraph, Schema.org)",
   "type": "yii2-extension",
   "keywords": [
     "yii2",
@@ -9,9 +9,12 @@
     "post",
     "category",
     "tag",
-    "module"
+    "comments",
+    "module",
+    "yii2-blog",
+    "seo"
   ],
-  "license": "Apache-2.0",
+  "license": "MIT",
   "authors": [
     {
       "name": "Akiraz",
