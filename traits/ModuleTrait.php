@@ -11,7 +11,7 @@ trait ModuleTrait
      */
     public function getModule()
     {
-        return \Yii::$app->getModule('blog');//return Module::getInstance();
+        return \Yii::$app->getModule('blog');
     }
 
 }

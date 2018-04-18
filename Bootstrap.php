@@ -7,6 +7,7 @@
 
 namespace akiraz2\blog;
 
+use akiraz2\blog\traits\ModuleTrait;
 use yii\base\BootstrapInterface;
 use yii\i18n\PhpMessageSource;
 
@@ -15,6 +16,8 @@ use yii\i18n\PhpMessageSource;
  */
 class Bootstrap implements BootstrapInterface
 {
+    use ModuleTrait;
+
     /**
      * @inheritdoc
      */
@@ -40,13 +43,13 @@ class Bootstrap implements BootstrapInterface
             ];
         }
         // Add redactor module if not exist (in my case - only in backend)
-        $redactorModule= $app->getModule('blog')->redactorModule;
-        if($app->getModule('blog')->getIsBackend() && !$app->hasModule($redactorModule)) {
+        $redactorModule= $this->getModule()->redactorModule;
+        if($this->getModule()->getIsBackend() && !$app->hasModule($redactorModule)) {
             $app->setModule($redactorModule,[
                 'class' => 'yii\redactor\RedactorModule',
                 'imageUploadRoute' => ['/blog/upload/image'],
-                'uploadDir' => $app->getModule('blog')->imgFilePath .'/upload/',
-                'uploadUrl' => $app->getModule('blog')->getImgFullPathUrl() . '/upload',
+                'uploadDir' => $this->getModule()->imgFilePath .'/upload/',
+                'uploadUrl' => $this->getModule()->getImgFullPathUrl() . '/upload',
                 'imageAllowExtensions' => ['jpg', 'png', 'gif', 'svg']
             ]);
         }

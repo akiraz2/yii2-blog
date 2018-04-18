@@ -5,14 +5,13 @@
  * Copyright (c) 2018.
  */
 
-use yii\helpers\Html;
+use akiraz2\blog\models\Status;
 use akiraz2\blog\Module;
 use yii\grid\GridView;
-use yii\helpers\ArrayHelper;
-use akiraz2\blog\models\Status;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\modules\blog\models\BlogCommentSearch */
+/* @var $searchModel \akiraz2\blog\models\BlogCommentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Module::t('blog', 'Blog Comments');
@@ -25,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a(Module::t('blog', 'Create ') . Module::t('blog', 'Blog Comment'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
+    <?= Html::beginForm(['bulk'], 'post'); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -33,8 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\CheckboxColumn'],
 
             [
-                'attribute'=>'post_id',
-                'value'=>function ($model) {
+                'attribute' => 'post_id',
+                'value' => function ($model) {
                     return mb_substr($model->post->title, 0, 15, 'utf-8') . '...';
                 },
                 /*'filter' => Html::activeDropDownList(
@@ -45,8 +44,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 )*/
             ],
             [
-                'attribute'=>'content',
-                'value'=>function ($model) {
+                'attribute' => 'content',
+                'value' => function ($model) {
                     return mb_substr(Yii::$app->formatter->asText($model->content), 0, 30, 'utf-8') . '...';
                 },
             ],
@@ -75,11 +74,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 )
             ],
 
-            // 'create_time',
+            'created_at:date',
             // 'update_time',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+    <hr>
+    <div class="row">
+        <div class="col-md-4">
+            <?= Html::dropDownList('action', '',
+                ['' => 'Choose', 'c' => Module::t('blog', 'Confirm'),
+                    'd' => Module::t('blog', 'Delete')], ['class' => 'form-control dropdown',]) ?>
+        </div>
+        <div class="col-md-4">
+            <?= Html::submitButton(Module::t('blog', 'Send'), ['class' => 'btn btn-info',]); ?>
+        </div>
+    </div>
 
+    <?= Html::endForm(); ?>
 </div>

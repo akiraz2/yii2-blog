@@ -43,6 +43,7 @@ class BlogCategory extends \yii\db\ActiveRecord
     const IS_NAV_NO = 0;
     const PAGE_TYPE_LIST = 'list';
     const PAGE_TYPE_PAGE = 'page';
+
     private $_isNavLabel;
     private $_status;
 

@@ -14,6 +14,7 @@ use akiraz2\blog\traits\IActiveStatus;
 use akiraz2\blog\traits\ModuleTrait;
 use Yii;
 use yii\data\Pagination;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use akiraz2\blog\models\BlogCategory;
 use akiraz2\blog\models\BlogPost;
@@ -27,9 +28,6 @@ class DefaultController extends Controller
 {
     use ModuleTrait;
 
-    public $mainMenu = [];
-    //public $layout = 'main';
-
     /**
      * @inheritdoc
      */
@@ -37,7 +35,7 @@ class DefaultController extends Controller
     {
         return [
             'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
+                'class' => 'lesha724\MathCaptcha\MathCaptchaAction',
             ],
         ];
     }
@@ -52,15 +50,14 @@ class DefaultController extends Controller
         $categories = BlogCategory::find()->where(['status' => IActiveStatus::STATUS_ACTIVE, 'is_nav' => BlogCategory::IS_NAV_YES])
             ->orderBy(['sort_order' => SORT_ASC])->all();
 
-        $cat_items = [];
-
-        for ($i = 0; $i < count($categories); $i++) {
-            $category = $categories[$i];
-            $cat_items[] = [
-                'label' => $category->title,
-                'url' => ['default/index', 'category_id' => $category->id]
-            ];
-        }
+        $cat_items = ArrayHelper::toArray($categories, [
+            'akiraz2\blog\models\BlogCategory' => [
+                'label' => 'title',
+                'url' => function ($cat) {
+                    return ['default/index', 'category_id' => $cat->id];
+                },
+            ],
+        ]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

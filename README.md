@@ -267,6 +267,12 @@ Configuration `common/config/main.php` or `frontend/config/main.php`
 If you have any questions or problems with Yii2-Blog you can ask them directly
  by using following email address: `akiraz@bk.ru`.
 
+Please translate to your language! Edit config (or copy to your path) `@vendor/akiraz2/yii2-blog/src/messages/config.php`, add your language and run script:
+```php
+php ./yii message/extract @akiraz2/blog/messages/config.php
+```
+translate file will be in `@vendor/akiraz2/yii2-blog/src/messages/` or your configured path
+
 
 ## Contributing
 
