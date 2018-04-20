@@ -10,7 +10,7 @@ Yii2 Super Blog is simple, configured yii2 Module with frontend and backend, clo
 * Blog Post with image banner, **seo** tags, [imperavi redactor 2 widget](https://github.com/yiidoc/yii2-redactor)
 * Blog Category (nested) with image banner, seo tags
 * Blog Tags
-* Blog Comment (can be disabled), with standard yii2 captcha (can be [ReCaptcha2](https://packagist.org/packages/himiklab/yii2-recaptcha-widget))
+* Blog Comment (can be disabled), with [Math captcha](https://github.com/lesha724/yii2-math-captcha) (can be standard yii2-captcha OR [ReCaptcha2](https://packagist.org/packages/himiklab/yii2-recaptcha-widget))
 * email in comments are masked (`a*i*a*@bk.ru`)
 * all models has Status (_Inactive_, _Active_, _Archive_)
 * Inactive comments are truncated (and strip tags)

@@ -12,7 +12,6 @@ use akiraz2\blog\models\BlogComment;
 use akiraz2\blog\models\BlogCommentSearch;
 use akiraz2\blog\models\BlogPost;
 use akiraz2\blog\models\BlogPostSearch;
-use akiraz2\blog\models\Status;
 use akiraz2\blog\Module;
 use akiraz2\blog\traits\IActiveStatus;
 use akiraz2\blog\traits\ModuleTrait;
