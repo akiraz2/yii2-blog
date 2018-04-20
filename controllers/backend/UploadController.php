@@ -7,7 +7,6 @@ use yii\web\Response;
 
 class UploadController extends BaseAdminController
 {
-    //public $module = 'redactorBlog';
 
     public $enableCsrfValidation = false;
 

@@ -11,11 +11,7 @@ use akiraz2\blog\models\BlogCategory;
 use akiraz2\blog\models\BlogCategorySearch;
 use akiraz2\blog\traits\IActiveStatus;
 use Yii;
-use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\web\UploadedFile;
 
 /**
  * BlogCategoryController implements the CRUD actions for BlogCategory model.
@@ -75,8 +71,9 @@ class BlogCategoryController extends BaseAdminController
     {
         $model = new BlogCategory();
 
-        if (isset($_GET['parent_id']) && $_GET['parent_id'] > 0)
+        if (isset($_GET['parent_id']) && $_GET['parent_id'] > 0) {
             $model->parent_id = $_GET['parent_id'];
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

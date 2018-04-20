@@ -44,6 +44,7 @@ class BlogPostController extends BaseAdminController
      * Displays a single BlogPost model.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
