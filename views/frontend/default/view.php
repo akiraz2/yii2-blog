@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = [
     'url' => ['default/index']
 ];
 $this->params['breadcrumbs'][] = $this->title;
-rmrevin\yii\fontawesome\AssetBundle::register($this);
+
 ?>
 <div class="container">
     <article class="blog-post" itemscope itemtype="http://schema.org/Article">

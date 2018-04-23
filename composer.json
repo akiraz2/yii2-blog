@@ -26,7 +26,6 @@
     "mihaildev/yii2-ckeditor": "*",
     "yiidoc/yii2-redactor": "*",
     "yii-dream-team/yii2-upload-behavior": "*",
-    "rmrevin/yii2-fontawesome": "~3.0",
     "lesha724/yii2-math-captcha": "*"
   },
   "repositories": [
