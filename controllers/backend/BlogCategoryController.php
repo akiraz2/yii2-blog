@@ -71,8 +71,8 @@ class BlogCategoryController extends BaseAdminController
     {
         $model = new BlogCategory();
 
-        if (isset($_GET['parent_id']) && $_GET['parent_id'] > 0) {
-            $model->parent_id = $_GET['parent_id'];
+        if (Yii::$app->request->get('parent_id')>0) {
+            $model->parent_id = Yii::$app->request->get('parent_id');
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

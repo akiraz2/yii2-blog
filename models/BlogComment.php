@@ -128,6 +128,9 @@ class BlogComment extends \yii\db\ActiveRecord
         return $this->hasOne(BlogPost::className(), ['id' => 'post_id']);
     }
 
+    /**
+     * @return string
+     */
     public function getAuthorLink()
     {
         if(!empty($this->url))
@@ -136,6 +139,10 @@ class BlogComment extends \yii\db\ActiveRecord
             return Html::encode($this->author);
     }
 
+    /**
+     * @param null $post
+     * @return string
+     */
     public function getUrl($post=null)
     {
         if($post === null)
@@ -143,6 +150,10 @@ class BlogComment extends \yii\db\ActiveRecord
         return $post->url . '#c' . $this->id;
     }
 
+    /**
+     * @param int $limit
+     * @return array|\yii\db\ActiveRecord[]
+     */
     public static  function findRecentComments($limit=10)
     {
         return self::find()->joinWith('blogPost')->where([
@@ -153,12 +164,18 @@ class BlogComment extends \yii\db\ActiveRecord
         ])->limit($limit)->all();
     }
 
+    /**
+     * @return string
+     */
     public function getMaskedEmail() {
         list($email_username, $email_domain) = explode('@', $this->email);
         $masked_email_username = preg_replace('/(.)./', "$1*", $email_username);
         return implode('@', array($masked_email_username, $email_domain));
     }
 
+    /**
+     * @return string
+     */
     public function getContent() {
         return ($this->status==IActiveStatus::STATUS_ACTIVE)? $this->content : StringHelper::truncate($this->content, 15);
     }

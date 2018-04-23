@@ -23,8 +23,7 @@ Yii2 Super Blog is simple, configured yii2 Module with frontend and backend, clo
 
 > **NOTE:** Module is in initial development. Anything may change at any time.
 
-Installation
-------------
+## Installation
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
@@ -42,17 +41,25 @@ or add
 
 to the require section of your `composer.json` file.
 
+## Configuration
 
+By default, all images from Imperavi-widget module are uploaded to dir `@frontend/web/img/blog/upload`.
+Be sure, this directory is created manually with proper file permissions (chmod).
 
-### Migration
-
-Migration run
+Config *common* modules in `common/config/main.php`
 
 ```php
-yii migrate --migrationPath=@akiraz2/blog/migrations
+    'modules' => [
+        'blog' => [
+            'class' => akiraz2\blog\Module::class,
+            'urlManager' => 'urlManagerFrontend',// 'urlManager' by default
+            'imgFilePath' => '@frontend/web/img/blog/',
+            'imgFileUrl' => '/img/blog/',                   
+        ],
+     ],    
 ```
 
-### Config url rewrite in /common/config/main.php
+Config *url rewrite* in `common/config/main.php` (or separately frontend/backend apps)
 ```php
     'timeZone' => 'Europe/Moscow', //time zone affect the formatter datetime format
     'components' => [
@@ -71,32 +78,20 @@ yii migrate --migrationPath=@akiraz2/blog/migrations
         ],
     ],
 ```
-### Config common modules in common/config/main.php
 
-```php
-    'modules' => [
-        'blog' => [
-            'class' => akiraz2\blog\Module::class,
-            'urlManager' => 'urlManagerFrontend',
-            'imgFilePath' => '@frontend/web/img/blog/',
-            'imgFileUrl' => '/img/blog/',
-            //'adminAccessControl' => 'common\components\AdminAccessControl', // 'yii\filters\AccessControl' - by default        
-        ],
-     ],    
-```
-
-### Config backend modules in backend/config/main.php
+Config *backend modules* in `backend/config/main.php`
 
 ```php
     'modules' => [
         'blog' => [
             'class' => 'akiraz2\blog\Module',
-            'controllerNamespace' => 'akiraz2\blog\controllers\backend'
+            'controllerNamespace' => 'akiraz2\blog\controllers\backend',
+            //'adminAccessControl' => 'common\components\AdminAccessControl', // null - by default 
         ],
     ],
 ```
 
-### Config frontend modules in frontend/config/main.php
+Config *frontend modules* in `frontend/config/main.php`
 
 ```php
     //'defaultRoute' => 'blog', //set blog as default route
@@ -121,6 +116,16 @@ yii migrate --migrationPath=@akiraz2/blog/migrations
     ],
 ```
 
+
+### Migration
+
+Migration run after config module
+
+```php
+yii migrate --migrationPath=@akiraz2/blog/migrations
+```
+
+
 ### Access Url
 1. backend : http://backend.you-domain.com/blog
    - Category : http://backend.you-domain.com/blog/blog-category
@@ -132,7 +137,7 @@ yii migrate --migrationPath=@akiraz2/blog/migrations
 
 ## Usage
 
-### Overriding views
+**Overriding views**
 
 When you start using Yii2-blog you will probably find that you need to override the default views provided by the module.
 Although view names are not configurable, Yii2 provides a way to override views using themes. To get started you should
@@ -158,7 +163,8 @@ if a view exists in the theme directory it will be used instead of the original 
 > **NOTE:** Just copy all necessary views from `@akiraz2/yii2-blog/views/frontend/default` to `@app/views/blog` and change!
 
 
-### How to change upload path Imperavi Redactor widget
+
+**How to change upload path Imperavi Redactor widget**
 
 Yii2 blog module use imperavi redactor 2 Module [https://github.com/yiidoc/yii2-redactor](https://github.com/yiidoc/yii2-redactor) with moduleName "redactorBlog".
 
@@ -185,11 +191,12 @@ Config backend modules in backend/config/main.php
  ```
 
 
-### How to change captcha in Comments
+**How to change captcha in Comments**
 
 Not yet... If you are using Recaptcha2 in your project with my yii2-blog, please PR me!
 
-### User model
+**User model**
+
 Module Yii2-Blog use `common\models\User`, so if you use custom user component or Module like
  [dektrium/yii2-user](https://github.com/dektrium/yii2-user), you should create model under path `common\models\User` with overriding your user-model.
  
@@ -205,7 +212,7 @@ Module Yii2-Blog use `common\models\User`, so if you use custom user component o
  } 
  ```
 
-### CustomAdminAccessControl for backend
+**CustomAdminAccessControl for backend**
 
 For example, using [dektrium/yii2-user](https://github.com/dektrium/yii2-user)
 
@@ -243,7 +250,7 @@ Create file `common\components\AdminAccessControl.php`
     }
  ```
 
-### Opengraph
+**Opengraph**
 
 Please, add component [dragonjet/yii2-opengraph](https://packagist.org/packages/dragonjet/yii2-opengraph) to your project.
 ```
@@ -260,6 +267,13 @@ Configuration `common/config/main.php` or `frontend/config/main.php`
         //....
     ],
   ```
+  
+## TODO
+
+* refactoring code (specially BlogCategory)
+* create widgets
+* translate to languages
+* change default design and styles for frontend blog
 
 
 ## Support

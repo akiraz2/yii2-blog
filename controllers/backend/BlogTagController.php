@@ -13,7 +13,7 @@ use Yii;
 use yii\web\NotFoundHttpException;
 
 /**
- * TagController implements the CRUD actions for Tag model.
+ * BlogTagController implements the CRUD actions for BlogTag model.
  */
 class BlogTagController extends BaseAdminController
 {
@@ -53,7 +53,7 @@ class BlogTagController extends BaseAdminController
      * Finds the Tag model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return Tag the loaded model
+     * @return BlogTag the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
@@ -66,7 +66,7 @@ class BlogTagController extends BaseAdminController
     }
 
     /**
-     * Creates a new Tag model.
+     * Creates a new BlogTag model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
@@ -86,7 +86,7 @@ class BlogTagController extends BaseAdminController
     }
 
     /**
-     * Updates an existing Tag model.
+     * Updates an existing BlogTag model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
@@ -108,11 +108,14 @@ class BlogTagController extends BaseAdminController
     }
 
     /**
-     * Deletes an existing Tag model.
+     * Deletes an existing BlogTag model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
      * @throws NotFoundHttpException
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {

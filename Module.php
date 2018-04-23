@@ -19,7 +19,7 @@ class Module extends \yii\base\Module
 
     public $imgFileUrl = '/img/blog';
 
-    public $adminAccessControl = 'yii\filters\AccessControl';
+    public $adminAccessControl = null;
 
     public $blogPostPageCount = 10;
 

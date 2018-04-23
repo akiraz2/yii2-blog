@@ -29,10 +29,18 @@ class BaseAdminController extends Controller {
                 'actions' => [
                     'delete' => ['POST'],
                 ],
-            ],
-            'access' => [
-                'class' => $this->module->adminAccessControl,
-            ],
+            ]
         ];
+    }
+
+    public function init()
+    {
+        if($this->module->adminAccessControl) {
+            $this->attachBehavior('access', [
+                'class' => $this->module->adminAccessControl,
+            ]);
+        }
+
+        parent::init();
     }
 }
