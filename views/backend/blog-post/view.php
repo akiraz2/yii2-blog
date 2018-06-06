@@ -43,12 +43,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'tags',
             'slug',
             [
-                'attribute' => 'user_id',
+                'attribute' => 'banner',
                 'value' => $model->getThumbFileUrl('banner', 'thumb'),
             ],
             'click',
             [
-                'attribute' => 'user_id',
+                'attribute' => 'user',
                 'value' => $model->user->username,
             ],
             [
