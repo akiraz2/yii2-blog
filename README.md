@@ -119,6 +119,8 @@ Config *frontend modules* in `frontend/config/main.php`
 
 ### Migration
 
+> **NOTE:** Module uses table `{{%user}}` with PK `id`. Make sure you have table before applying these migrations.
+
 Migration run after config module
 
 ```php
@@ -130,7 +132,7 @@ or full path:
 ```php
 ./yii migrate --migrationPath=@vendor/akiraz2/yii2-blog/migrations
 ```
-> **NOTE:** Module uses table `{{%user}}` with PK `id`.
+
 
 ### Access Url
 1. backend : http://backend.you-domain.com/blog
