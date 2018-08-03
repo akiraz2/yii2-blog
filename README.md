@@ -52,7 +52,7 @@ Config *common* modules in `common/config/main.php`
     'modules' => [
         'blog' => [
             'class' => akiraz2\blog\Module::class,
-            'urlManager' => 'urlManagerFrontend',// 'urlManager' by default
+            'urlManager' => 'urlManager',// 'urlManager' by default, or maybe you can use own component urlManagerFrontend
             'imgFilePath' => '@frontend/web/img/blog/',
             'imgFileUrl' => '/img/blog/',                   
         ],
@@ -115,16 +115,22 @@ Config *frontend modules* in `frontend/config/main.php`
         ],
     ],
 ```
-
+> **NOTE:** Module Yii2-Blog use model `common\models\User`
 
 ### Migration
 
 Migration run after config module
 
 ```php
-yii migrate --migrationPath=@akiraz2/blog/migrations
+./yii migrate --migrationPath=@akiraz2/blog/migrations
 ```
 
+or full path:
+
+```php
+./yii migrate --migrationPath=@vendor/akiraz2/yii2-blog/migrations
+```
+> **NOTE:** Module uses table `{{%user}}` with PK `id`.
 
 ### Access Url
 1. backend : http://backend.you-domain.com/blog
