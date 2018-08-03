@@ -53,5 +53,7 @@ class Bootstrap implements BootstrapInterface
                 'imageAllowExtensions' => ['jpg', 'png', 'gif', 'svg']
             ]);
         }
+        
+        Yii::setAlias('@akiraz2', dirname(dirname(DIR)) . '/vendor/akiraz2');
     }
 }
