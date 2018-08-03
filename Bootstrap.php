@@ -54,6 +54,6 @@ class Bootstrap implements BootstrapInterface
             ]);
         }
         
-        Yii::setAlias('@akiraz2', dirname(dirname(DIR)) . '/vendor/akiraz2');
+        \Yii::setAlias('@akiraz2', \Yii::getAlias('@vendor') . '/akiraz2');
     }
 }
