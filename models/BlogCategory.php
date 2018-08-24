@@ -55,7 +55,7 @@ class BlogCategory extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'blog_category';
+        return '{{%blog_category}}';
     }
 
     /**

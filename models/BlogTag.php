@@ -32,7 +32,7 @@ class BlogTag extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'blog_tag';
+        return '{{%blog_tag}}';
     }
 
     /**
