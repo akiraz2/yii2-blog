@@ -159,7 +159,7 @@ class BlogPost extends \yii\db\ActiveRecord
     public function getUser()
     {
         if($this->getModule()->userModel) {
-            return $this->hasOne($this->getModule()->userModel::className(), ['id' => 'user_id']);
+            return $this->hasOne($this->getModule()->userModel::className(), [$this->getModule()->userPK => 'user_id']);
         }
         return null;
     }
