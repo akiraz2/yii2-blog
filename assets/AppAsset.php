@@ -7,20 +7,18 @@
 
 namespace akiraz2\blog\assets;
 
-use Yii;
 use yii\web\AssetBundle;
 
 class AppAsset extends AssetBundle
 {
-    public $sourcePath = '@akiraz2/blog/assets/default';
+    public $sourcePath = '@vendor/akiraz2/yii2-blog/assets/default';
     public $baseUrl = '@web';
     public $css = [
-        'css/style.css',
+        'css/blog-style.css',
     ];
     public $js = [
     ];
     public $depends = [
-        'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
     ];
 }

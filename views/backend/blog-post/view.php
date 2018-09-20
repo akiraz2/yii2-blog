@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'click',
             [
                 'attribute' => 'user',
-                'value' => $model->user->username,
+                'value' => ($model->user) ? $model->user->{Module::getInstance()->userName} : 'Отсутствует',
             ],
             [
                 'attribute' => 'status',

@@ -25,11 +25,21 @@ class Module extends \yii\base\Module
 
     public $blogCommentPageCount = 20;
 
-    public $enableComments = true;
+    public $enableComments = false;
 
     public $schemaOrg = [];
 
+    /** @var string Name of Component for editing posts */
     public $redactorModule= 'redactorBlog';
+
+    /** @var linked user (for example, 'common\models\User::class' */
+    public $userModel;// = \common\models\User::class;
+
+    /** @var string Primary Key for user table, by default 'id' */
+    public $userPK = 'id';
+
+    /** @var string username uses in view (may be field `username` or `email` or `login`) */
+    public $userName = 'username';
 
     protected $_isBackend;
 
@@ -97,6 +107,8 @@ class Module extends \yii\base\Module
     }
 
     /**
+     * Need correct Full IMG URL for Backend
+     *
      * @return string
      */
     public function getImgFullPathUrl() {

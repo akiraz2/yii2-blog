@@ -10,7 +10,6 @@ namespace akiraz2\blog\models;
 use akiraz2\blog\traits\IActiveStatus;
 use akiraz2\blog\traits\ModuleTrait;
 use akiraz2\blog\traits\StatusTrait;
-use common\models\User;
 use Yii;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\SluggableBehavior;
@@ -159,7 +158,10 @@ class BlogPost extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        if($this->getModule()->userModel) {
+            return $this->hasOne($this->getModule()->userModel::className(), ['id' => 'user_id']);
+        }
+        return null;
     }
 
     public function getComments()

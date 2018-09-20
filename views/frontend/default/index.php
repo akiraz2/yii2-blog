@@ -8,6 +8,8 @@
 use yii\widgets\ListView;
 use \akiraz2\blog\Module;
 
+\akiraz2\blog\assets\AppAsset::register($this);
+
 $this->title = Module::t('blog', 'Blog');
 Yii::$app->view->registerMetaTag([
     'name' => 'description',

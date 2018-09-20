@@ -23,6 +23,17 @@ Yii2 Super Blog is simple, configured yii2 Module with frontend and backend, clo
 
 > **NOTE:** Module is in initial development. Anything may change at any time.
 
+
+# Table of Contents
+1. [Installation](#installation)
+2. [Configuration](#configuration)
+3. [Usage](#usage)
+4. [TODO](#todo)
+5. [Support](#support)
+6. [Contributing](#contributing)
+
+
+
 ## Installation
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
@@ -54,7 +65,10 @@ Config *common* modules in `common/config/main.php`
             'class' => akiraz2\blog\Module::class,
             'urlManager' => 'urlManager',// 'urlManager' by default, or maybe you can use own component urlManagerFrontend
             'imgFilePath' => '@frontend/web/img/blog/',
-            'imgFileUrl' => '/img/blog/',                   
+            'imgFileUrl' => '/img/blog/',
+            'userModel' => \common\models\User::class,
+            //'userPK' => 'id', //default primary key for {{%user}} table
+            //'userName' => 'username', //uses in view (may be field `username` or `email` or `login`)
         ],
      ],    
 ```
@@ -135,8 +149,8 @@ or full path:
 
 
 ### Access Url
-1. backend : http://backend.you-domain.com/blog
-   - Category : http://backend.you-domain.com/blog/blog-category
+1. backend : http://backend.you-domain.com/blog (Empty view)
+   - Category : http://backend.you-domain.com/blog/blog-category (create first category)
    - Post : http://backend.you-domain.com/blog/blog-post
    - Comment : http://backend.you-domain.com/blog/blog-comment
    - Tag : http://backend.you-domain.com/blog/blog-tag
@@ -278,7 +292,7 @@ Configuration `common/config/main.php` or `frontend/config/main.php`
   
 ## TODO
 
-* refactoring code (specially BlogCategory)
+* refactoring code (specially BlogCategory, BlogTag)
 * create widgets
 * translate to languages
 * change default design and styles for frontend blog

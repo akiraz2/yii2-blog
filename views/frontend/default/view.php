@@ -10,6 +10,8 @@
 use akiraz2\blog\Module;
 use yii\helpers\Html;
 
+\akiraz2\blog\assets\AppAsset::register($this);
+
 $this->title = $post->title;
 Yii::$app->view->registerMetaTag([
     'name' => 'description',
@@ -33,11 +35,12 @@ $this->params['breadcrumbs'][] = [
     'url' => ['default/index']
 ];
 $this->params['breadcrumbs'][] = $this->title;
-
+$post_user = $post->user;
+$username_attribute = Module::getInstance()->userName;
 ?>
 <div class="container">
     <article class="blog-post" itemscope itemtype="http://schema.org/Article">
-        <meta itemprop="author" content="<?= $post->user->username;?>">
+        <meta itemprop="author" content="<?= $post_user->{$username_attribute};?>">
         <meta itemprop="dateModified" content="<?= date_format(date_timestamp_set(new DateTime(), $post->updated_at), 'c') ?>"/>
         <meta itemscope itemprop="mainEntityOfPage" itemType="https://schema.org/WebPage" itemid="<?= $post->getAbsoluteUrl();?>"/>
         <meta itemprop="commentCount" content="<?= $dataProvider->getTotalCount();?>">

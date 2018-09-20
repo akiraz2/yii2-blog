@@ -22,6 +22,8 @@ use yii\db\Schema;
  */
 class m180406_201480_blog_init extends Migration
 {
+    use \akiraz2\blog\traits\ModuleTrait;
+
     /**
      * @inheritdoc
      */
@@ -71,7 +73,7 @@ class m180406_201480_blog_init extends Migration
                 'slug' => Schema::TYPE_STRING . '(128) NOT NULL',
                 'banner' => Schema::TYPE_STRING . '(255) ',
                 'click' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 0',
-                'user_id' => Schema::TYPE_INTEGER . ' NOT NULL',
+                'user_id' => Schema::TYPE_INTEGER . '',
                 'status' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 1',
                 'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
                 'updated_at' => Schema::TYPE_INTEGER . ' NOT NULL'
@@ -85,8 +87,11 @@ class m180406_201480_blog_init extends Migration
         $this->createIndex('created_at', '{{%blog_post}}', 'created_at');
 
         // Foreign Keys
-        $this->addForeignKey('FK_post_category', '{{%blog_post}}', 'category_id', '{{%blog_category}}', 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('FK_post_user', '{{%blog_post}}', 'user_id', '{{%user}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('{{%FK_post_category}}', '{{%blog_post}}', 'category_id', '{{%blog_category}}', 'id', 'CASCADE', 'CASCADE');
+        if ($this->getModule()->userModel) {
+            $userClass = $this->getModule()->userModel;
+            $this->addForeignKey('{{%FK_post_user}}', '{{%blog_post}}', 'user_id', $userClass::tableName(), $this->getModule()->userPK, 'CASCADE', 'CASCADE');
+        }
 
 
         // table blog_comment
@@ -112,7 +117,7 @@ class m180406_201480_blog_init extends Migration
         $this->createIndex('created_at', '{{%blog_comment}}', 'created_at');
 
         // Foreign Keys
-        $this->addForeignKey('FK_comment_post', '{{%blog_comment}}', 'post_id', '{{%blog_post}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('{{%FK_comment_post}}', '{{%blog_comment}}', 'post_id', '{{%blog_post}}', 'id', 'CASCADE', 'CASCADE');
 
 
         // table blog_tag
