@@ -56,8 +56,8 @@ class BlogPostSearch extends BlogPost
         $query->orderBy(['created_at' => SORT_DESC]);
 
         if($this->scenario== self::SCENARIO_USER) {
-            $query->andWhere(['blog_post.status' => IActiveStatus::STATUS_ACTIVE])->innerJoinWith('category')
-            ->andWhere(['blog_category.status' => IActiveStatus::STATUS_ACTIVE]);
+            $query->andWhere(['{{%blog_post}}.status' => IActiveStatus::STATUS_ACTIVE])->innerJoinWith('category')
+            ->andWhere(['{{%blog_category}}.status' => IActiveStatus::STATUS_ACTIVE]);
         }
 
         $dataProvider = new ActiveDataProvider([
