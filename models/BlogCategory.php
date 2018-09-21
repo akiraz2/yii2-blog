@@ -103,8 +103,9 @@ class BlogCategory extends \yii\db\ActiveRecord
         }
 
         // i feel this is useless
-        if ($level > 0)
+        if ($level > 0) {
             $strRepeat .= '';
+        }
 
         $newArray = array();
         $tempArray = array();
@@ -112,10 +113,21 @@ class BlogCategory extends \yii\db\ActiveRecord
         //performance is not very good here
         foreach (( array )$array as $v) {
             if ($v['parent_id'] == $parentId) {
-                $newArray [] = array('id' => $v['id'], 'title' => $v['title'], 'parent_id' => $v['parent_id'], 'sort_order' => $v['sort_order'],
+                $newArray [] = array(
+                    'id' => $v['id'],
+                    'title' => $v['title'],
+                    'parent_id' => $v['parent_id'],
+                    'sort_order' => $v['sort_order'],
                     'banner' => $v->getThumbFileUrl('banner', 'thumb'), //'postsCount'=>$v['postsCount'],
-                    'is_nav' => $v['is_nav'], 'template' => $v['template'],
-                    'status' => $v->getStatus(), 'created_at' => $v['created_at'], 'updated_at' => $v['updated_at'], 'redirect_url' => $v['redirect_url'], 'str_repeat' => $strRepeat, 'str_label' => $strRepeat . $v['title'],);
+                    'is_nav' => $v['is_nav'],
+                    'template' => $v['template'],
+                    'status' => $v->getStatus(),
+                    'created_at' => $v['created_at'],
+                    'updated_at' => $v['updated_at'],
+                    'redirect_url' => $v['redirect_url'],
+                    'str_repeat' => $strRepeat,
+                    'str_label' => $strRepeat . $v['title'],
+                );
 
                 $tempArray = self::get($v['id'], $array, ($level + $add), $add, $repeat);
                 if ($tempArray) {
@@ -215,10 +227,11 @@ class BlogCategory extends \yii\db\ActiveRecord
         foreach ((array)$array as $v) {
             if ($v['id'] == $id) {
                 $parentId = $v['parent_id'];
-                if (0 == $parentId)
+                if (0 == $parentId) {
                     return $id;
-                else
+                } else {
                     return self::getRootCategoryId($parentId, $array);
+                }
             }
         }
     }
@@ -255,24 +268,27 @@ class BlogCategory extends \yii\db\ActiveRecord
         foreach ((array)$array as $v) {
             if ($v['id'] == $id) {
                 $parent_id = $v['parent_id'];
-                if (self::PAGE_TYPE_LIST == $v['page_type'])
+                if (self::PAGE_TYPE_LIST == $v['page_type']) {
                     $arrayResult = array($v['title'] => array('list', id => $v['id']));
-                elseif (self::PAGE_TYPE_PAGE == $v['page_type'])
+                } elseif (self::PAGE_TYPE_PAGE == $v['page_type']) {
                     $arrayResult = array($v['title'] => array('page', id => $v['id']));
+                }
             }
         }
 
         if (0 < $parent_id) {
             $arrayTemp = self::getPathToRoot($parent_id, $array);
 
-            if (!empty($arrayTemp))
+            if (!empty($arrayTemp)) {
                 $arrayResult += $arrayTemp;
+            }
         }
 
-        if (!empty($arrayResult))
+        if (!empty($arrayResult)) {
             return $arrayResult;
-        else
+        } else {
             return;
+        }
     }
 
     /**

@@ -97,8 +97,9 @@ class BlogTag extends \yii\db\ActiveRecord
 
     public static function removeTags($tags)
     {
-        if (empty($tags))
+        if (empty($tags)) {
             return;
+        }
 
         BlogTag::updateAllCounters(['frequency' => 1], 'name in ("' . implode('"," ', $tags) . '")');
         BlogTag::deleteAll('frequency <= 0');
@@ -109,13 +110,15 @@ class BlogTag extends \yii\db\ActiveRecord
         $models = BlogTag::find()->orderBy(['frequency' => SORT_DESC])->all();
 
         $total = 0;
-        foreach ($models as $model)
+        foreach ($models as $model) {
             $total += $model->frequency;
+        }
 
         $tags = [];
         if ($total > 0) {
-            foreach ($models as $model)
+            foreach ($models as $model) {
                 $tags[$model->name] = 8 + (int)(16 * $model->frequency / ($total + 10));
+            }
             ksort($tags);
         }
         return $tags;

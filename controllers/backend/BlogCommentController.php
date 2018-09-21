@@ -129,10 +129,14 @@ class BlogCommentController extends BaseAdminController
         $selection = (array)Yii::$app->request->post('selection');//typecasting
         switch ($action) {
             case 'd':
-                if ($this->deleteAll($selection)) $message = Module::t('blog', 'Successfully delete');
+                if ($this->deleteAll($selection)) {
+                    $message = Module::t('blog', 'Successfully delete');
+                }
                 break;
             case 'c':
-                if ($this->confirmAll($selection)) $message = Module::t('blog', 'Successfully confirm');
+                if ($this->confirmAll($selection)) {
+                    $message = Module::t('blog', 'Successfully confirm');
+                }
                 break;
             default:
                 $message = Module::t('blog', 'Action not found');

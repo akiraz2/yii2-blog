@@ -234,8 +234,9 @@ class BlogPost extends \yii\db\ActiveRecord
     public function getTagLinks()
     {
         $links = [];
-        foreach (BlogTag::string2array($this->tags) as $tag)
+        foreach (BlogTag::string2array($this->tags) as $tag) {
             $links[] = Html::a($tag, Yii::$app->getUrlManager()->createUrl(['blog/default/index', 'tag' => $tag]));
+        }
 
         return $links;
     }

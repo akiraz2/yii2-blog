@@ -84,8 +84,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-md-4">
             <?= Html::dropDownList('action', '',
-                ['' => 'Choose', 'c' => Module::t('blog', 'Confirm'),
-                    'd' => Module::t('blog', 'Delete')], ['class' => 'form-control dropdown',]) ?>
+                [
+                    '' => 'Choose',
+                    'c' => Module::t('blog', 'Confirm'),
+                    'd' => Module::t('blog', 'Delete')
+                ], ['class' => 'form-control dropdown',]) ?>
         </div>
         <div class="col-md-4">
             <?= Html::submitButton(Module::t('blog', 'Send'), ['class' => 'btn btn-info',]); ?>

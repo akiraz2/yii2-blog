@@ -131,10 +131,11 @@ class BlogComment extends \yii\db\ActiveRecord
      */
     public function getAuthorLink()
     {
-        if (!empty($this->url))
+        if (!empty($this->url)) {
             return Html::a(Html::encode($this->author), $this->url);
-        else
+        } else {
             return Html::encode($this->author);
+        }
     }
 
     /**
@@ -143,8 +144,9 @@ class BlogComment extends \yii\db\ActiveRecord
      */
     public function getUrl($post = null)
     {
-        if ($post === null)
+        if ($post === null) {
             $post = $this->post;
+        }
         return $post->url . '#c' . $this->id;
     }
 
