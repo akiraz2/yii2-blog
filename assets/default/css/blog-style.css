@@ -38,7 +38,7 @@
     max-width: initial;*/
 }
 .blog-brief__img::after {
-    content:'';
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -225,9 +225,6 @@
     box-shadow: 0px 0px 10px #ececec;
     border-radius: 2px;
     padding: 35px 35px;
-
-
-
 
 }
 .blog-comments__header {

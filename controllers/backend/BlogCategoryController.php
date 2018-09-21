@@ -71,7 +71,7 @@ class BlogCategoryController extends BaseAdminController
     {
         $model = new BlogCategory();
 
-        if (Yii::$app->request->get('parent_id')>0) {
+        if (Yii::$app->request->get('parent_id') > 0) {
             $model->parent_id = Yii::$app->request->get('parent_id');
         }
 

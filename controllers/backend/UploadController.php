@@ -2,7 +2,6 @@
 
 namespace akiraz2\blog\controllers\backend;
 
-use akiraz2\blog\controllers\backend\BaseAdminController;
 use yii\web\Response;
 
 class UploadController extends BaseAdminController
@@ -14,7 +13,7 @@ class UploadController extends BaseAdminController
     {
         parent::init();
         $this->module = \Yii::$app->getModule(\Yii::$app->getModule('blog')->redactorModule);
-        $this->attachBehavior('content' , [
+        $this->attachBehavior('content', [
             'class' => 'yii\filters\ContentNegotiator',
             'formats' => [
                 'application/json' => Response::FORMAT_JSON

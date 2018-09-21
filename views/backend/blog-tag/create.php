@@ -5,7 +5,6 @@
  * Copyright (c) 2018.
  */
 
-use yii\helpers\Html;
 use akiraz2\blog\Module;
 
 

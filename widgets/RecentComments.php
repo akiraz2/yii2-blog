@@ -9,7 +9,6 @@ namespace akiraz2\blog\widgets;
 
 use akiraz2\blog\models\BlogComment;
 use yii\base\Widget;
-use yii\helpers\Html;
 
 class RecentComments extends Widget
 {

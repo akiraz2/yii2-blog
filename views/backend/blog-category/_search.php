@@ -5,9 +5,9 @@
  * Copyright (c) 2018.
  */
 
+use akiraz2\blog\Module;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use akiraz2\blog\Module;
 
 /* @var $this yii\web\View */
 /* @var $model akiraz2\blog\models\BlogCategorySearch */
@@ -46,7 +46,7 @@ use akiraz2\blog\Module;
     <?php // echo $form->field($model, 'create_time') ?>
 
     <?php // echo $form->field($model, 'update_time') ?>
-
+    
     <div class="form-group">
         <?= Html::submitButton(Module::t('blog', 'Search'), ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton(Module::t('blog', 'Reset'), ['class' => 'btn btn-default']) ?>

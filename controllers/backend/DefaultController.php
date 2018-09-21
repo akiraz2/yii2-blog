@@ -7,10 +7,6 @@
 
 namespace akiraz2\blog\controllers\backend;
 
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use yii\web\Controller;
-
 class DefaultController extends BaseAdminController
 {
     public function actionIndex()

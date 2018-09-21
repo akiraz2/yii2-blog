@@ -8,10 +8,7 @@
 namespace akiraz2\blog\models;
 
 use akiraz2\blog\traits\IActiveStatus;
-use Yii;
-use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use akiraz2\blog\models\BlogPost;
 
 /**
  * BlogPostSearch represents the model behind the search form about `akiraz2\blog\models\BlogPost`.
@@ -55,9 +52,9 @@ class BlogPostSearch extends BlogPost
         $query = BlogPost::find();
         $query->orderBy(['created_at' => SORT_DESC]);
 
-        if($this->scenario== self::SCENARIO_USER) {
+        if ($this->scenario == self::SCENARIO_USER) {
             $query->andWhere(['{{%blog_post}}.status' => IActiveStatus::STATUS_ACTIVE])->innerJoinWith('category')
-            ->andWhere(['{{%blog_category}}.status' => IActiveStatus::STATUS_ACTIVE]);
+                ->andWhere(['{{%blog_category}}.status' => IActiveStatus::STATUS_ACTIVE]);
         }
 
         $dataProvider = new ActiveDataProvider([
@@ -67,7 +64,7 @@ class BlogPostSearch extends BlogPost
             ]
         ]);
 
-        if (!($this->load($params,($this->scenario== self::SCENARIO_USER)?'': 'BlogPostSearch') && $this->validate())) {
+        if (!($this->load($params, ($this->scenario == self::SCENARIO_USER) ? '' : 'BlogPostSearch') && $this->validate())) {
             return $dataProvider;
         }
 
@@ -75,7 +72,7 @@ class BlogPostSearch extends BlogPost
             'category_id' => $this->category_id,
         ]);
 
-        if($this->scenario== self::SCENARIO_ADMIN) {
+        if ($this->scenario == self::SCENARIO_ADMIN) {
             $query->andFilterWhere([
                 'id' => $this->id,
                 'status' => $this->status,

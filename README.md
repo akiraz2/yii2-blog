@@ -67,8 +67,8 @@ Config *common* modules in `common/config/main.php`
             'imgFilePath' => '@frontend/web/img/blog/',
             'imgFileUrl' => '/img/blog/',
             'userModel' => \common\models\User::class,
-            //'userPK' => 'id', //default primary key for {{%user}} table
-            //'userName' => 'username', //uses in view (may be field `username` or `email` or `login`)
+            'userPK' => 'id', //default primary key for {{%user}} table
+            'userName' => 'username', //uses in view (may be field `username` or `email` or `login`)
         ],
      ],    
 ```
@@ -115,7 +115,7 @@ Config *frontend modules* in `frontend/config/main.php`
             'controllerNamespace' => 'akiraz2\blog\controllers\frontend',
             'blogPostPageCount' => 6,
             'blogCommentPageCount' => 10, //20 by default
-            'enableComments' => true, //true by default
+            'enableComments' => true, //false by default
             'schemaOrg' => [ // empty array [] by default! 
                 'publisher' => [
                     'logo' => '/img/logo.png',
@@ -133,7 +133,7 @@ Config *frontend modules* in `frontend/config/main.php`
 
 ### Migration
 
-> **NOTE:** Module uses table `{{%user}}` with PK `id`. Make sure you have table before applying these migrations.
+> **NOTE:** Module uses table `{{%user}}` with PK `id` (You can use [own user model](#user-model) with table and PK) Make sure you have table before applying these migrations.
 
 Migration run after config module
 
@@ -157,9 +157,10 @@ or full path:
 2. frontend : http://you-domain.com/blog
 
 
+
 ## Usage
 
-**Overriding views**
+### Overriding views
 
 When you start using Yii2-blog you will probably find that you need to override the default views provided by the module.
 Although view names are not configurable, Yii2 provides a way to override views using themes. To get started you should
@@ -185,12 +186,29 @@ if a view exists in the theme directory it will be used instead of the original 
 > **NOTE:** Just copy all necessary views from `@akiraz2/yii2-blog/views/frontend/default` to `@app/views/blog` and change!
 
 
+### User model
+
+You can use own user model, but need configure it in config.php
+
+ For example, 
+ ```php  
+'modules' => [
+        'blog' => [
+            'class' => akiraz2\blog\Module::class,            
+            'userModel' => \common\models\User::class,
+            'userPK' => 'id', //default primary key for {{%user}} table
+            'userName' => 'username', //uses in view (may be field `username` or `email` or `login`)
+        ],
+     ],   
+ ```
+ 
+### Imperavi Redactor
 
 **How to change upload path Imperavi Redactor widget**
 
 Yii2 blog module use imperavi redactor 2 Module [https://github.com/yiidoc/yii2-redactor](https://github.com/yiidoc/yii2-redactor) with moduleName "redactorBlog".
 
-> **NOTE:** Embedded Module `redactorBlog` use own UploadController with AccessControl! and only in Backend! and only you dont override default config
+> **NOTE:** Embedded Module `redactorBlog` use own UploadController with AccessControl! and only in Backend! and only you don`t override default config
 
 If you want change default config, you should add redactor module manually
 
@@ -213,28 +231,7 @@ Config backend modules in backend/config/main.php
  ```
 
 
-**How to change captcha in Comments**
-
-Not yet... If you are using Recaptcha2 in your project with my yii2-blog, please PR me!
-
-**User model**
-
-Module Yii2-Blog use `common\models\User`, so if you use custom user component or Module like
- [dektrium/yii2-user](https://github.com/dektrium/yii2-user), you should create model under path `common\models\User` with overriding your user-model.
- 
- For example, 
- ```php  
- namespace common\models;
- 
- use dektrium\user\models\User as BaseUser;
- 
- class User extends BaseUser
- {
- 
- } 
- ```
-
-**CustomAdminAccessControl for backend**
+### CustomAdminAccessControl for backend
 
 For example, using [dektrium/yii2-user](https://github.com/dektrium/yii2-user)
 
@@ -272,7 +269,7 @@ Create file `common\components\AdminAccessControl.php`
     }
  ```
 
-**Opengraph**
+### Opengraph
 
 Please, add component [dragonjet/yii2-opengraph](https://packagist.org/packages/dragonjet/yii2-opengraph) to your project.
 ```
@@ -289,14 +286,21 @@ Configuration `common/config/main.php` or `frontend/config/main.php`
         //....
     ],
   ```
-  
+
+
+**How to change captcha in Comments**
+
+Not yet... If you are using Recaptcha2 in your project with my yii2-blog, please PR me!
+By default, we use [Math captcha](https://github.com/lesha724/yii2-math-captcha)
+ 
 ## TODO
 
 * refactoring code (specially BlogCategory, BlogTag)
-* create widgets
-* translate to languages
+* create widgets (for backend and frontend)
+* translate to many popular languages
+* create multilang models
 * change default design and styles for frontend blog
-
+* add config Captcha
 
 ## Support
 

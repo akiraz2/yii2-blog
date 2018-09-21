@@ -5,11 +5,11 @@
  * Copyright (c) 2018.
  */
 
-use yii\helpers\Html;
-use akiraz2\blog\Module;
-use yii\widgets\ActiveForm;
 use akiraz2\blog\models\BlogPost;
-use \yii\helpers\ArrayHelper;
+use akiraz2\blog\Module;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model backend\modules\blog\models\BlogComment */

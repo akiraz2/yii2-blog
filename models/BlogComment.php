@@ -7,13 +7,11 @@
 
 namespace akiraz2\blog\models;
 
+use akiraz2\blog\Module;
 use akiraz2\blog\traits\IActiveStatus;
 use akiraz2\blog\traits\ModuleTrait;
 use akiraz2\blog\traits\StatusTrait;
-use Yii;
 use yii\behaviors\TimestampBehavior;
-use yii\db\Expression;
-use akiraz2\blog\Module;
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
@@ -133,7 +131,7 @@ class BlogComment extends \yii\db\ActiveRecord
      */
     public function getAuthorLink()
     {
-        if(!empty($this->url))
+        if (!empty($this->url))
             return Html::a(Html::encode($this->author), $this->url);
         else
             return Html::encode($this->author);
@@ -143,9 +141,9 @@ class BlogComment extends \yii\db\ActiveRecord
      * @param null $post
      * @return string
      */
-    public function getUrl($post=null)
+    public function getUrl($post = null)
     {
-        if($post === null)
+        if ($post === null)
             $post = $this->post;
         return $post->url . '#c' . $this->id;
     }
@@ -154,7 +152,7 @@ class BlogComment extends \yii\db\ActiveRecord
      * @param int $limit
      * @return array|\yii\db\ActiveRecord[]
      */
-    public static  function findRecentComments($limit=10)
+    public static function findRecentComments($limit = 10)
     {
         return self::find()->joinWith('blogPost')->where([
             '{{%blog_comment}}.status' => IActiveStatus::STATUS_ACTIVE,
@@ -167,7 +165,8 @@ class BlogComment extends \yii\db\ActiveRecord
     /**
      * @return string
      */
-    public function getMaskedEmail() {
+    public function getMaskedEmail()
+    {
         list($email_username, $email_domain) = explode('@', $this->email);
         $masked_email_username = preg_replace('/(.)./', "$1*", $email_username);
         return implode('@', array($masked_email_username, $email_domain));
@@ -176,7 +175,8 @@ class BlogComment extends \yii\db\ActiveRecord
     /**
      * @return string
      */
-    public function getContent() {
-        return ($this->status==IActiveStatus::STATUS_ACTIVE)? $this->content : StringHelper::truncate($this->content, 15);
+    public function getContent()
+    {
+        return ($this->status == IActiveStatus::STATUS_ACTIVE) ? $this->content : StringHelper::truncate($this->content, 15);
     }
 }

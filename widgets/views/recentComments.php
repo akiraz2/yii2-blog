@@ -6,6 +6,7 @@
  */
 
 use yii\helpers\Html;
+
 ?>
 <div class="portlet">
     <div class="portlet-decoration">
@@ -13,7 +14,7 @@ use yii\helpers\Html;
     </div>
     <div class="portlet-content">
         <ul>
-            <?php foreach($comments as $comment): ?>
+            <?php foreach ($comments as $comment): ?>
                 <li><strong><?php echo $comment->authorLink; ?></strong> 评论了
                     <?php echo Html::a(Html::encode($comment->post->title), $comment->getUrl()); ?>
                 </li>

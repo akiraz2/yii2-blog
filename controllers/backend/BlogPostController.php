@@ -12,9 +12,6 @@ use akiraz2\blog\models\BlogPostSearch;
 use akiraz2\blog\models\Status;
 use akiraz2\blog\traits\IActiveStatus;
 use Yii;
-use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -29,7 +26,7 @@ class BlogPostController extends BaseAdminController
     public function actionIndex()
     {
         $searchModel = new BlogPostSearch();
-        $searchModel->scenario= BlogPostSearch::SCENARIO_ADMIN;
+        $searchModel->scenario = BlogPostSearch::SCENARIO_ADMIN;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $arrayCategory = BlogPost::getArrayCategory();
 

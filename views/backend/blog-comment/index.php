@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="blog-comment-index">
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    
     <p>
         <?= Html::a(Module::t('blog', 'Create ') . Module::t('blog', 'Blog Comment'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>

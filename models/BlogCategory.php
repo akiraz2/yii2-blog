@@ -7,13 +7,12 @@
 
 namespace akiraz2\blog\models;
 
+use akiraz2\blog\Module;
 use akiraz2\blog\traits\ModuleTrait;
 use akiraz2\blog\traits\StatusTrait;
 use Yii;
 use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
-use yii\db\Expression;
-use akiraz2\blog\Module;
 use yiidreamteam\upload\ImageUploadBehavior;
 
 /**
@@ -143,8 +142,8 @@ class BlogCategory extends \yii\db\ActiveRecord
         foreach ((array)$array as $v) {
             if ($v['parent_id'] == $parentId) {
                 $newArray[$v['id']] = array(
-                    'text' => $v['title'] . ' 导航[' . ($v['is_nav'] ? Module::t('common', 'CONSTANT_YES') : Module::t('common', 'CONSTANT_NO')) . '] 排序[' . $v['sort_order'] .
-                        '] 类型[' . ($v['page_type'] == 'list' ? Module::t('common', 'PAGE_TYPE_LIST') : Module::t('common', 'PAGE_TYPE_PAGE')) . '] 状态[' .
+                    'text' => $v['title'] . ' 导航[' . ($v['is_nav'] ? Module::t('blog', 'CONSTANT_YES') : Module::t('blog', 'CONSTANT_NO')) . '] 排序[' . $v['sort_order'] .
+                        '] 类型[' . ($v['page_type'] == 'list' ? Module::t('blog', 'PAGE_TYPE_LIST') : Module::t('blog', 'PAGE_TYPE_PAGE')) . '] 状态[' .
                         F::getStatus2($v['status']) . '] [<a href="' . Yii::app()->createUrl('/category/update', array('id' => $v['id'])) . '">修改</a>][<a href="'
                         . Yii::app()->createUrl('/category/create', array('id' => $v['id'])) . '">增加子菜单</a>]&nbsp;&nbsp[<a href="' .
                         Yii::app()->createUrl('/category/delete', array('id' => $v['id'])) . '">删除</a>]',

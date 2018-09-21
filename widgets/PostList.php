@@ -29,7 +29,7 @@ class PostList extends Widget
         parent::init();
 
         if ($this->title === null) {
-            $this->title = Module::t('blog','Blog Posts');
+            $this->title = Module::t('blog', 'Blog Posts');
         }
     }
 
@@ -43,12 +43,17 @@ class PostList extends Widget
         ]);
     }
 
-    protected function getOrderFromType() {
+    protected function getOrderFromType()
+    {
         switch ($this->type) {
-            case self::TYPE_RANDOM: return new Expression('rand()');
-            case self::TYPE_RECENT: return ['created_at' => SORT_DESC];
-            case self::TYPE_POPULAR: return ['click' => SORT_DESC];
-            default: return [];
+            case self::TYPE_RANDOM:
+                return new Expression('rand()');
+            case self::TYPE_RECENT:
+                return ['created_at' => SORT_DESC];
+            case self::TYPE_POPULAR:
+                return ['click' => SORT_DESC];
+            default:
+                return [];
         }
     }
 }

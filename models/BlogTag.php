@@ -7,12 +7,9 @@
 
 namespace akiraz2\blog\models;
 
+use akiraz2\blog\Module;
 use akiraz2\blog\traits\ModuleTrait;
 use akiraz2\blog\traits\StatusTrait;
-use Yii;
-use yii\behaviors\TimestampBehavior;
-use yii\db\Expression;
-use akiraz2\blog\Module;
 
 /**
  * This is the model class for table "blog_tag".
@@ -61,12 +58,12 @@ class BlogTag extends \yii\db\ActiveRecord
 
     public static function string2array($tags)
     {
-        return preg_split('/\s*,\s*/',trim($tags),-1,PREG_SPLIT_NO_EMPTY);
+        return preg_split('/\s*,\s*/', trim($tags), -1, PREG_SPLIT_NO_EMPTY);
     }
 
     public static function array2string($tags)
     {
-        return implode(',',$tags);
+        return implode(',', $tags);
     }
 
     public static function updateFrequency($oldTags, $newTags)
@@ -86,12 +83,10 @@ class BlogTag extends \yii\db\ActiveRecord
     public static function addTags($tags)
     {
 
-        BlogTag::updateAllCounters(['frequency' => 1], 'name in ("' . implode ( '"," ', $tags) . '")');
+        BlogTag::updateAllCounters(['frequency' => 1], 'name in ("' . implode('"," ', $tags) . '")');
 
-        foreach($tags as $name)
-        {
-            if(!BlogTag::findOne(['name' => $name,]))
-            {
+        foreach ($tags as $name) {
+            if (!BlogTag::findOne(['name' => $name,])) {
                 $tag = new BlogTag;
                 $tag->name = $name;
                 $tag->frequency = 1;
@@ -102,26 +97,25 @@ class BlogTag extends \yii\db\ActiveRecord
 
     public static function removeTags($tags)
     {
-        if(empty($tags))
+        if (empty($tags))
             return;
 
-        BlogTag::updateAllCounters(['frequency' => 1], 'name in ("' . implode ( '"," ', $tags) . '")');
+        BlogTag::updateAllCounters(['frequency' => 1], 'name in ("' . implode('"," ', $tags) . '")');
         BlogTag::deleteAll('frequency <= 0');
     }
 
-    public static function findTagWeights($limit=20)
+    public static function findTagWeights($limit = 20)
     {
         $models = BlogTag::find()->orderBy(['frequency' => SORT_DESC])->all();
 
         $total = 0;
-        foreach($models as $model)
+        foreach ($models as $model)
             $total += $model->frequency;
 
         $tags = [];
-        if($total>0)
-        {
-            foreach($models as $model)
-                $tags[$model->name] = 8 + (int)(16*$model->frequency/($total+10));
+        if ($total > 0) {
+            foreach ($models as $model)
+                $tags[$model->name] = 8 + (int)(16 * $model->frequency / ($total + 10));
             ksort($tags);
         }
         return $tags;

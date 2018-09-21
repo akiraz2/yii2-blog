@@ -25,7 +25,7 @@ use yii\helpers\Html;
             echo \yii\helpers\HtmlPurifier::process($model->brief);
             ?>
         </div>
-
+        
         <div class="blog-brief__nav">
             <span>
                 <i class="fa fa-calendar"></i><?= Yii::$app->formatter->asDate($model->created_at); ?>

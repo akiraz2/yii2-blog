@@ -5,8 +5,8 @@
  * Copyright (c) 2018.
  */
 
-use yii\helpers\Html;
 use akiraz2\blog\Module;
+use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'name')->textInput(['maxlength' => 128]) ?>
 
     <?= $form->field($model, 'frequency')->textInput(['maxlength' => 10]) ?>
-
+    
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Module::t('blog', 'Create') : Module::t('blog', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

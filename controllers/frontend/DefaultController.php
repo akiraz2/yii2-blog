@@ -50,7 +50,7 @@ class DefaultController extends Controller
             'akiraz2\blog\models\BlogCategory' => [
                 'label' => 'title',
                 'url' => function ($cat) {
-                    return ['default/index', 'category_id' => $cat->id];
+                    return ['default/index', 'category_id' => $cat->id, 'slug' => $cat->slug];
                 },
             ],
         ]);

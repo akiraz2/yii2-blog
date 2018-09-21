@@ -49,7 +49,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'click')->textInput() ?>
 
     <?= $form->field($model, 'status')->dropDownList(\akiraz2\blog\models\BlogPost::getStatusList()) ?>
-
+    
     <div class="form-group">
         <label class="col-lg-2 control-label" for="">&nbsp;</label>
         <?= Html::submitButton($model->isNewRecord ? Module::t('blog', 'Create') : Module::t('blog', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

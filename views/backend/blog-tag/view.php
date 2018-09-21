@@ -5,8 +5,8 @@
  * Copyright (c) 2018.
  */
 
-use yii\helpers\Html;
 use akiraz2\blog\Module;
+use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = ['label' => Module::t('blog', 'Blog Tags'), 'ur
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="blog-tag-view">
-
+    
     <p>
         <?= Html::a(Module::t('blog', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Module::t('blog', 'Delete'), ['delete', 'id' => $model->id], [

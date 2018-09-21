@@ -5,11 +5,11 @@
  * Copyright (c) 2018.
  */
 
+use akiraz2\blog\models\BlogCategory;
+use akiraz2\blog\Module;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\helpers\ArrayHelper;
-use \akiraz2\blog\models\BlogCategory;
-use akiraz2\blog\Module;
 
 /* @var $this yii\web\View */
 /* @var $model akiraz2\blog\models\BlogCategory */
@@ -24,7 +24,7 @@ unset($parentCategory[$model->id]);
 <div class="blog-category-form">
 
     <?php $form = ActiveForm::begin([
-        'options'=>['class' => 'form-horizontal', 'enctype'=>'multipart/form-data'],
+        'options' => ['class' => 'form-horizontal', 'enctype' => 'multipart/form-data'],
         'fieldConfig' => [
             'template' => "{label}\n<div class=\"col-lg-10\">{input}{error}</div>",
             'labelOptions' => ['class' => 'col-lg-2 control-label'],
@@ -50,7 +50,7 @@ unset($parentCategory[$model->id]);
     <?= $form->field($model, 'redirect_url')->textInput(['maxlength' => 255]) ?>
 
     <?= $form->field($model, 'status')->dropDownList(BlogCategory::getStatusList()) ?>
-
+    
     <div class="form-group">
         <label class="col-lg-2 control-label" for="">&nbsp;</label>
         <?= Html::submitButton($model->isNewRecord ? Module::t('blog', 'Create') : Module::t('blog', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

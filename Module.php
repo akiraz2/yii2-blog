@@ -6,8 +6,8 @@
  */
 
 namespace akiraz2\blog;
+
 use Yii;
-use yii\i18n\PhpMessageSource;
 
 class Module extends \yii\base\Module
 {
@@ -30,7 +30,7 @@ class Module extends \yii\base\Module
     public $schemaOrg = [];
 
     /** @var string Name of Component for editing posts */
-    public $redactorModule= 'redactorBlog';
+    public $redactorModule = 'redactorBlog';
 
     /** @var linked user (for example, 'common\models\User::class' */
     public $userModel;// = \common\models\User::class;
@@ -40,6 +40,8 @@ class Module extends \yii\base\Module
 
     /** @var string username uses in view (may be field `username` or `email` or `login`) */
     public $userName = 'username';
+
+    public $blogTheme;
 
     protected $_isBackend;
 
@@ -52,9 +54,6 @@ class Module extends \yii\base\Module
 
         if ($this->getIsBackend() === true) {
             $this->setViewPath('@akiraz2/blog/views/backend');
-        } elseif (isset(Yii::$app->params['blogTheme'])) {
-            $this->setViewPath('@frontend/themes/blog');
-            $this->setLayoutPath('@frontend/themes/blog/layouts');
         } else {
             $this->setViewPath('@akiraz2/blog/views/frontend');
             $this->setLayoutPath('@akiraz2/blog/views/frontend/layouts');
@@ -111,7 +110,8 @@ class Module extends \yii\base\Module
      *
      * @return string
      */
-    public function getImgFullPathUrl() {
-        return \Yii::$app->get($this->urlManager)->getHostInfo().$this->imgFileUrl;
+    public function getImgFullPathUrl()
+    {
+        return \Yii::$app->get($this->urlManager)->getHostInfo() . $this->imgFileUrl;
     }
 }

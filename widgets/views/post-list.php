@@ -16,12 +16,12 @@ use yii\helpers\Html;
         <?php foreach ($posts as $post): ?>
             <div class="blog-list-widget__item blog-item">
                 <div class="blog-item__img">
-                    <?php echo Html::a(Html::img($post->getThumbFileUrl('banner', 'thumb'),['alt' => $post->title ]), $post->getUrl(), ['title' => $post->title]); ?>
+                    <?php echo Html::a(Html::img($post->getThumbFileUrl('banner', 'thumb'), ['alt' => $post->title]), $post->getUrl(), ['title' => $post->title]); ?>
                 </div>
                 <div class="blog-item__right">
                     <?php echo Html::a(Html::encode($post->title), $post->getUrl(), ['class' => 'blog-item__url']); ?>
                     <div class="blog-item__brief">
-                        <?= \yii\helpers\StringHelper::truncate($post->brief, 45);?>
+                        <?= \yii\helpers\StringHelper::truncate($post->brief, 45); ?>
                     </div>
                 </div>
             </div>

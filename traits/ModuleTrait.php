@@ -2,7 +2,7 @@
 
 namespace akiraz2\blog\traits;
 
-use \akiraz2\blog\Module;
+use akiraz2\blog\Module;
 
 trait ModuleTrait
 {

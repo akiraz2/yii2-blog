@@ -7,6 +7,7 @@
 
 namespace akiraz2\blog\models;
 
+use akiraz2\blog\Module;
 use akiraz2\blog\traits\IActiveStatus;
 use akiraz2\blog\traits\ModuleTrait;
 use akiraz2\blog\traits\StatusTrait;
@@ -15,8 +16,6 @@ use yii\behaviors\AttributeBehavior;
 use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
-use yii\db\Expression;
-use akiraz2\blog\Module;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yiidreamteam\upload\ImageUploadBehavior;
@@ -87,9 +86,9 @@ class BlogPost extends \yii\db\ActiveRecord
                     'thumb' => ['width' => 400, 'height' => 300]
                 ],
                 'filePath' => $this->module->imgFilePath . '/[[model]]/[[pk]].[[extension]]',
-                'fileUrl' => $this->module->getImgFullPathUrl(). '/[[model]]/[[pk]].[[extension]]',
+                'fileUrl' => $this->module->getImgFullPathUrl() . '/[[model]]/[[pk]].[[extension]]',
                 'thumbPath' => $this->module->imgFilePath . '/[[model]]/[[profile]]_[[pk]].[[extension]]',
-                'thumbUrl' => $this->module->getImgFullPathUrl().'/[[model]]/[[profile]]_[[pk]].[[extension]]',
+                'thumbUrl' => $this->module->getImgFullPathUrl() . '/[[model]]/[[profile]]_[[pk]].[[extension]]',
             ],
         ];
     }
@@ -158,7 +157,7 @@ class BlogPost extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        if($this->getModule()->userModel) {
+        if ($this->getModule()->userModel) {
             return $this->hasOne($this->getModule()->userModel::className(), [$this->getModule()->userPK => 'user_id']);
         }
         return null;
@@ -211,7 +210,7 @@ class BlogPost extends \yii\db\ActiveRecord
     /**
      * Normalizes the user-entered tags.
      */
-    public function normalizeTags($attribute,$params)
+    public function normalizeTags($attribute, $params)
     {
         $this->tags = BlogTag::array2string(array_unique(array_map('trim', BlogTag::string2array($this->tags))));
     }
@@ -235,8 +234,8 @@ class BlogPost extends \yii\db\ActiveRecord
     public function getTagLinks()
     {
         $links = [];
-        foreach(BlogTag::string2array($this->tags) as $tag)
-            $links[] = Html::a($tag, Yii::$app->getUrlManager()->createUrl(['blog/default/index', 'tag'=>$tag]));
+        foreach (BlogTag::string2array($this->tags) as $tag)
+            $links[] = Html::a($tag, Yii::$app->getUrlManager()->createUrl(['blog/default/index', 'tag' => $tag]));
 
         return $links;
     }

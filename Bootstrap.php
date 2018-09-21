@@ -26,8 +26,9 @@ class Bootstrap implements BootstrapInterface
         // Add module URL rules.
         $app->getUrlManager()->addRules(
             [
-                '<_m:blog>' => '<_m>/default/index',
+                '<_m:blog>/cat/<category_id:\d+>-<slug:[a-zA-Z0-9_-]{1,100}+>' => '<_m>/default/index',
                 '<_m:blog>/<id:\d+>-<slug:[a-zA-Z0-9_-]{1,100}+>' => '<_m>/default/view',
+                '<_m:blog>' => '<_m>/default/index',
             ]
         );
 
@@ -35,7 +36,7 @@ class Bootstrap implements BootstrapInterface
         if (!isset($app->i18n->translations['akiraz2/blog'])) {
             $app->i18n->translations['akiraz2/blog'] = [
                 'class' => PhpMessageSource::class,
-                'basePath' =>  __DIR__ .'/messages',
+                'basePath' => __DIR__ . '/messages',
                 'forceTranslation' => true,
                 'fileMap' => [
                     'akiraz2/blog' => 'blog.php',
@@ -43,17 +44,17 @@ class Bootstrap implements BootstrapInterface
             ];
         }
         // Add redactor module if not exist (in my case - only in backend)
-        $redactorModule= $this->getModule()->redactorModule;
-        if($this->getModule()->getIsBackend() && !$app->hasModule($redactorModule)) {
-            $app->setModule($redactorModule,[
+        $redactorModule = $this->getModule()->redactorModule;
+        if ($this->getModule()->getIsBackend() && !$app->hasModule($redactorModule)) {
+            $app->setModule($redactorModule, [
                 'class' => 'yii\redactor\RedactorModule',
                 'imageUploadRoute' => ['/blog/upload/image'],
-                'uploadDir' => $this->getModule()->imgFilePath .'/upload/',
+                'uploadDir' => $this->getModule()->imgFilePath . '/upload/',
                 'uploadUrl' => $this->getModule()->getImgFullPathUrl() . '/upload',
                 'imageAllowExtensions' => ['jpg', 'png', 'gif', 'svg']
             ]);
         }
-        
+
         \Yii::setAlias('@akiraz2', \Yii::getAlias('@vendor') . '/akiraz2');
     }
 }

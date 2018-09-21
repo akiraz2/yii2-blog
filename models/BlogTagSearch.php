@@ -7,10 +7,8 @@
 
 namespace akiraz2\blog\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use akiraz2\blog\models\BlogTag;
 
 /**
  * BlogTagSearch represents the model behind the search form about `akiraz2\blog\models\BlogTag`.
@@ -47,7 +45,7 @@ class BlogTagSearch extends BlogTag
     public function search($params)
     {
         $query = BlogTag::find();
-        
+
         $query->orderBy(['frequency' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([

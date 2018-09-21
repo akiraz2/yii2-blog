@@ -7,10 +7,8 @@
 
 namespace akiraz2\blog\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use akiraz2\blog\models\BlogCategory;
 
 /**
  * BlogCategorySearch represents the model behind the search form about `akiraz2\blog\models\BlogCategory`.
@@ -47,7 +45,7 @@ class BlogCategorySearch extends BlogCategory
     public function search($params)
     {
         $query = BlogCategory::find();
-        
+
         $query->orderBy(['sort_order' => SORT_ASC, 'create_time' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([

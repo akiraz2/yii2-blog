@@ -17,8 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'ID' => 'ID',
-    'Math, for example, 45-12 = 33' => 'Напишите решение, например, 45-12 = 33',
+    'Welcome to Blog Module' => 'Добро пожаловать в модуль Блог',
     'A comment has been added and is awaiting validation' => 'Комментарий добавлен и ожидает проверки',
     'Action not found' => 'Действие не найдено',
     'Actions' => 'Действия',
@@ -37,6 +36,8 @@ return [
     'Blog Tag' => 'Тег блога',
     'Blog Tags' => 'Теги блога',
     'Brief' => 'Краткий Анонс',
+    'CONSTANT_NO' => 'НЕТ',
+    'CONSTANT_YES' => 'ДА',
     'Category' => 'Категория',
     'Category ID' => 'ID Категории',
     'Click' => 'Просмотры',
@@ -51,9 +52,13 @@ return [
     'Delete' => 'Удалить',
     'Email' => 'Email',
     'Frequency' => 'Частота',
+    'ID' => 'ID',
     'Is Nav' => 'Навигация',
+    'Math, for example, 45-12 = 33' => 'Напишите решение, например, 45-12 = 33',
     'NO' => 'Нет',
     'Name' => 'Имя',
+    'PAGE_TYPE_LIST' => 'PAGE_TYPE_LIST',
+    'PAGE_TYPE_PAGE' => 'PAGE_TYPE_PAGE',
     'PROMPT_STATUS' => 'Все',
     'Page Size' => 'Размер страницы',
     'Parent ID' => 'ID родителя',

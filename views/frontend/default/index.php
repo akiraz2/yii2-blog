@@ -5,22 +5,22 @@
  * Copyright (c) 2018.
  */
 
+use akiraz2\blog\Module;
 use yii\widgets\ListView;
-use \akiraz2\blog\Module;
 
 \akiraz2\blog\assets\AppAsset::register($this);
 
 $this->title = Module::t('blog', 'Blog');
 Yii::$app->view->registerMetaTag([
     'name' => 'description',
-    'content' => Yii::$app->name. ' '.Module::t('blog', 'Blog')
+    'content' => Yii::$app->name . ' ' . Module::t('blog', 'Blog')
 ]);
 Yii::$app->view->registerMetaTag([
     'name' => 'keywords',
-    'content' => Yii::$app->name.', '.Module::t('blog', 'Blog')
+    'content' => Yii::$app->name . ', ' . Module::t('blog', 'Blog')
 ]);
 
-if(Yii::$app->get('opengraph', false)) {
+if (Yii::$app->get('opengraph', false)) {
     Yii::$app->opengraph->set([
         'title' => $this->title,
         'description' => Module::t('blog', 'Blog'),
@@ -54,10 +54,10 @@ if(Yii::$app->get('opengraph', false)) {
                     </div>
                 </div>
             </div>
-
+        
         </div>
     </div>
-
+    
     <div class="container">
         <div class="row">
             <div class="col-md-12">
