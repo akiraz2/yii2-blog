@@ -78,6 +78,7 @@
           "reference": "master"
         }
       }
+    }
   ],
   "autoload": {
     "psr-4": {
