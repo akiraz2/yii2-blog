@@ -25,7 +25,7 @@
   "require": {
     "yiisoft/yii2": "*",
     "yiidoc/yii2-redactor": "*",
-    "yii-dream-team/yii2-upload-behavior": "dev-master",
+    "yii-dream-team/yii2-upload-behavior": "*",
     "lesha724/yii2-math-captcha": "*",
     "rmrevin/yii2-fontawesome": "~2.17"
   },
