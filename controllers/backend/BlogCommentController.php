@@ -127,6 +127,7 @@ class BlogCommentController extends BaseAdminController
     {
         $action = Yii::$app->request->post('action');
         $selection = (array)Yii::$app->request->post('selection');//typecasting
+        
         switch ($action) {
             case 'd':
                 if ($this->deleteAll($selection)) {
@@ -136,6 +137,8 @@ class BlogCommentController extends BaseAdminController
             case 'c':
                 if ($this->confirmAll($selection)) {
                     $message = Module::t('blog', 'Successfully confirm');
+                }else{
+                    $message = Module::t('blog', 'Already confirm');    
                 }
                 break;
             default:
