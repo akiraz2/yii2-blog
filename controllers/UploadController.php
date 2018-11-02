@@ -1,14 +1,32 @@
 <?php
 
-namespace akiraz2\blog\controllers\backend;
+namespace akiraz2\blog\controllers;
 
+use yii\web\Controller;
 use yii\web\Response;
 
-class UploadController extends BaseAdminController
+class UploadController extends Controller
 {
-
     public $enableCsrfValidation = false;
 
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),                
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ]
+        ];
+    }
+    
     public function init()
     {
         parent::init();
@@ -30,5 +48,4 @@ class UploadController extends BaseAdminController
             'file-json' => 'yii\redactor\actions\FileManagerJsonAction',
         ];
     }
-
 }

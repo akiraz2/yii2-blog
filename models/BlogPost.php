@@ -43,11 +43,15 @@ use yiidreamteam\upload\ImageUploadBehavior;
  */
 class BlogPost extends \yii\db\ActiveRecord
 {
-    use StatusTrait, ModuleTrait;
+    use ModuleTrait;
 
-    private $_oldTags;
-
-    private $_status;
+    const STATUS_DELETED = -100;
+    const STATUS_REJECTED = -1;
+    const STATUS_DRAFT = 0;
+    const STATUS_PENDING_REVIEW = 1;
+    const STATUS_PLANNING_TO_PUBLISH = 10;
+    const STATUS_PUBLISHED = 50;
+    const STATUS_ARCHIVED = 100;
 
     /**
      * @inheritdoc

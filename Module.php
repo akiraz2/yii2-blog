@@ -11,8 +11,6 @@ use Yii;
 
 class Module extends \yii\base\Module
 {
-    public $controllerNamespace = 'akiraz2\blog\controllers\frontend';
-
     public $urlManager = 'urlManager';
 
     public $imgFilePath = '@frontend/web/img/blog';
@@ -51,13 +49,6 @@ class Module extends \yii\base\Module
     public function init()
     {
         parent::init();
-
-        if ($this->getIsBackend() === true) {
-            $this->setViewPath('@akiraz2/blog/views/backend');
-        } else {
-            $this->setViewPath('@akiraz2/blog/views/frontend');
-            $this->setLayoutPath('@akiraz2/blog/views/frontend/layouts');
-        }
     }
 
     /**

@@ -45,7 +45,7 @@ class Bootstrap implements BootstrapInterface
         }
         // Add redactor module if not exist (in my case - only in backend)
         $redactorModule = $this->getModule()->redactorModule;
-        if ($this->getModule()->getIsBackend() && !$app->hasModule($redactorModule)) {
+        if (!$app->hasModule($redactorModule)) {
             $app->setModule($redactorModule, [
                 'class' => 'yii\redactor\RedactorModule',
                 'imageUploadRoute' => ['/blog/upload/image'],
