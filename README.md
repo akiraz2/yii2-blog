@@ -21,7 +21,8 @@ Yii2 Super Blog is simple, configured yii2 Module with frontend and backend, clo
 * frontend and backend are translated (i18n)
 * url rules with slug (for seo)
 
-> **NOTE:** Module is in initial development. Anything may change at any time.
+> **NOTE:** Module is in initial development. Anything may change at any time. Currently develop new version v2.0 with many improvements and for yii2basic template. @develop branch
+
 
 
 # Table of Contents
@@ -41,13 +42,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist akiraz2/yii2-blog "dev-master"
+php composer.phar require --prefer-dist akiraz2/yii2-blog "~1.3"
 ```
 
 or add
 
 ```
-"akiraz2/yii2-blog": "dev-master"
+"akiraz2/yii2-blog": "~1.3"
 ```
 
 to the require section of your `composer.json` file.
