@@ -1,7 +1,9 @@
 <?php
 /**
- * Project: yii2-blog for internal using
- * Author: akiraz2
+ * @module yii2-blog
+ * @description powerful blog module for yii2
+ * @author akiraz2
+ * @email akiraz@bk.ru
  * Copyright (c) 2018.
  */
 
@@ -15,12 +17,13 @@ use yii\helpers\Html;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Module::t('blog', 'Blog Comments');
+$this->params['breadcrumbs'][] = ['label' => Module::t('blog', 'Blog Admin'), 'url' => ['/blog/backend/default/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="blog-comment-index">
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-    
+
     <p>
         <?= Html::a(Module::t('blog', 'Create ') . Module::t('blog', 'Blog Comment'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>

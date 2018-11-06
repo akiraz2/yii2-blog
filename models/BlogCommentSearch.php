@@ -1,7 +1,9 @@
 <?php
 /**
- * Project: yii2-blog for internal using
- * Author: akiraz2
+ * @module yii2-blog
+ * @description powerful blog module for yii2
+ * @author akiraz2
+ * @email akiraz@bk.ru
  * Copyright (c) 2018.
  */
 
@@ -50,7 +52,7 @@ class BlogCommentSearch extends BlogComment
         $query->orderBy(['created_at' => SORT_DESC]);
 
         if ($this->scenario == self::SCENARIO_USER) {
-            $query->andWhere(['post_id' => $post_id, 'status' => [IActiveStatus::STATUS_INACTIVE, IActiveStatus::STATUS_ACTIVE]]);
+            $query->andWhere(['post_id' => $post_id, 'status' => [BlogComment::STATUS_INACTIVE, BlogComment::STATUS_ACTIVE]]);
         }
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -66,15 +68,14 @@ class BlogCommentSearch extends BlogComment
         $query->andFilterWhere([
             'id' => $this->id,
             'post_id' => $post_id ? $post_id : $this->post_id,
-            'status' => ($this->scenario == self::SCENARIO_USER) ? IActiveStatus::STATUS_ACTIVE : $this->status,
+            'status' => ($this->scenario == self::SCENARIO_USER) ? BlogComment::STATUS_ACTIVE : $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'content', $this->content])
             ->andFilterWhere(['like', 'author', $this->author])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'url', $this->url]);
+            ->andFilterWhere(['like', 'email', $this->email]);
 
         return $dataProvider;
     }

@@ -27,7 +27,8 @@
     "yiidoc/yii2-redactor": "*",
     "yii-dream-team/yii2-upload-behavior": "*",
     "lesha724/yii2-math-captcha": "*",
-    "rmrevin/yii2-fontawesome": "~2.17"
+    "rmrevin/yii2-fontawesome": "~2.17",
+    "himiklab/yii2-sortable-grid-view-widget": "*"
   },
   "repositories": [
     {

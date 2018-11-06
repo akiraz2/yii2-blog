@@ -1,23 +1,20 @@
 <?php
 /**
- * Project: yii2-blog for internal using
- * Author: akiraz2
+ * @module yii2-blog
+ * @description powerful blog module for yii2
+ * @author akiraz2
+ * @email akiraz@bk.ru
  * Copyright (c) 2018.
  */
 
 namespace akiraz2\blog\controllers;
 
-use akiraz2\blog\models\BlogCategory;
-use akiraz2\blog\models\BlogComment;
-use akiraz2\blog\models\BlogCommentSearch;
 use akiraz2\blog\models\BlogPost;
 use akiraz2\blog\models\BlogPostSearch;
-use akiraz2\blog\Module;
 use akiraz2\blog\traits\IActiveStatus;
 use akiraz2\blog\traits\ModuleTrait;
 use Yii;
 use yii\filters\AccessControl;
-use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -91,26 +88,6 @@ class ManageController extends Controller
     }
 
     /**
-     * Deletes an existing BlogPost model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException
-     */
-    public function actionDelete($id)
-    {
-        $model = $this->findModel($id);
-        if ($model->status != IActiveStatus::STATUS_ARCHIVE) {
-            $model->status = IActiveStatus::STATUS_ARCHIVE;
-            $model->save();
-        }
-        else {
-            $model->delete();
-        }
-        return $this->redirect(['index']);
-    }
-
-    /**
      * Finds the BlogPost model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
@@ -124,5 +101,24 @@ class ManageController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    /**
+     * Deletes an existing BlogPost model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException
+     */
+    public function actionDelete($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->status != IActiveStatus::STATUS_ARCHIVE) {
+            $model->status = IActiveStatus::STATUS_ARCHIVE;
+            $model->save();
+        } else {
+            $model->delete();
+        }
+        return $this->redirect(['index']);
     }
 }

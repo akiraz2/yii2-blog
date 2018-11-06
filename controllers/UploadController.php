@@ -1,4 +1,11 @@
 <?php
+/**
+ * @module yii2-blog
+ * @description powerful blog module for yii2
+ * @author akiraz2
+ * @email akiraz@bk.ru
+ * Copyright (c) 2018.
+ */
 
 namespace akiraz2\blog\controllers;
 
@@ -16,7 +23,7 @@ class UploadController extends Controller
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),                
+                'class' => AccessControl::className(),
                 'rules' => [
                     [
                         'allow' => true,
@@ -26,7 +33,7 @@ class UploadController extends Controller
             ]
         ];
     }
-    
+
     public function init()
     {
         parent::init();

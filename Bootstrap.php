@@ -1,7 +1,9 @@
 <?php
 /**
- * Project: yii2-blog for internal using
- * Author: akiraz2
+ * @module yii2-blog
+ * @description powerful blog module for yii2
+ * @author akiraz2
+ * @email akiraz@bk.ru
  * Copyright (c) 2018.
  */
 
@@ -9,6 +11,7 @@ namespace akiraz2\blog;
 
 use akiraz2\blog\traits\ModuleTrait;
 use yii\base\BootstrapInterface;
+use yii\console\Application as ConsoleApp;
 use yii\i18n\PhpMessageSource;
 
 /**
@@ -23,6 +26,22 @@ class Bootstrap implements BootstrapInterface
      */
     public function bootstrap($app)
     {
+        if (!$app->hasModule('blog')) {
+            $app->setModule('blog', [
+                'class' => 'akiraz2\blog\Module',
+            ]);
+        }
+
+        if ($app instanceof ConsoleApp) {
+            $app->controllerMap['migrate-blog'] = [
+                'class' => 'yii\console\controllers\MigrateController',
+                'migrationPath' => null,
+                'migrationTable' => 'migration_blog',
+                'migrationNamespaces' => [
+                    'akiraz2\blog\migrations',
+                ],
+            ];
+        }
         // Add module URL rules.
         $app->getUrlManager()->addRules(
             [
@@ -43,9 +62,10 @@ class Bootstrap implements BootstrapInterface
                 ]
             ];
         }
+
         // Add redactor module if not exist (in my case - only in backend)
         $redactorModule = $this->getModule()->redactorModule;
-        if (!$app->hasModule($redactorModule)) {
+        if (!($app instanceof ConsoleApp) && !$app->hasModule($redactorModule)) {
             $app->setModule($redactorModule, [
                 'class' => 'yii\redactor\RedactorModule',
                 'imageUploadRoute' => ['/blog/upload/image'],

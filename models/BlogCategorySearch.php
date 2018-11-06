@@ -1,7 +1,9 @@
 <?php
 /**
- * Project: yii2-blog for internal using
- * Author: akiraz2
+ * @module yii2-blog
+ * @description powerful blog module for yii2
+ * @author akiraz2
+ * @email akiraz@bk.ru
  * Copyright (c) 2018.
  */
 
@@ -22,7 +24,7 @@ class BlogCategorySearch extends BlogCategory
     {
         return [
             [['id', 'parent_id', 'is_nav', 'sort_order', 'page_size', 'status'], 'integer'],
-            [['title', 'slug', 'banner', 'template', 'redirect_url', 'create_time', 'update_time'], 'safe'],
+            [['title', 'slug', 'banner', 'template', 'redirect_url', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -46,8 +48,6 @@ class BlogCategorySearch extends BlogCategory
     {
         $query = BlogCategory::find();
 
-        $query->orderBy(['sort_order' => SORT_ASC, 'create_time' => SORT_DESC]);
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -63,15 +63,13 @@ class BlogCategorySearch extends BlogCategory
             'sort_order' => $this->sort_order,
             'page_size' => $this->page_size,
             'status' => $this->status,
-            'create_time' => $this->create_time,
-            'update_time' => $this->update_time,
+            'created_at' => $this->create_time,
+            'updated_at' => $this->update_time,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'slug', $this->slug])
             ->andFilterWhere(['like', 'banner', $this->banner])
-            ->andFilterWhere(['like', 'template', $this->template])
-            ->andFilterWhere(['like', 'redirect_url', $this->redirect_url]);
+            ->andFilterWhere(['like', 'template', $this->template]);
 
         return $dataProvider;
     }

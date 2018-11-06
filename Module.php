@@ -1,7 +1,9 @@
 <?php
 /**
- * Project: yii2-blog for internal using
- * Author: akiraz2
+ * @module yii2-blog
+ * @description powerful blog module for yii2
+ * @author akiraz2
+ * @email akiraz@bk.ru
  * Copyright (c) 2018.
  */
 
@@ -13,7 +15,7 @@ class Module extends \yii\base\Module
 {
     public $urlManager = 'urlManager';
 
-    public $imgFilePath = '@frontend/web/img/blog';
+    public $imgFilePath = '@app/web/img/blog';
 
     public $imgFileUrl = '/img/blog';
 
@@ -41,15 +43,11 @@ class Module extends \yii\base\Module
 
     public $blogTheme;
 
-    protected $_isBackend;
+    public $categoryBannerThumbWidth = 400;
 
-    /**
-     *
-     */
-    public function init()
-    {
-        parent::init();
-    }
+    public $categoryBannerThumbHeight = 300;
+
+    protected $_isBackend;
 
     /**
      * Translates a message to the specified language.
@@ -80,6 +78,14 @@ class Module extends \yii\base\Module
     public static function t($category, $message, $params = [], $language = null)
     {
         return Yii::t('akiraz2/' . $category, $message, $params, $language);
+    }
+
+    /**
+     *
+     */
+    public function init()
+    {
+        parent::init();
     }
 
     /**

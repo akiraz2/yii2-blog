@@ -1,14 +1,15 @@
 <?php
 /**
- * Project: yii2-blog for internal using
- * Author: akiraz2
+ * @module yii2-blog
+ * @description powerful blog module for yii2
+ * @author akiraz2
+ * @email akiraz@bk.ru
  * Copyright (c) 2018.
  */
 
 use akiraz2\blog\models\BlogCategory;
 use akiraz2\blog\Module;
 use kartik\markdown\MarkdownEditor;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -26,8 +27,10 @@ use yii\widgets\ActiveForm;
             'labelOptions' => ['class' => 'col-lg-2 control-label'],
         ],
     ]); ?>
+
     <?= $form->errorSummary($model); ?>
-    <?= $form->field($model, 'category_id')->dropDownList(ArrayHelper::map(BlogCategory::get(0, BlogCategory::find()->all()), 'id', 'str_label')) ?>
+
+    <?= $form->field($model, 'category_id')->dropDownList(BlogCategory::getList(), ['prompt' => Module::t('blog', 'Select category')]) ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => 128]) ?>
 
@@ -40,16 +43,10 @@ use yii\widgets\ActiveForm;
         ]
     ]); ?>
 
-    <?= $form->field($model, 'tags')->textInput(['maxlength' => 128]) ?>
-
-    <?= $form->field($model, 'slug')->textInput(['maxlength' => 128]) ?>
-
     <?= $form->field($model, 'banner')->fileInput() ?>
 
-    <?= $form->field($model, 'click')->textInput() ?>
-
     <?= $form->field($model, 'status')->dropDownList(\akiraz2\blog\models\BlogPost::getStatusList()) ?>
-    
+
     <div class="form-group">
         <label class="col-lg-2 control-label" for="">&nbsp;</label>
         <?= Html::submitButton($model->isNewRecord ? Module::t('blog', 'Create') : Module::t('blog', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

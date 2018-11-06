@@ -1,7 +1,9 @@
 <?php
 /**
- * Project: yii2-blog for internal using
- * Author: akiraz2
+ * @module yii2-blog
+ * @description powerful blog module for yii2
+ * @author akiraz2
+ * @email akiraz@bk.ru
  * Copyright (c) 2018.
  */
 
@@ -22,6 +24,10 @@ class BlogTag extends \yii\db\ActiveRecord
 {
     use StatusTrait, ModuleTrait;
 
+    const STATUS_INACTIVE = 0;
+    const STATUS_ACTIVE = 1;
+    const STATUS_ARCHIVE = -1;
+
     private $_status;
 
     /**
@@ -30,35 +36,6 @@ class BlogTag extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return '{{%blog_tag}}';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['name'], 'required'],
-            [['frequency'], 'integer'],
-            [['name'], 'string', 'max' => 128]
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => Module::t('blog', 'ID'),
-            'name' => Module::t('blog', 'Name'),
-            'frequency' => Module::t('blog', 'Frequency'),
-        ];
-    }
-
-    public static function string2array($tags)
-    {
-        return preg_split('/\s*,\s*/', trim($tags), -1, PREG_SPLIT_NO_EMPTY);
     }
 
     public static function array2string($tags)
@@ -74,10 +51,9 @@ class BlogTag extends \yii\db\ActiveRecord
         self::removeTags(array_values(array_diff($oldTags, $newTags)));
     }
 
-    public static function updateFrequencyOnDelete($oldTags)
+    public static function string2array($tags)
     {
-        $oldTags = self::string2array($oldTags);
-        self::removeTags($oldTags);
+        return preg_split('/\s*,\s*/', trim($tags), -1, PREG_SPLIT_NO_EMPTY);
     }
 
     public static function addTags($tags)
@@ -105,6 +81,12 @@ class BlogTag extends \yii\db\ActiveRecord
         BlogTag::deleteAll('frequency <= 0');
     }
 
+    public static function updateFrequencyOnDelete($oldTags)
+    {
+        $oldTags = self::string2array($oldTags);
+        self::removeTags($oldTags);
+    }
+
     public static function findTagWeights($limit = 20)
     {
         $models = BlogTag::find()->orderBy(['frequency' => SORT_DESC])->all();
@@ -122,5 +104,29 @@ class BlogTag extends \yii\db\ActiveRecord
             ksort($tags);
         }
         return $tags;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['name'], 'required'],
+            [['frequency'], 'integer'],
+            [['name'], 'string', 'max' => 128]
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Module::t('blog', 'ID'),
+            'name' => Module::t('blog', 'Name'),
+            'frequency' => Module::t('blog', 'Frequency'),
+        ];
     }
 }

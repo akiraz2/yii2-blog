@@ -1,9 +1,10 @@
 <?php
 /**
- * Copyright (c) 2018
- * cms Smetana
- * project: alt-money
- *
+ * @module yii2-blog
+ * @description powerful blog module for yii2
+ * @author akiraz2
+ * @email akiraz@bk.ru
+ * Copyright (c) 2018.
  */
 
 namespace akiraz2\blog\controllers\backend;

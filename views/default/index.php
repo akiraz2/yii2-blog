@@ -1,7 +1,9 @@
 <?php
 /**
- * Project: yii2-blog for internal using
- * Author: akiraz2
+ * @module yii2-blog
+ * @description powerful blog module for yii2
+ * @author akiraz2
+ * @email akiraz@bk.ru
  * Copyright (c) 2018.
  */
 
@@ -27,22 +29,36 @@ if (Yii::$app->get('opengraph', false)) {
         //'image' => '',
     ]);
 }
-//$this->params['breadcrumbs'][] = '文章';
-
-/*$this->breadcrumbs=[
-    //$post->category->title => Yii::app()->createUrl('post/category', array('id'=>$post->category->id, 'slug'=>$post->category->slug)),
-    '文章',
-];*/
 
 ?>
 <div class="blog-index">
     <div class="blog-index__header">
         <div class="container">
             <div class="row">
-                <div class="col-md-7">
-                    <h1 class="title title--1"><?= Module::t('blog', 'Blog'); ?></h1>
+                <div class="col-md-8">
+                    <div class="title">
+                        <?= \yii\helpers\Html::a(Module::t('blog', 'Add post'), ['manage/create'], ['class' => 'pull-right btn btn-primary']); ?>
+                        <h1 style="margin: 0"><?= Module::t('blog', 'Blog'); ?>
+                            <small>Simple. Powerful. Easy customize.</small>
+                        </h1>
+                    </div>
+                    <div class="page-seo">
+
+                    </div>
+
+                    <?php
+                    echo ListView::widget([
+                        'dataProvider' => $dataProvider,
+                        'itemView' => '_brief',
+                        'options' => [
+                            'class' => 'blog-list-view'
+                        ],
+                        'layout' => '{items}{pager}{summary}'
+                    ]);
+                    ?>
+
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <div class="blog-index__search">
                         <?= \yii\widgets\Menu::widget([
                             'items' => $cat_items,
@@ -53,24 +69,6 @@ if (Yii::$app->get('opengraph', false)) {
                         ?>
                     </div>
                 </div>
-            </div>
-        
-        </div>
-    </div>
-    
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <?php
-                echo ListView::widget([
-                    'dataProvider' => $dataProvider,
-                    'itemView' => '_brief',
-                    'options' => [
-                        'class' => 'blog-list-view'
-                    ],
-                    'layout' => '{items}{pager}{summary}'
-                ]);
-                ?>
             </div>
         </div>
     </div>

@@ -1,7 +1,9 @@
 <?php
 /**
- * Project: yii2-blog for internal using
- * Author: akiraz2
+ * @module yii2-blog
+ * @description powerful blog module for yii2
+ * @author akiraz2
+ * @email akiraz@bk.ru
  * Copyright (c) 2018.
  */
 
@@ -14,53 +16,54 @@ use yii\helpers\Html;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Module::t('blog', 'Blog Categorys');
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => Module::t('blog', 'Blog Admin'), 'url' => ['/blog/backend/default/index']];
+$this->params['breadcrumbs'][] = ['label' => Module::t('blog', 'Blog Category')];
 ?>
 <div class="blog-category-index">
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-    
     <p>
-        <?= Html::a(Module::t('blog', 'Create ') . Module::t('blog', 'Blog Category'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Module::t('blog', 'Create ') . Module::t('blog', 'Blog Category'), ['create'],
+            ['class' => 'btn btn-success']) ?>
     </p>
-    
-    <table class="table table-striped table-bordered">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th><?= Module::t('blog', 'Banner') ?></th>
-            <th><?= Module::t('blog', 'Title') ?> </th>
-            <th><?= Module::t('blog', 'Sort Order') ?></th>
-            <th><?= Module::t('blog', 'Template') ?></th>
-            <th><?= Module::t('blog', 'Is Nav') ?></th>
-            <th><?= Module::t('blog', 'Status') ?></th>
-            <th><?= Module::t('blog', 'Actions') ?></th>
-        
-        </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($dataProvider as $item) { ?>
-            <tr data-key="1">
-                <td><?= $item['id']; ?></td>
-                <td><?= Html::img($item['banner'], ['class' => 'img-responsive', 'width' => 100]); ?></td>
-                <td><?= $item['str_label']; ?></td>
-                <td><?= $item['sort_order']; ?></td>
-                <td><?= $item['template']; ?></td>
-                <td><?= BlogCategory::getOneIsNavLabel($item['is_nav']); ?></td>
-                <td><?= $item['status']; ?></td>
-                <td>
-                    <a href="<?= \Yii::$app->getUrlManager()->createUrl(['blog/blog-category/create', 'parent_id' => $item['id']]); ?>" title="<?= Module::t('blog', 'Add Sub Catelog'); ?>"
-                       data-pjax="0"><span class="glyphicon glyphicon-plus-sign"></span></a>
-                    <a href="<?= \Yii::$app->getUrlManager()->createUrl(['blog/blog-category/view', 'id' => $item['id']]); ?>"" title="<?= Module::t('blog', 'View'); ?>" data-pjax="0"><span
-                        class="glyphicon glyphicon-eye-open"></span></a>
-                    <a href="<?= \Yii::$app->getUrlManager()->createUrl(['blog/blog-category/update', 'id' => $item['id']]); ?>"" title="<?= Module::t('blog', 'Update'); ?>" data-pjax="0"><span
-                        class="glyphicon glyphicon-pencil"></span></a>
-                    <a href="<?= \Yii::$app->getUrlManager()->createUrl(['blog/blog-category/delete', 'id' => $item['id']]); ?>"" title="<?= Module::t('blog', 'Delete'); ?>"
-                    data-confirm="<?= Module::t('blog', 'Are you sure you want to delete this item?'); ?>" data-method="post" data-pjax="0"><span class="glyphicon glyphicon-trash"></span></a>
-                </td>
-            </tr>
-        <?php } ?>
-        </tbody>
-    </table>
+    <?= \himiklab\sortablegrid\SortableGridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\CheckboxColumn'],
+            [
+                'attribute' => 'banner',
+                'value' => function ($model) {
+                    return Html::img($model->getThumbFileUrl('banner', 'thumb'),
+                        ['class' => 'img-responsive', 'width' => 100]);
+                },
+                'format' => 'raw',
+                'filter' => false
+            ],
+            'title',
+            [
+                'attribute' => 'status',
+                'format' => 'html',
+                'value' => function ($model) {
+                    if ($model->status === BlogCategory::STATUS_ACTIVE) {
+                        $class = 'label-success';
+                    } elseif ($model->status === BlogCategory::STATUS_INACTIVE) {
+                        $class = 'label-warning';
+                    } else {
+                        $class = 'label-danger';
+                    }
+                    return '<span class="label ' . $class . '">' . $model->getStatus() . '</span>';
+                },
+                'filter' => Html::activeDropDownList(
+                    $searchModel,
+                    'status',
+                    BlogCategory::getStatusList(),
+                    ['class' => 'form-control', 'prompt' => Module::t('blog', 'Please Filter')]
+                )
+            ],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{update}{delete}',
+            ],
+        ],
+    ]); ?>
 
 </div>

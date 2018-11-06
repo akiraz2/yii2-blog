@@ -1,7 +1,9 @@
 <?php
 /**
- * Project: yii2-blog for internal using
- * Author: akiraz2
+ * @module yii2-blog
+ * @description powerful blog module for yii2
+ * @author akiraz2
+ * @email akiraz@bk.ru
  * Copyright (c) 2018.
  */
 
@@ -10,14 +12,10 @@ namespace akiraz2\blog\models;
 use akiraz2\blog\Module;
 use akiraz2\blog\traits\IActiveStatus;
 use akiraz2\blog\traits\ModuleTrait;
-use akiraz2\blog\traits\StatusTrait;
 use Yii;
 use yii\behaviors\AttributeBehavior;
-use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
-use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use yiidreamteam\upload\ImageUploadBehavior;
 
 
@@ -29,10 +27,9 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property string $title
  * @property string $content
  * @property string $brief
- * @property string $tags
- * @property string $slug
  * @property string $banner
  * @property integer $click
+ * @property integer $rate
  * @property integer $user_id
  * @property integer $status
  * @property integer $created_at
@@ -53,12 +50,25 @@ class BlogPost extends \yii\db\ActiveRecord
     const STATUS_PUBLISHED = 50;
     const STATUS_ARCHIVED = 100;
 
+    public $slug;
+    public $commentsCount;
+    public $categoryName;
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return '{{%blog_post}}';
+    }
+
+    /**
+     * @inheritdoc
+     * @return BlogPostQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new BlogPostQuery(get_called_class());
     }
 
     /**
@@ -69,11 +79,11 @@ class BlogPost extends \yii\db\ActiveRecord
     {
         return [
             'class' => TimestampBehavior::class,
-            [
+            /*[
                 'class' => SluggableBehavior::class,
                 'attribute' => 'title',
                 'slugAttribute' => 'slug'
-            ],
+            ],*/
             [
                 'class' => AttributeBehavior::class,
                 'attributes' => [
@@ -107,8 +117,10 @@ class BlogPost extends \yii\db\ActiveRecord
             [['category_id', 'click', 'user_id', 'status'], 'integer'],
             [['brief', 'content'], 'string'],
             [['banner'], 'file', 'extensions' => 'jpg, png, webp', 'mimeTypes' => 'image/jpeg, image/png, image/webp',],
-            [['title', 'tags', 'slug'], 'string', 'max' => 128],
-            ['click', 'default', 'value' => 0]
+            [['title'], 'string', 'max' => 128],
+            ['click', 'default', 'value' => 0],
+            ['title', 'unique'],
+            ['lang', 'default', 'value' => Yii::$app->language],
         ];
     }
 
@@ -143,11 +155,6 @@ class BlogPost extends \yii\db\ActiveRecord
         return $this->hasMany(BlogComment::className(), ['post_id' => 'id']);
     }
 
-    public function getCommentsCount()
-    {
-        return $this->hasMany(BlogComment::className(), ['post_id' => 'id'])->count('post_id');
-    }
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -161,8 +168,8 @@ class BlogPost extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        if ($this->getModule()->userModel) {
-            return $this->hasOne($this->getModule()->userModel::className(), [$this->getModule()->userPK => 'user_id']);
+        if (($userModel = $this->getModule()->userModel)) {
+            return $this->hasOne($userModel::className(), [$this->getModule()->userPK => 'user_id']);
         }
         return null;
     }
@@ -172,77 +179,39 @@ class BlogPost extends \yii\db\ActiveRecord
         return $this->hasMany(BlogComment::className(), ['post_id' => 'id']);
     }
 
-    /**
-     * After save.
-     *
-     */
-    public function afterSave($insert, $changedAttributes)
+    public function getStatus($nullLabel = '---')
     {
-        parent::afterSave($insert, $changedAttributes);
-        // add your code here
-        BlogTag::updateFrequency($this->_oldTags, $this->tags);
+        $statuses = static::getStatusList();
+        return (isset($this->status) && isset($statuses[$this->status])) ? $statuses[$this->status] : $nullLabel;
+    }
+
+    public static function getStatusList()
+    {
+        return [
+            self::STATUS_DELETED => Module::t('blog', 'Deleted'),
+            self::STATUS_REJECTED => Module::t('blog', 'Rejected'),
+            self::STATUS_DRAFT => Module::t('blog', 'Draft'),
+            self::STATUS_PENDING_REVIEW => Module::t('blog', 'Pending review'),
+            self::STATUS_PLANNING_TO_PUBLISH => Module::t('blog', 'Planning to Publish'),
+            self::STATUS_PUBLISHED => Module::t('blog', 'Published'),
+            self::STATUS_ARCHIVED => Module::t('blog', 'Archived'),
+        ];
     }
 
     /**
-     * After save.
-     *
-     */
-    public function afterDelete()
-    {
-        parent::afterDelete();
-        // add your code here
-        BlogTag::updateFrequencyOnDelete($this->_oldTags);
-    }
-
-    /**
-     * This is invoked when a record is populated with data from a find() call.
-     */
-    public function afterFind()
-    {
-        parent::afterFind();
-        $this->_oldTags = $this->tags;
-    }
-
-    /**
-     * Normalizes the user-entered tags.
-     */
-    public static function getArrayCategory()
-    {
-        return ArrayHelper::map(BlogCategory::find()->all(), 'id', 'title');
-    }
-
-    /**
-     * Normalizes the user-entered tags.
-     */
-    public function normalizeTags($attribute, $params)
-    {
-        $this->tags = BlogTag::array2string(array_unique(array_map('trim', BlogTag::string2array($this->tags))));
-    }
-
-    /**
-     *
+     * @return string
      */
     public function getUrl()
     {
         return Yii::$app->getUrlManager()->createUrl(['blog/default/view', 'id' => $this->id, 'slug' => $this->slug]);
     }
 
+    /**
+     * @return string
+     */
     public function getAbsoluteUrl()
     {
         return Yii::$app->getUrlManager()->createAbsoluteUrl(['blog/default/view', 'id' => $this->id, 'slug' => $this->slug]);
-    }
-
-    /**
-     *
-     */
-    public function getTagLinks()
-    {
-        $links = [];
-        foreach (BlogTag::string2array($this->tags) as $tag) {
-            $links[] = Html::a($tag, Yii::$app->getUrlManager()->createUrl(['blog/default/index', 'tag' => $tag]));
-        }
-
-        return $links;
     }
 
     /**
@@ -254,5 +223,4 @@ class BlogPost extends \yii\db\ActiveRecord
         $comment->post_id = $this->id;
         return $comment->save();
     }
-
 }

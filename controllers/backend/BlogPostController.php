@@ -1,7 +1,9 @@
 <?php
 /**
- * Project: yii2-blog for internal using
- * Author: akiraz2
+ * @module yii2-blog
+ * @description powerful blog module for yii2
+ * @author akiraz2
+ * @email akiraz@bk.ru
  * Copyright (c) 2018.
  */
 
@@ -28,42 +30,11 @@ class BlogPostController extends BaseAdminController
         $searchModel = new BlogPostSearch();
         $searchModel->scenario = BlogPostSearch::SCENARIO_ADMIN;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $arrayCategory = BlogPost::getArrayCategory();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'arrayCategory' => $arrayCategory,
         ]);
-    }
-
-    /**
-     * Displays a single BlogPost model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
-     * Finds the BlogPost model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return BlogPost the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = BlogPost::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
     }
 
     /**
@@ -74,9 +45,10 @@ class BlogPostController extends BaseAdminController
     public function actionCreate()
     {
         $model = new BlogPost();
+        $model->status = BlogPost::STATUS_DRAFT;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -97,12 +69,28 @@ class BlogPostController extends BaseAdminController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * Finds the BlogPost model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return BlogPost the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = BlogPost::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
     /**
@@ -115,8 +103,12 @@ class BlogPostController extends BaseAdminController
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        $model->status = IActiveStatus::STATUS_ARCHIVE;
-        $model->save();
+        if ($model->status === BlogPost::STATUS_DELETED) {
+            $model->delete();
+        } else {
+            $model->status = BlogPost::STATUS_DELETED;
+            $model->save();
+        }
 
         return $this->redirect(['index']);
     }

@@ -1,7 +1,9 @@
 <?php
 /**
- * Project: yii2-blog for internal using
- * Author: akiraz2
+ * @module yii2-blog
+ * @description powerful blog module for yii2
+ * @author akiraz2
+ * @email akiraz@bk.ru
  * Copyright (c) 2018.
  */
 
@@ -17,7 +19,7 @@ $this->params['breadcrumbs'][] = ['label' => Module::t('blog', 'Blog Tags'), 'ur
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="blog-tag-view">
-    
+
     <p>
         <?= Html::a(Module::t('blog', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Module::t('blog', 'Delete'), ['delete', 'id' => $model->id], [

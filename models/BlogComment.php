@@ -1,7 +1,9 @@
 <?php
 /**
- * Project: yii2-blog for internal using
- * Author: akiraz2
+ * @module yii2-blog
+ * @description powerful blog module for yii2
+ * @author akiraz2
+ * @email akiraz@bk.ru
  * Copyright (c) 2018.
  */
 
@@ -36,6 +38,10 @@ class BlogComment extends \yii\db\ActiveRecord
 {
     use StatusTrait, ModuleTrait;
 
+    const STATUS_INACTIVE = 0;
+    const STATUS_ACTIVE = 1;
+    const STATUS_ARCHIVE = -1;
+
     const SCENARIO_ADMIN = 'admin';
     const SCENARIO_USER = 'user';
 
@@ -49,6 +55,20 @@ class BlogComment extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return '{{%blog_comment}}';
+    }
+
+    /**
+     * @param int $limit
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public static function findRecentComments($limit = 10)
+    {
+        return self::find()->joinWith('blogPost')->where([
+            '{{%blog_comment}}.status' => IActiveStatus::STATUS_ACTIVE,
+            '{{%blog_post}}.status' => IActiveStatus::STATUS_ACTIVE,
+        ])->orderBy([
+            'created_at' => SORT_DESC
+        ])->limit($limit)->all();
     }
 
     /**
@@ -148,20 +168,6 @@ class BlogComment extends \yii\db\ActiveRecord
             $post = $this->post;
         }
         return $post->url . '#c' . $this->id;
-    }
-
-    /**
-     * @param int $limit
-     * @return array|\yii\db\ActiveRecord[]
-     */
-    public static function findRecentComments($limit = 10)
-    {
-        return self::find()->joinWith('blogPost')->where([
-            '{{%blog_comment}}.status' => IActiveStatus::STATUS_ACTIVE,
-            '{{%blog_post}}.status' => IActiveStatus::STATUS_ACTIVE,
-        ])->orderBy([
-            'created_at' => SORT_DESC
-        ])->limit($limit)->all();
     }
 
     /**
