@@ -42,7 +42,7 @@ class ManageController extends Controller
         $searchModel = new BlogPostSearch();
         $searchModel->scenario = BlogPostSearch::SCENARIO_USER;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andWhere(['user_id' => Yii::$app->user->id]);
+        $dataProvider->query->byUser(Yii::$app->user->id);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

@@ -50,6 +50,10 @@ class BlogPost extends \yii\db\ActiveRecord
     const STATUS_PUBLISHED = 50;
     const STATUS_ARCHIVED = 100;
 
+    const SCENARIO_USER = 'user';
+    const SCENARIO_MODERATOR = 'moderator';
+    const SCENARIO_ADMIN = 'admin';
+
     public $slug;
     public $commentsCount;
     public $categoryName;
@@ -120,6 +124,7 @@ class BlogPost extends \yii\db\ActiveRecord
             [['title'], 'string', 'max' => 128],
             ['click', 'default', 'value' => 0],
             ['title', 'unique'],
+            ['status', 'default', 'value' => static::STATUS_DRAFT],
             ['lang', 'default', 'value' => Yii::$app->language],
         ];
     }

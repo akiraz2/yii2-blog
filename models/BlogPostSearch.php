@@ -19,7 +19,7 @@ class BlogPostSearch extends BlogPost
 {
     const SCENARIO_ADMIN = 'admin';
     const SCENARIO_USER = 'user';
-
+    const SCENARIO_OWNER = 'owner';
     /**
      * @inheritdoc
      */
