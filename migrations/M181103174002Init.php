@@ -42,8 +42,6 @@ class M181103174002Init extends Migration
                 'page_size' => $this->tinyInteger()->defaultValue(20),
                 'template' => $this->string(128)->null(),
                 'status' => $this->tinyInteger()->defaultValue(0),
-                //'created_at' => $this->integer()->notNull(),
-                //'updated_at' => $this->integer()->null(),
             ],
             $tableOptions
         );
@@ -58,6 +56,7 @@ class M181103174002Init extends Migration
             '{{%blog_post}}',
             [
                 'id' => $this->primaryKey(),
+                'parent_id' => $this->integer()->null(),
                 'category_id' => $this->integer()->notNull(),
                 'lang' => $this->string(8)->notNull(),
                 'title' => $this->string(255)->unique()->notNull(),
@@ -130,6 +129,25 @@ class M181103174002Init extends Migration
             'status' => 1,
             'lang' => \Yii::$app->language,
         ]);
+
+        // table blog_tag
+        $this->createTable(
+            '{{%blog_rating}}',
+            [
+                'id' => $this->primaryKey(),
+                'post_id' => $this->integer()->notNull(),
+                'user_id' => $this->integer()->notNull(),
+                'rating' => $this->integer()->notNull(),
+                'created_at' => $this->integer()->notNull(),
+            ],
+            $tableOptions
+        );
+        // Foreign Keys
+        $this->addForeignKey('{{%FK_post_rating}}', '{{%blog_rating}}', 'post_id', '{{%blog_post}}', 'id', 'CASCADE', 'CASCADE');
+        if ($this->getModule()->userModel) {
+            $userClass = $this->getModule()->userModel;
+            $this->addForeignKey('{{%FK_rating_user}}', '{{%blog_rating}}', 'user_id', $userClass::tableName(), $this->getModule()->userPK, 'CASCADE', 'CASCADE');
+        }
     }
 
     /**
@@ -143,9 +161,11 @@ class M181103174002Init extends Migration
             $this->dropForeignKey('{{%FK_post_user}}', '{{%blog_post}}');
         }
         $this->dropForeignKey('{{%FK_post_category}}', '{{%blog_post}}');
+        $this->dropForeignKey('{{%FK_post_rating}}', '{{%blog_rating}}');
         $this->dropTable('{{%blog_tag}}');
         $this->dropTable('{{%blog_comment}}');
         $this->dropTable('{{%blog_post}}');
         $this->dropTable('{{%blog_category}}');
+        $this->dropTable('{{%blog_rating}}');
     }
 }
