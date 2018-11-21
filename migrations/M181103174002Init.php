@@ -42,6 +42,10 @@ class M181103174002Init extends Migration
                 'page_size' => $this->tinyInteger()->defaultValue(20),
                 'template' => $this->string(128)->null(),
                 'status' => $this->tinyInteger()->defaultValue(0),
+                'seo_title' => $this->string(255)->null(),
+                'seo_keywords' => $this->string(255)->null(),
+                'seo_description' => $this->string(255)->null(),
+                'seo_img' => $this->string(255)->null(),
             ],
             $tableOptions
         );
@@ -67,6 +71,10 @@ class M181103174002Init extends Migration
                 'rate' => $this->integer()->defaultValue(0),
                 'user_id' => $this->integer()->null(),
                 'status' => $this->tinyInteger()->defaultValue(0),
+                'seo_title' => $this->string(255)->null(),
+                'seo_keywords' => $this->string(255)->null(),
+                'seo_description' => $this->string(255)->null(),
+                'seo_img' => $this->string(255)->null(),
                 'created_at' => $this->integer()->notNull(),
                 'updated_at' => $this->integer()->null(),
             ],

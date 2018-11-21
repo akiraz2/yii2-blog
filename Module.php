@@ -111,4 +111,16 @@ class Module extends \yii\base\Module
     {
         return \Yii::$app->get($this->urlManager)->getHostInfo() . $this->imgFileUrl;
     }
+
+    public static function postInstall($event)
+    {
+        $dirPath= \Yii::getAlias('@app/media/imagemanager');
+        try {
+            if (!is_dir(dirname($dirPath))) {
+                mkdir(dirname($dirPath), 0666, true);
+            }
+        } catch (\Exception $e) {
+            echo $e->getMessage() . "\n";
+        }
+    }
 }

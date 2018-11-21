@@ -97,7 +97,7 @@ class BlogPost extends \yii\db\ActiveRecord
                     return Yii::$app->user->getId();
                 },
             ],
-            [
+            /*[
                 'class' => ImageUploadBehavior::class,
                 'attribute' => 'banner',
                 'thumbs' => [
@@ -107,7 +107,7 @@ class BlogPost extends \yii\db\ActiveRecord
                 'fileUrl' => $this->module->getImgFullPathUrl() . '/[[model]]/[[pk]].[[extension]]',
                 'thumbPath' => $this->module->imgFilePath . '/[[model]]/[[profile]]_[[pk]].[[extension]]',
                 'thumbUrl' => $this->module->getImgFullPathUrl() . '/[[model]]/[[profile]]_[[pk]].[[extension]]',
-            ],
+            ],*/
         ];
     }
 
