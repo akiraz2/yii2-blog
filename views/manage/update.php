@@ -14,13 +14,11 @@ use akiraz2\blog\Module;
 
 $this->title = Module::t('blog', 'Update ') . Module::t('blog', 'Blog Post') . ' ' . $model->title;
 $this->params['breadcrumbs'][] = ['label' => Module::t('blog', 'Blog Posts'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->title,];
 $this->params['breadcrumbs'][] = Module::t('blog', 'Update');
 ?>
 <div class="blog-post-update">
-
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
-
 </div>

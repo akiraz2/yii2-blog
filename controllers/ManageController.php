@@ -11,10 +11,12 @@ namespace akiraz2\blog\controllers;
 
 use akiraz2\blog\models\BlogPost;
 use akiraz2\blog\models\BlogPostSearch;
+use akiraz2\blog\Module;
 use akiraz2\blog\traits\IActiveStatus;
 use akiraz2\blog\traits\ModuleTrait;
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -39,8 +41,8 @@ class ManageController extends Controller
 
     public function actionIndex()
     {
-        $searchModel = new BlogPostSearch();
-        $searchModel->scenario = BlogPostSearch::SCENARIO_USER;
+        Url::remember('', 'actions-redirect');
+        $searchModel = \Yii::createObject(['class' => BlogPostSearch::class, 'scenario' => 'owner',]);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->query->byUser(Yii::$app->user->id);
 
@@ -57,9 +59,10 @@ class ManageController extends Controller
      */
     public function actionCreate()
     {
-        $model = new BlogPost();
+        $model = \Yii::createObject(BlogPost::class);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            \Yii::$app->getSession()->setFlash('success', Module::t('blog', 'Post has been created'));
+            return $this->redirect(['update', 'id' => $model->id]);
         }
         return $this->render('create', [
             'model' => $model,
@@ -77,11 +80,10 @@ class ManageController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            \Yii::$app->getSession()->setFlash('success', Module::t('blog', 'Post has been updated'));
+            return $this->refresh();
         }
-
         return $this->render('update', [
             'model' => $model,
         ]);
@@ -96,11 +98,12 @@ class ManageController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = BlogPost::find()->where(['id' => $id, 'user_id' => Yii::$app->user->id])) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+        $post_class = Yii::$container->get(BlogPost::class);
+        $post_model = $post_class::find()->byUser()->byId($id)->one();
+        if ($post_model === null) {
+            throw new NotFoundHttpException('The requested page does not exist');
         }
+        return $post_model;
     }
 
     /**
@@ -113,8 +116,8 @@ class ManageController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        if ($model->status != IActiveStatus::STATUS_ARCHIVE) {
-            $model->status = IActiveStatus::STATUS_ARCHIVE;
+        if ($model->status != BlogPost::STATUS_DELETED) {
+            $model->status = BlogPost::STATUS_DELETED;
             $model->save();
         } else {
             $model->delete();

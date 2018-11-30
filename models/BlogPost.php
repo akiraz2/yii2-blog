@@ -12,8 +12,10 @@ namespace akiraz2\blog\models;
 use akiraz2\blog\Module;
 use akiraz2\blog\traits\IActiveStatus;
 use akiraz2\blog\traits\ModuleTrait;
+use dosamigos\taggable\Taggable;
 use Yii;
 use yii\behaviors\AttributeBehavior;
+use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yiidreamteam\upload\ImageUploadBehavior;
@@ -83,11 +85,12 @@ class BlogPost extends \yii\db\ActiveRecord
     {
         return [
             'class' => TimestampBehavior::class,
-            /*[
+            'class' => Taggable::className(),
+            [
                 'class' => SluggableBehavior::class,
                 'attribute' => 'title',
                 'slugAttribute' => 'slug'
-            ],*/
+            ],
             [
                 'class' => AttributeBehavior::class,
                 'attributes' => [
@@ -97,7 +100,7 @@ class BlogPost extends \yii\db\ActiveRecord
                     return Yii::$app->user->getId();
                 },
             ],
-            /*[
+            [
                 'class' => ImageUploadBehavior::class,
                 'attribute' => 'banner',
                 'thumbs' => [
@@ -107,7 +110,7 @@ class BlogPost extends \yii\db\ActiveRecord
                 'fileUrl' => $this->module->getImgFullPathUrl() . '/[[model]]/[[pk]].[[extension]]',
                 'thumbPath' => $this->module->imgFilePath . '/[[model]]/[[profile]]_[[pk]].[[extension]]',
                 'thumbUrl' => $this->module->getImgFullPathUrl() . '/[[model]]/[[profile]]_[[pk]].[[extension]]',
-            ],*/
+            ],
         ];
     }
 
@@ -121,7 +124,8 @@ class BlogPost extends \yii\db\ActiveRecord
             [['category_id', 'click', 'user_id', 'status'], 'integer'],
             [['brief', 'content'], 'string'],
             [['banner'], 'file', 'extensions' => 'jpg, png, webp', 'mimeTypes' => 'image/jpeg, image/png, image/webp',],
-            [['title'], 'string', 'max' => 128],
+            [['title', 'seo_title', 'seo_keywords', 'seo_img'], 'string', 'max' => 128],
+            [['seo_description'], 'string', 'max' => 255],
             ['click', 'default', 'value' => 0],
             ['title', 'unique'],
             ['status', 'default', 'value' => static::STATUS_DRAFT],
@@ -149,15 +153,11 @@ class BlogPost extends \yii\db\ActiveRecord
             'created_at' => Module::t('blog', 'Created At'),
             'updated_at' => Module::t('blog', 'Updated At'),
             'commentsCount' => Module::t('blog', 'Comments Count'),
+            'seo_title' => Module::t('blog', 'SEO Title'),
+            'seo_keywords' => Module::t('blog', 'SEO keywords'),
+            'seo_description' => Module::t('blog', 'SEO Description'),
+            'seo_img' => Module::t('blog', 'SEO image'),
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getBlogComments()
-    {
-        return $this->hasMany(BlogComment::className(), ['post_id' => 'id']);
     }
 
     /**
@@ -165,7 +165,7 @@ class BlogPost extends \yii\db\ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasOne(BlogCategory::className(), ['id' => 'category_id']);
+        return $this->hasOne(Yii::$container->get(BlogCategory::className()), ['id' => 'category_id']);
     }
 
     /**
@@ -173,15 +173,21 @@ class BlogPost extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        if (($userModel = $this->getModule()->userModel)) {
-            return $this->hasOne($userModel::className(), [$this->getModule()->userPK => 'user_id']);
-        }
-        return null;
+        $userModel = $this->getModule()->userModel;
+        return $this->hasOne($userModel::className(), [$this->getModule()->userPK => 'user_id']);
     }
 
     public function getComments()
     {
-        return $this->hasMany(BlogComment::className(), ['post_id' => 'id']);
+        return $this->hasMany(Yii::$container->get(BlogComment::class), ['post_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTags()
+    {
+        return $this->hasMany(BlogTag::className(), ['id' => 'tag_id'])->viaTable('{{%blog_post_tag_assn}}', ['post_id' => 'id']);
     }
 
     public function getStatus($nullLabel = '---')
@@ -224,7 +230,7 @@ class BlogPost extends \yii\db\ActiveRecord
      */
     public function addComment($comment)
     {
-        $comment->status = IActiveStatus::STATUS_INACTIVE;
+        $comment->status = BlogComment::STATUS_INACTIVE;
         $comment->post_id = $this->id;
         return $comment->save();
     }

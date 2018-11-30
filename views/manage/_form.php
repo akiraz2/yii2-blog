@@ -23,17 +23,17 @@ use yii\widgets\ActiveForm;
     <?= $form->errorSummary($model); ?>
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
-            <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
+            <a href="#main" aria-controls="main" role="tab" data-toggle="tab">
                 <?= Module::t('blog', 'Content'); ?>
             </a>
         </li>
         <li role="presentation">
-            <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">
+            <a href="#image" aria-controls="image" role="tab" data-toggle="tab">
                 <?= Module::t('blog', 'Image'); ?>
             </a>
         </li>
         <li role="presentation">
-            <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">
+            <a href="#seo" aria-controls="seo" role="tab" data-toggle="tab">
                 <?= Module::t('blog', 'SEO'); ?>
             </a>
         </li>
@@ -46,7 +46,7 @@ use yii\widgets\ActiveForm;
 
     <!-- Tab panes -->
     <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="home">
+        <div role="tabpanel" class="tab-pane active" id="main">
             <?= $form->field($model, 'category_id')->dropDownList(BlogCategory::getList(), ['prompt' => Module::t('blog', 'Select category')]) ?>
 
             <?= $form->field($model, 'title')->textInput(['maxlength' => 128]) ?>
@@ -60,13 +60,18 @@ use yii\widgets\ActiveForm;
                 ]
             ]); ?>
         </div>
-        <div role="tabpanel" class="tab-pane" id="profile">
+        <div role="tabpanel" class="tab-pane" id="image">
             <?= $form->field($model, 'banner')->fileInput() ?>
         </div>
-        <div role="tabpanel" class="tab-pane" id="messages">
+        <div role="tabpanel" class="tab-pane" id="seo">
+            <?= $form->field($model, 'seo_title')->textInput(['maxlength' => 128]) ?>
+            <?= $form->field($model, 'seo_description')->textarea() ?>
+            <?= $form->field($model, 'seo_keywords')->textInput(['maxlength' => 128]) ?>
+            <?= $form->field($model, 'seo_img')->textInput(['maxlength' => 128]) ?>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="settings">
 
         </div>
-        <div role="tabpanel" class="tab-pane" id="settings">...</div>
     </div>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Module::t('blog', 'Create') : Module::t('blog', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -41,25 +41,34 @@ class BlogPostQuery extends AdvancedActiveQuery
         return $this->byField('status', BlogPost::STATUS_PUBLISHED);
     }
 
+    public function byId($id)
+    {
+        return $this->byField('id', $id);
+    }
+
     /**
      * @param $user_id
      *
      * @return $this
      */
-    public function byUser($user_id)
+    public function byUser($user_id = null)
     {
+        if ($user_id === null) {
+            $user_id = \Yii::$app->user->id;
+        }
         return $this->byField('user_id', $user_id);
     }
 
     public function withCategoryName()
     {
-        return $this->addSelect(['{{%blog_post}}.*', '{{%blog_category}}.title as categoryName'])->joinWith('category', false, 'INNER JOIN');
+        return $this->addSelect(['{{%blog_post}}.*', '{{%blog_category}}.title as categoryName'])
+            ->joinWith('category', false, 'INNER JOIN');
     }
 
     public function withCommentCount()
     {
         return $this->addSelect(['{{%blog_post}}.*', 'COUNT({{%blog_comment}}.id) as commentsCount'])
-            ->joinWith('blogComments', false, 'LEFT JOIN')
+            ->joinWith('comments', false, 'LEFT JOIN')
             ->addGroupBy(['{{%blog_comment}}.post_id', '{{%blog_post}}.id']);
     }
 

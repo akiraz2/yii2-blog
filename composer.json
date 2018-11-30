@@ -29,7 +29,8 @@
     "lesha724/yii2-math-captcha": "*",
     "rmrevin/yii2-fontawesome": "~2.17",
     "himiklab/yii2-sortable-grid-view-widget": "*",
-    "noam148/yii2-image-manager" : "*"
+    "noam148/yii2-image-manager" : "*",
+    "2amigos/yii2-taggable-behavior": "~1.0"
   },
   "repositories": [
     {

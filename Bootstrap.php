@@ -31,7 +31,6 @@ class Bootstrap implements BootstrapInterface
                 'class' => 'akiraz2\blog\Module',
             ]);
         }
-
         if ($app instanceof ConsoleApp) {
             $app->controllerMap['migrate-blog'] = [
                 'class' => 'yii\console\controllers\MigrateController',
