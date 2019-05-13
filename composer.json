@@ -54,7 +54,6 @@
             "role": "Developer"
           }
         ],
-        "minimum-stability": "dev",
         "require": {
           "php": ">=7.1.0",
           "yiisoft/yii2": "*",
