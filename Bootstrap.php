@@ -43,17 +43,21 @@ class Bootstrap implements BootstrapInterface
                 ]
             ];
         }
-        // Add redactor module if not exist (in my case - only in backend)
-        $redactorModule = $this->getModule()->redactorModule;
-        if ($this->getModule()->getIsBackend() && !$app->hasModule($redactorModule)) {
-            $app->setModule($redactorModule, [
-                'class' => 'yii\redactor\RedactorModule',
-                'imageUploadRoute' => ['/blog/upload/image'],
-                'uploadDir' => $this->getModule()->imgFilePath . '/upload/',
-                'uploadUrl' => $this->getModule()->getImgFullPathUrl() . '/upload',
-                'imageAllowExtensions' => ['jpg', 'png', 'gif', 'svg']
-            ]);
+
+        // Add redactor module if not exist (in my case - only in backend) and if the blog module enabled
+        if ($this->getModule()) {
+            $redactorModule = $this->getModule()->redactorModule;
+            if ($this->getModule()->getIsBackend() && !$app->hasModule($redactorModule)) {
+                $app->setModule($redactorModule, [
+                    'class' => 'yii\redactor\RedactorModule',
+                    'imageUploadRoute' => ['/blog/upload/image'],
+                    'uploadDir' => $this->getModule()->imgFilePath . '/upload/',
+                    'uploadUrl' => $this->getModule()->getImgFullPathUrl() . '/upload',
+                    'imageAllowExtensions' => ['jpg', 'png', 'gif', 'svg']
+                ]);
+            }
         }
+
 
         \Yii::setAlias('@akiraz2', \Yii::getAlias('@vendor') . '/akiraz2');
     }
