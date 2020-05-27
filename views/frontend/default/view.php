@@ -83,9 +83,11 @@ $username_attribute = Module::getInstance()->userName;
         </h1>
 
         <div class="blog-post__content" itemprop="articleBody">
-            <?php
-            echo \yii\helpers\HtmlPurifier::process($post->content);
-            ?>
+            <?php echo HtmlPurifier::process($post->content, [
+                    'HTML.AllowedElements' => 'iframe,p,strong,b,i,br,ul,ol,li', 
+                    "HTML.SafeIframe" => true,
+                    "URI.SafeIframeRegexp" => "%^(http://|https://|//)(www.youtube.com/embed/|player.vimeo.com/video/|api.soundcloud.com/tracks/|www.youtube-nocookie.com/embed/)%",  
+                ]); ?>
         </div>
         <?php if (isset($post->module->schemaOrg) && isset($post->module->schemaOrg['publisher'])) : ?>
             <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization" class="blog-post__publisher">
