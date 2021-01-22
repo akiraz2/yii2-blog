@@ -11,12 +11,11 @@ namespace akiraz2\blog\migrations;
 
 use akiraz2\blog\Module;
 use akiraz2\blog\traits\ModuleTrait;
-use yii\db\Migration;
 
 /**
  * Class M181103174002Init
  */
-class M181103174002Init extends Migration
+class M181103174002Init extends \akiraz2\blog\migrations\Migration
 {
     use ModuleTrait;
 
@@ -25,9 +24,6 @@ class M181103174002Init extends Migration
      */
     public function safeUp()
     {
-        // MySql table options
-        $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
-
         // table blog_category
         $this->createTable(
             '{{%blog_category}}',
@@ -47,7 +43,7 @@ class M181103174002Init extends Migration
                 'seo_description' => $this->string(255)->null(),
                 'seo_img' => $this->string(255)->null(),
             ],
-            $tableOptions
+            $this->tableOptions
         );
 
         // Indexes
@@ -63,22 +59,22 @@ class M181103174002Init extends Migration
                 'parent_id' => $this->integer()->null(),
                 'category_id' => $this->integer()->notNull(),
                 'lang' => $this->string(8)->notNull(),
-                'title' => $this->string(128)->unique()->notNull(),
+                'title' => $this->string(255)->unique()->notNull(),
                 'brief' => $this->text()->null(),
                 'content' => $this->text()->notNull(),
-                'banner' => $this->string(128)->null(),
+                'banner' => $this->string(255)->null(),
                 'click' => $this->integer()->defaultValue(0),
                 'rate' => $this->integer()->defaultValue(0),
                 'user_id' => $this->integer()->null(),
                 'status' => $this->tinyInteger()->defaultValue(0),
-                'seo_title' => $this->string(128)->null(),
+                'seo_title' => $this->string(255)->null(),
                 'seo_keywords' => $this->string(128)->null(),
                 'seo_description' => $this->string(255)->null(),
-                'seo_img' => $this->string(128)->null(),
+                'seo_img' => $this->string(255)->null(),
                 'created_at' => $this->integer()->notNull(),
                 'updated_at' => $this->integer()->null(),
             ],
-            $tableOptions
+            $this->tableOptions
         );
 
         // Indexes
@@ -88,10 +84,10 @@ class M181103174002Init extends Migration
 
         // Foreign Keys
         $this->addForeignKey('{{%FK_post_category}}', '{{%blog_post}}', 'category_id', '{{%blog_category}}', 'id', 'CASCADE', 'CASCADE');
-        if ($this->getModule()->userModel) {
-            $userClass = $this->getModule()->userModel;
-            $this->addForeignKey('{{%FK_post_user}}', '{{%blog_post}}', 'user_id', $userClass::tableName(), $this->getModule()->userPK, 'CASCADE', 'CASCADE');
-        }
+//        if ($this->getModule()->userModel) {
+//            $userClass = $this->getModule()->userModel;
+//            $this->addForeignKey('{{%FK_post_user}}', '{{%blog_post}}', 'user_id', $userClass::tableName(), $this->getModule()->userPK, 'CASCADE', 'CASCADE');
+//        }
 
 
         // table blog_comment
@@ -108,7 +104,7 @@ class M181103174002Init extends Migration
                 'created_at' => $this->integer()->notNull(),
                 'updated_at' => $this->integer()->null(),
             ],
-            $tableOptions
+            $this->tableOptions
         );
 
         // Indexes
@@ -129,7 +125,7 @@ class M181103174002Init extends Migration
                 'name' => $this->string(128)->notNull(),
                 'frequency' => $this->integer()->defaultValue(0),
             ],
-            $tableOptions
+            $this->tableOptions
         );
 
         $this->insert('{{%blog_category}}', [
@@ -138,7 +134,7 @@ class M181103174002Init extends Migration
             'lang' => \Yii::$app->language,
         ]);
 
-        // table blog_tag
+        // table blog_rating
         $this->createTable(
             '{{%blog_rating}}',
             [
@@ -152,10 +148,10 @@ class M181103174002Init extends Migration
         );
         // Foreign Keys
         $this->addForeignKey('{{%FK_post_rating}}', '{{%blog_rating}}', 'post_id', '{{%blog_post}}', 'id', 'CASCADE', 'CASCADE');
-        if ($this->getModule()->userModel) {
-            $userClass = $this->getModule()->userModel;
-            $this->addForeignKey('{{%FK_rating_user}}', '{{%blog_rating}}', 'user_id', $userClass::tableName(), $this->getModule()->userPK, 'CASCADE', 'CASCADE');
-        }
+//        if ($this->getModule()->userModel) {
+//            $userClass = $this->getModule()->userModel;
+//            $this->addForeignKey('{{%FK_rating_user}}', '{{%blog_rating}}', 'user_id', $userClass::tableName(), $this->getModule()->userPK, 'CASCADE', 'CASCADE');
+//        }
     }
 
     /**
@@ -164,10 +160,10 @@ class M181103174002Init extends Migration
     public function safeDown()
     {
         $this->dropForeignKey('{{%FK_comment_post}}', '{{%blog_comment}}');
-        if ($this->getModule()->userModel) {
-            $userClass = $this->getModule()->userModel;
-            $this->dropForeignKey('{{%FK_post_user}}', '{{%blog_post}}');
-        }
+//        if ($this->getModule()->userModel) {
+//            $userClass = $this->getModule()->userModel;
+//            $this->dropForeignKey('{{%FK_post_user}}', '{{%blog_post}}');
+//        }
         $this->dropForeignKey('{{%FK_post_category}}', '{{%blog_post}}');
         $this->dropForeignKey('{{%FK_post_rating}}', '{{%blog_rating}}');
         $this->dropTable('{{%blog_tag}}');

@@ -21,68 +21,16 @@
       "email": "akiraz@bk.ru"
     }
   ],
-  "minimum-stability": "dev",
   "require": {
     "yiisoft/yii2": "*",
     "yiidoc/yii2-redactor": "*",
     "yii-dream-team/yii2-upload-behavior": "*",
     "lesha724/yii2-math-captcha": "*",
-    "rmrevin/yii2-fontawesome": "~2.17",
     "himiklab/yii2-sortable-grid-view-widget": "*",
     "noam148/yii2-image-manager" : "*",
     "2amigos/yii2-taggable-behavior": "~1.0"
   },
-  "repositories": [
-    {
-      "type": "package",
-      "package": {
-        "name": "yii-dream-team/yii2-upload-behavior",
-        "type": "yii2-extension",
-        "description": "Yii2 file/image upload behavior for ActiveRecord",
-        "keywords": [
-          "file",
-          "image",
-          "upload",
-          "behavior",
-          "resize",
-          "thumb"
-        ],
-        "license": "MIT",
-        "homepage": "http://yiidreamteam.com/yii2/upload-behavior",
-        "authors": [
-          {
-            "name": "Alexey Samoylov",
-            "email": "alexey.samoylov@gmail.com",
-            "homepage": "http://yiidreamteam.com/team/alexey",
-            "role": "Developer"
-          }
-        ],
-        "minimum-stability": "dev",
-        "require": {
-          "php": ">=7.1.0",
-          "yiisoft/yii2": "*",
-          "masterexploder/phpthumb": "*"
-        },
-        "repositories": [
-          {
-            "type": "git",
-            "url": "https://github.com/yii-dream-team/PHPThumb"
-          }
-        ],
-        "autoload": {
-          "psr-4": {
-            "yiidreamteam\\upload\\": "./src"
-          }
-        },
-        "version": "1.0.0",
-        "source": {
-          "type": "git",
-          "url": "https://github.com/akiraz2/yii2-upload-behavior",
-          "reference": "master"
-        }
-      }
-    }
-  ],
+  "repositories": [],
   "autoload": {
     "psr-4": {
       "akiraz2\\blog\\": ""
