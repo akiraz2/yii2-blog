@@ -21,7 +21,6 @@
       "email": "akiraz@bk.ru"
     }
   ],
-  "minimum-stability": "dev",
   "require": {
     "yiisoft/yii2": "*",
     "yiidoc/yii2-redactor": "*",
