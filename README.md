@@ -53,10 +53,14 @@ or add
 
 to the require section of your `composer.json` file.
 
+> ** Note ** If you got composer Error `it does not match your minimum-stability`, please change your composer settings to `"minimum-stability": "dev",`
+
 ## Configuration
 
 By default, all images from Imperavi-widget module are uploaded to dir `@frontend/web/img/blog/upload`.
 Be sure, this directory is created manually with proper file permissions (chmod).
+
+Add `'bootstrap' => [\akiraz2\blog\Bootstrap::class],` to your config (common/config/main.php)
 
 Config *common* modules in `common/config/main.php`
 

@@ -84,7 +84,5 @@
       "akiraz2\\blog\\": ""
     }
   },
-  "extra": {
-    "bootstrap": "akiraz2\\blog\\Bootstrap"
-  }
+  "extra": {}
 }

@@ -56,7 +56,7 @@ class Module extends \yii\base\Module
             $this->setViewPath('@akiraz2/blog/views/backend');
         } else {
             $this->setViewPath('@akiraz2/blog/views/frontend');
-            $this->setLayoutPath('@akiraz2/blog/views/frontend/layouts');
+            //$this->setLayoutPath('@akiraz2/blog/views/frontend/layouts');
         }
     }
 
