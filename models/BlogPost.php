@@ -84,8 +84,8 @@ class BlogPost extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            'class' => TimestampBehavior::class,
-            'class' => Taggable::className(),
+            TimestampBehavior::class,
+            Taggable::class,
             [
                 'class' => SluggableBehavior::class,
                 'attribute' => 'title',

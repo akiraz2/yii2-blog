@@ -52,7 +52,7 @@ class BlogPostSearch extends BlogPost
     public function search($params)
     {
         $query = BlogPost::find();
-        $query->withCategoryName()->withCommentCount();
+        $query->withCategoryName();//->withCommentCount();
         if ($this->scenario == self::SCENARIO_USER) {
             $query->lang()->published()->withCategoryStatusActive();
         }

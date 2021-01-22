@@ -43,8 +43,8 @@ class DefaultController extends Controller
         $searchModel = new BlogPostSearch();
         $searchModel->scenario = BlogPostSearch::SCENARIO_USER;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $categories = BlogCategory::find()->active()->isNavYes()->all();
-        $cat_items = ArrayHelper::toArray($categories, [
+        $categories = BlogCategory::find()->active()->isNavYes()->addOrderBy(['sort_order' => SORT_ASC])->all();
+        $catItems = ArrayHelper::toArray($categories, [
             'akiraz2\blog\models\BlogCategory' => [
                 'label' => 'title',
                 'url' => function ($cat) {
@@ -56,7 +56,7 @@ class DefaultController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'cat_items' => $cat_items
+            'catItems' => $catItems
         ]);
     }
 

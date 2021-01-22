@@ -47,9 +47,9 @@ class M181103174002Init extends \akiraz2\blog\migrations\Migration
         );
 
         // Indexes
-        $this->createIndex('ind_is_nav', '{{%blog_category}}', 'is_nav');
-        $this->createIndex('ind_sort_order', '{{%blog_category}}', 'sort_order');
-        $this->createIndex('ind_status', '{{%blog_category}}', 'status');
+        $this->createIndex('ind_cat_is_nav', '{{%blog_category}}', 'is_nav');
+        $this->createIndex('ind_cat_sort_order', '{{%blog_category}}', 'sort_order');
+        $this->createIndex('ind_cat_status', '{{%blog_category}}', 'status');
 
         // table blog_post
         $this->createTable(
@@ -73,14 +73,15 @@ class M181103174002Init extends \akiraz2\blog\migrations\Migration
                 'seo_img' => $this->string(255)->null(),
                 'created_at' => $this->integer()->notNull(),
                 'updated_at' => $this->integer()->null(),
+                'published_at' => $this->integer()->null(),
             ],
             $this->tableOptions
         );
 
         // Indexes
-        $this->createIndex('ind_category_id', '{{%blog_post}}', 'category_id');
-        $this->createIndex('ind_status', '{{%blog_post}}', 'status');
-        $this->createIndex('ind_created_at', '{{%blog_post}}', 'created_at');
+        $this->createIndex('ind_post_category_id', '{{%blog_post}}', 'category_id');
+        $this->createIndex('ind_post_status', '{{%blog_post}}', 'status');
+        $this->createIndex('ind_post_created_at', '{{%blog_post}}', 'created_at');
 
         // Foreign Keys
         $this->addForeignKey('{{%FK_post_category}}', '{{%blog_post}}', 'category_id', '{{%blog_category}}', 'id', 'CASCADE', 'CASCADE');
@@ -108,9 +109,9 @@ class M181103174002Init extends \akiraz2\blog\migrations\Migration
         );
 
         // Indexes
-        $this->createIndex('ind_post_id', '{{%blog_comment}}', 'post_id');
-        $this->createIndex('ind_status', '{{%blog_comment}}', 'status');
-        $this->createIndex('ind_created_at', '{{%blog_comment}}', 'created_at');
+        $this->createIndex('ind_comment_post_id', '{{%blog_comment}}', 'post_id');
+        $this->createIndex('ind_comment_status', '{{%blog_comment}}', 'status');
+        $this->createIndex('ind_comment_created_at', '{{%blog_comment}}', 'created_at');
 
         // Foreign Keys
         $this->addForeignKey('{{%FK_comment_post}}', '{{%blog_comment}}', 'post_id', '{{%blog_post}}', 'id', 'CASCADE', 'CASCADE');
@@ -128,6 +129,12 @@ class M181103174002Init extends \akiraz2\blog\migrations\Migration
             $this->tableOptions
         );
 
+        $this->createTable('{{%blog_post_tag_assn}}',[
+            'post_id' => $this->integer()->notNull(),
+            'tag_id' => $this->integer()->notNull(),
+        ]);
+        $this->addPrimaryKey('{{%PK_blog_post_tag_assn}}', '{{%blog_post_tag_assn}}', ['post_id', 'tag_id']);
+
         $this->insert('{{%blog_category}}', [
             'title' => Module::t('blog', 'Uncategorized'),
             'status' => 1,
@@ -144,7 +151,7 @@ class M181103174002Init extends \akiraz2\blog\migrations\Migration
                 'rating' => $this->integer()->notNull(),
                 'created_at' => $this->integer()->notNull(),
             ],
-            $tableOptions
+            $this->tableOptions
         );
         // Foreign Keys
         $this->addForeignKey('{{%FK_post_rating}}', '{{%blog_rating}}', 'post_id', '{{%blog_post}}', 'id', 'CASCADE', 'CASCADE');
@@ -167,6 +174,7 @@ class M181103174002Init extends \akiraz2\blog\migrations\Migration
         $this->dropForeignKey('{{%FK_post_category}}', '{{%blog_post}}');
         $this->dropForeignKey('{{%FK_post_rating}}', '{{%blog_rating}}');
         $this->dropTable('{{%blog_tag}}');
+        $this->dropTable('{{%blog_post_tag_assn}}');
         $this->dropTable('{{%blog_comment}}');
         $this->dropTable('{{%blog_post}}');
         $this->dropTable('{{%blog_category}}');

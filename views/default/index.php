@@ -61,7 +61,7 @@ if (Yii::$app->get('opengraph', false)) {
                 <div class="col-md-4">
                     <div class="blog-index__search">
                         <?= \yii\widgets\Menu::widget([
-                            'items' => $cat_items,
+                            'items' => $catItems,
                             'options' => [
                                 'class' => 'blog-index__cat'
                             ]

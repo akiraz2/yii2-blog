@@ -20,7 +20,7 @@ class BlogCategoryQuery extends AdvancedActiveQuery
 {
     public function init()
     {
-        $this->addOrderBy(['sort_order' => SORT_ASC]);
+        //$this->addOrderBy(['sort_order' => SORT_ASC]);
         parent::init();
     }
 

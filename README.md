@@ -31,6 +31,9 @@ Yii2 Super Blog is simple, configured yii2 Module.
 
 All installation instructions are located in documentation.
 
+`yii migrate-blog`
+
+
 ## TODO
 * module for yii2-basic
 * post new statuses + date to publish
