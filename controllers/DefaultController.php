@@ -38,6 +38,9 @@ class DefaultController extends Controller
         ];
     }
 
+    /**
+     * @return string
+     */
     public function actionIndex()
     {
         $searchModel = new BlogPostSearch();
@@ -67,8 +70,8 @@ class DefaultController extends Controller
      */
     public function actionView($id)
     {
-        $post = BlogPost::find()->withCategoryName()->withCommentCount()->andWhere(['>=', BlogPost::tableName() . '.status', BlogPost::STATUS_PUBLISHED])
-            ->andWhere([BlogPost::tableName() . '.id' => $id])->one();
+        $post = BlogPost::find()->withCategoryName()
+            ->published()->byId($id)->one();
         if ($post === null) {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }

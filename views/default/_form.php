@@ -28,10 +28,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'content')->textarea(['rows' => 3]); ?>
 
-    <?= $form->field($model, 'captcha')->widget(\yii\captcha\Captcha::class, [
-        'captchaAction' => \yii\helpers\Url::to('/blog/default/captcha'),
-    ])->hint(Module::t('blog', 'Math, for example, 45-12 = 33')) ?>
-
     <?= Html::submitButton(Module::t('blog', 'Add comments'), ['class' => 'btn btn-primary']) ?>
 
     <?php ActiveForm::end(); ?>

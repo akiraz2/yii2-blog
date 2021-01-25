@@ -16,7 +16,6 @@ use yii\web\Controller;
 
 class BaseAdminController extends Controller
 {
-
     use ModuleTrait;
 
     /**

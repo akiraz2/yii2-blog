@@ -106,8 +106,6 @@ class BlogComment extends \yii\db\ActiveRecord
             [['post_id', 'status'], 'integer'],
             [['content'], 'string'],
             [['author', 'email', 'url'], 'string', 'max' => 128],
-            ['captcha', 'captcha', 'captchaAction' => Url::to('/blog/default/captcha'), 'on' => self::SCENARIO_USER],
-            ['captcha', 'required', 'on' => self::SCENARIO_USER]
         ];
     }
 

@@ -14,6 +14,7 @@ use akiraz2\blog\traits\ModuleTrait;
 use akiraz2\blog\traits\StatusTrait;
 use himiklab\sortablegrid\SortableGridBehavior;
 use Yii;
+use yii\behaviors\SluggableBehavior;
 use yii\helpers\ArrayHelper;
 use yiidreamteam\upload\ImageUploadBehavior;
 
@@ -95,11 +96,11 @@ class BlogCategory extends \yii\db\ActiveRecord
                 'class' => SortableGridBehavior::className(),
                 'sortableAttribute' => 'sort_order'
             ],
-            /*[
+            [
                 'class' => SluggableBehavior::class,
                 'attribute' => 'title',
                 'slugAttribute' => 'slug',
-            ],*/
+            ],
             [
                 'class' => ImageUploadBehavior::class,
                 'attribute' => 'banner',

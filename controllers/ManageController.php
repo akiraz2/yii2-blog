@@ -31,7 +31,7 @@ class ManageController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'allow' => true,
+                        'allow' => !$this->getModule()->onlyAdmin,
                         'roles' => ['@'],
                     ],
                 ],

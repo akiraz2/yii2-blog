@@ -29,6 +29,7 @@ if (Yii::$app->get('opengraph', false)) {
         //'image' => '',
     ]);
 }
+$onlyAdmin = Module::getInstance()->onlyAdmin;
 
 ?>
 <div class="blog-index">
@@ -37,8 +38,9 @@ if (Yii::$app->get('opengraph', false)) {
             <div class="row">
                 <div class="col-md-8">
                     <div class="title">
-                        <?= \yii\helpers\Html::a(Module::t('blog', 'Add post'), ['manage/create'], ['class' => 'pull-right btn btn-primary']); ?>
-                        <h1 style="margin: 0"><?= Module::t('blog', 'Blog'); ?>
+                        <?= !$onlyAdmin ? \yii\helpers\Html::a(Module::t('blog', 'Add post'), ['manage/create'], ['class' => 'pull-right btn btn-primary']) : ''; ?>
+                        <h1 style="margin: 0">
+                            <?= Module::t('blog', 'Blog'); ?>
                             <small>Simple. Powerful. Easy customize.</small>
                         </h1>
                     </div>

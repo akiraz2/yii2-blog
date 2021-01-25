@@ -25,7 +25,6 @@
     "yiisoft/yii2": "*",
     "yiidoc/yii2-redactor": "*",
     "yii-dream-team/yii2-upload-behavior": "*",
-    "lesha724/yii2-math-captcha": "*",
     "himiklab/yii2-sortable-grid-view-widget": "*",
     "noam148/yii2-image-manager" : "*",
     "2amigos/yii2-taggable-behavior": "~1.0"
@@ -47,7 +46,5 @@
       "akiraz2\\blog\\Module::postInstall"
     ]
   },
-  "extra": {
-    "bootstrap": "akiraz2\\blog\\Bootstrap"
-  }
+  "extra": {}
 }

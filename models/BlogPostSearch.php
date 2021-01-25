@@ -60,7 +60,7 @@ class BlogPostSearch extends BlogPost
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => $this->module->blogPostPageCount,
+                'pageSize' => $this->module->postPageCount,
             ]
         ]);
 

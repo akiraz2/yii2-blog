@@ -46,7 +46,10 @@ $username_attribute = Module::getInstance()->userName;
                 <div class="row">
                     <div class="col-md-4">
                         <div class="category-info__img">
-                            <?= Html::a(Html::img($post->category->getImageFileUrl('banner'),['alt' => $post->category->title]), []);?>
+                            <?= Html::a($post->category->getImageFileUrl('banner') ?
+                                Html::img($post->category->getImageFileUrl('banner'),['alt' => $post->category->title]) :
+                                $post->category->title,
+                                ['default/index', 'category_id' => $post->category_id, 'slug' => $post->category->slug]);?>
                         </div>
                     </div>
                     <div class="col-md-8">

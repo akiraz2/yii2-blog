@@ -13,6 +13,8 @@ use Yii;
 
 class Module extends \yii\base\Module
 {
+    public $onlyAdmin = false;
+
     public $urlManager = 'urlManager';
 
     public $imgFilePath = '@app/web/img/blog';
@@ -21,11 +23,11 @@ class Module extends \yii\base\Module
 
     public $adminAccessControl = null;
 
-    public $blogPostPageCount = 10;
+    public $postPageCount = 10;
 
-    public $blogCommentPageCount = 20;
+    public $commentPageCount = 20;
 
-    public $enableComments = false;
+    public $enableComments = true;
 
     public $schemaOrg = [];
 
@@ -41,7 +43,7 @@ class Module extends \yii\base\Module
     /** @var string username uses in view (may be field `username` or `email` or `login`) */
     public $userName = 'username';
 
-    public $blogTheme;
+    public $theme;
 
     public $categoryBannerThumbWidth = 400;
 

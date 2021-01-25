@@ -21,17 +21,33 @@ Yii2 Super Blog is simple, configured yii2 Module.
 
 > **NOTE:** Module is in initial development. Anything may change at any time.
 
-## Documentation
-
-[Read the Documentation for master](docs/README.md)
-
-[Read the Documentation for v1.3](https://github.com/akiraz2/yii2-blog/blob/v1.3/README.md)
-
 ## Installation
 
-All installation instructions are located in documentation.
+`composer require --prefer-source akiraz2/yii2-blog "dev-develop"`
 
-`yii migrate-blog`
+Add module to `config/web.php` and `config/console.php`
+
+section bootstrap:
+```
+'bootstrap' => ['log', \akiraz2\blog\Bootstrap::class],
+```
+section modules:
+```
+'modules' => [
+        'blog' => [
+            'class' => akiraz2\blog\Module::class,
+            //'urlManager' => 'urlManager',// 'urlManager' by default, or maybe you can use own component urlManagerFrontend
+            'imgFilePath' => '@app/web/img/blog/',
+            'imgFileUrl' => '/img/blog/',
+            'userModel' => app\models\User::class,
+            'userPK' => 'id', //default primary key for {{%user}} table
+            'userName' => 'username', //uses in view (may be field `username` or `email` or `login`)
+        ],
+    ],
+```
+
+Run 
+`yii migrate`
 
 
 ## TODO
@@ -48,6 +64,7 @@ All installation instructions are located in documentation.
 * create multilang models (post, tag, category) ru, en
 * change default design and styles for frontend blog
 * add config Captcha
+* add API controller (json output)
 
 ## Support
 
