@@ -42,7 +42,7 @@ $username_attribute = Module::getInstance()->userName;
 ?>
 <div class="container">
     <article class="blog-post" itemscope itemtype="http://schema.org/Article">
-        <meta itemprop="author" content="<?= $post_user->{$username_attribute}; ?>">
+        <meta itemprop="author" content="<?= $post_user ? $post_user->{$username_attribute} : ''; ?>">
         <meta itemprop="dateModified" content="<?= date_format(date_timestamp_set(new DateTime(), $post->updated_at), 'c') ?>"/>
         <meta itemscope itemprop="mainEntityOfPage" itemType="https://schema.org/WebPage" itemid="<?= $post->getAbsoluteUrl(); ?>"/>
         <meta itemprop="commentCount" content="<?= $dataProvider->getTotalCount(); ?>">
@@ -83,10 +83,10 @@ $username_attribute = Module::getInstance()->userName;
         </h1>
 
         <div class="blog-post__content" itemprop="articleBody">
-            <?php echo HtmlPurifier::process($post->content, [
-                    'HTML.AllowedElements' => 'iframe,p,strong,b,i,br,ul,ol,li', 
+            <?php echo \yii\helpers\HtmlPurifier::process($post->content, [
+                    'HTML.AllowedElements' => 'iframe,p,strong,b,i,br,ul,ol,li',
                     "HTML.SafeIframe" => true,
-                    "URI.SafeIframeRegexp" => "%^(http://|https://|//)(www.youtube.com/embed/|player.vimeo.com/video/|api.soundcloud.com/tracks/|www.youtube-nocookie.com/embed/)%",  
+                    "URI.SafeIframeRegexp" => "%^(http://|https://|//)(www.youtube.com/embed/|player.vimeo.com/video/|api.soundcloud.com/tracks/|www.youtube-nocookie.com/embed/)%",
                 ]); ?>
         </div>
         <?php if (isset($post->module->schemaOrg) && isset($post->module->schemaOrg['publisher'])) : ?>

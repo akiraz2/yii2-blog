@@ -37,7 +37,7 @@ class Bootstrap implements BootstrapInterface
             $app->i18n->translations['akiraz2/blog'] = [
                 'class' => PhpMessageSource::class,
                 'basePath' => __DIR__ . '/messages',
-                'forceTranslation' => true,
+                //'forceTranslation' => true,
                 'fileMap' => [
                     'akiraz2/blog' => 'blog.php',
                 ]
